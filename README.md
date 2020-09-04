@@ -2,8 +2,6 @@
 
 <img src="https://www.ayrshare.com/wp-content/uploads/2020/08/ayr-logo-2156-reduced.png" width="400">
 
-[logo]: https://www.ayrshare.com/wp-content/uploads/2020/08/ayr-logo-2156-reduced.png
-
 Social Post API is a client for [Ayrshare's](https://www.ayrshare.com) APIs. Ayrshare is a powerful set of APIs that enable you to automate social media posts effortlessly to Twitter, Facebook, LinkedIn, Reddit, and Telegram. The Ayrshare API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah we went there).
 
 Ayrshare also provides data integrations such as RSS and [Substack](https://www.ayrshare.com/substack) to automated the creation of content.
@@ -15,7 +13,7 @@ Ayrshare also provides data integrations such as RSS and [Substack](https://www.
 ## Setup
 
 1. Create a free [Ayrshare account](https://app.ayrshare.com).
-   ![alt Register](https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-login.jpg)
+   <img src="https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-login.jpg" width="400">
 2. Enable your social media accounts such as Twitter, Facebook, LinkedIn, Reddit, or Telegram in the Ayrshare dashboard.
    ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-social-scaled.jpg)
 3. Copy your API Key from the Ayrshare dashboard. Used for authentication.
@@ -31,6 +29,37 @@ Create a new Social Post object with your API Key.
 const { SocialPost } = require("social-post-api");
 const social = new SocialPost(API_KEY);
 ```
+
+### History, Post, Delete Example
+
+This example shows how to post, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook, and LinkedIn.
+
+``` javascript
+const { SocialPost } = require("social-post-api");
+const API_KEY = "8jKj782Aw8910dCN"; // get an API Key at ayrshare.com
+const social = new SocialPost(API_KEY);
+
+const run = async () => {
+  /** post */
+  const post = await social.post({
+    post: "One more time",
+    platforms: ["twitter", "facebook", "linkedin"],
+  });
+  console.log(post);
+
+  /** history */
+  const history = await social.history();
+  console.log(history);
+
+  /** delete */
+  const deletePost = await social.delete({ id: post.id });
+  console.log(deletePost);
+};
+
+run();
+```
+
+## API
 
 ### Post
 
