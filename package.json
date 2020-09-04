@@ -1,14 +1,11 @@
 {
 	"name": "social-post-api",
 	"version": "1.0.0",
-	"description": "Post to social media accounts such as Twitter, Facebook, and LinkedIn",
+	"description": "Server-side posting to social media accounts such as Twitter, Facebook, and LinkedIn",
 	"main": "social-post-api.js",
-	"scripts": {
-		"start": "node index.js"
-	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/fireRun-io/firebase-logging.git"
+		"url": "git+https://github.com/nevermind-solutions/social-post-api"
 	},
 	"keywords": [
 		"Social Media",
@@ -22,12 +19,12 @@
 	"url": "https://www.ayrshare.com",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/fireRun-io/firebase-logging/issues"
+		"url": "https://github.com/nevermind-solutions/social-post-api/issues"
 	},
 	"bin": {
 		"social-post-api": "./index.js"
 	},
-	"homepage": "https://www.ayrshare.com/social-media-api-node",
+	"homepage": "https://www.ayrshare.com",
 	"dependencies": {
 		"got": "^11.6.0"
 	}

@@ -15,10 +15,14 @@ const test = async () => {
   console.log(history);
 
   /** Test delete */
-  const deletePost = await social.delete({
-    id: post.id,
-  });
+  const deletePost = await social.delete({ id: post.id });
   console.log(deletePost);
+
+  const feedAdd = await social.feedAdd({
+    type: "substack",
+    url: "https://bankless.substack.com/",
+  });
+  console.log(feedAdd);
 };
 
 test();
