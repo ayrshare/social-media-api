@@ -26,7 +26,7 @@ Ayrshare also provides data integrations such as RSS and [Substack](https://www.
 Create a new Social Post object with your API Key.
 
 ``` javascript
-const { SocialPost } = require("social-post-api");
+const SocialPost = require("social-post-api");
 const social = new SocialPost(API_KEY);
 ```
 
@@ -35,7 +35,7 @@ const social = new SocialPost(API_KEY);
 This example shows how to post, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook, and LinkedIn.
 
 ``` javascript
-const { SocialPost } = require("social-post-api");
+const SocialPost = require("social-post-api");
 const API_KEY = "8jKj782Aw8910dCN"; // get an API Key at ayrshare.com
 const social = new SocialPost(API_KEY);
 

@@ -116,4 +116,4 @@ class SocialPost {
   }
 }
 
-module.exports.SocialPost = SocialPost;
+module.exports = SocialPost;

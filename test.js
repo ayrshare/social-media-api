@@ -1,4 +1,4 @@
-const { SocialPost } = require("./index.js");
+const SocialPost = require("./index.js");
 const API_KEY = require("./api-key.json").API_KEY;
 const social = new SocialPost(API_KEY);
 
