@@ -1,4 +1,4 @@
-# Automated Social Media Posting APIs for Ayrshare
+# Automated Social Media Posting APIs
 
 <img src="https://www.ayrshare.com/wp-content/uploads/2020/08/ayr-logo-2156-reduced.png" width="400">
 
