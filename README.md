@@ -4,7 +4,7 @@
 
 Social Post API is a client for [Ayrshare's](https://www.ayrshare.com) APIs. Ayrshare is a powerful set of APIs that enable you to automate server-side social media posts to Twitter, Facebook, LinkedIn, Reddit, and Telegram. The Ayrshare API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there).
 
-Ayrshare also provides data integrations such as RSS and [Substack](https://www.ayrshare.com/substack) to automated the creation of content.
+Ayrshare also provides data integrations such as RSS and [Substack](https://www.ayrshare.com/substack) to automate the creation of content.
 
 ## Installation
 
@@ -70,7 +70,7 @@ run();
 
 ### Post
 
-Published a new post to the specified social networks either immediately or at scheduled future date. Returns a promise the resolves to an object containing the post ID and post status (success, error).
+Published a new post to the specified social networks either immediately or at scheduled future date. Returns a promise that resolves to an object containing the post ID and post status (success, error).
 
 ``` javascript
 const postResponse = await social.post({
@@ -102,7 +102,7 @@ const postResponse = await social.post({
 
 ### Delete
 
-Delete a post with a given post ID, obtained from teh "post" response. Returns a promise with the delete status.
+Delete a post with a given post ID, obtained from the "post" response. Returns a promise with the delete status.
 
 ``` javascript
 const deleteResponse = await social.delete({
@@ -157,7 +157,7 @@ const shortenResponse = await social.shorten({
 
 ### Add an RSS or Substack Feed
 
-Add a new RSS or Substack feed to auto posting. Returned a promise that resolved to an object containing the feed ID.
+Add a new RSS or Substack feed to auto post all new articles. Returns a promise that resolved to an object containing the feed ID.
 
 ``` javascript
 const feedResponse = await social.feedAdd({
@@ -165,7 +165,7 @@ const feedResponse = await social.feedAdd({
 	url: "https://theRSSFeed",
 
 	// Optional: Value: "rss" or "substack". 
-	// If not present, default to "rss"
+	// If not set, defaults to "rss"
     type: "RSS",
   });
 ```

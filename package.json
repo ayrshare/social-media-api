@@ -1,6 +1,6 @@
 {
 	"name": "social-post-api",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Server-side posting to social media accounts such as Twitter, Facebook, and LinkedIn",
 	"main": "index.js",
 	"repository": {
