@@ -13,11 +13,17 @@ Ayrshare also provides data integrations such as RSS and [Substack](https://www.
 ## Setup
 
 1. Create a free [Ayrshare account](https://app.ayrshare.com).
+   
    ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-login-1.jpg)
+
 2. Enable your social media accounts such as Twitter, Facebook, LinkedIn, Reddit, or Telegram in the Ayrshare dashboard.
+   
    ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-social-scaled.jpg)
+
 3. Copy your API Key from the Ayrshare dashboard. Used for authentication.
+   
    ![alt API Key](https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-api-key-scaled.jpg)
+
 
 ## Getting Started
 
@@ -58,6 +64,7 @@ const run = async () => {
 
 run();
 ```
+
 
 ## API
 
