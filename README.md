@@ -13,7 +13,7 @@ Ayrshare also provides data integrations such as RSS and [Substack](https://www.
 ## Setup
 
 1. Create a free [Ayrshare account](https://app.ayrshare.com).
-   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-login.jpg)
+   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-login-1.jpg)
 2. Enable your social media accounts such as Twitter, Facebook, LinkedIn, Reddit, or Telegram in the Ayrshare dashboard.
    ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-social-scaled.jpg)
 3. Copy your API Key from the Ayrshare dashboard. Used for authentication.
@@ -70,22 +70,25 @@ const postResponse = await social.post({
     // Required
     post: "Best post ever!",
 
-    // Required: Social media platforms to post. Accepts an array of strings with values: "facebook", "twitter", "linkedin", "reddit", or "telegram".
+	// Required: Social media platforms to post. 
+	// Accepts an array of strings with values: "facebook", "twitter", "linkedin", "reddit", or "telegram".
     platforms: ["twitter", "facebook", "linkedin", "telegram", "reddit"],
 
 	// Optional: URLs of images to include in the post
 	media_urls: ["https://my.com/image.png"],
 
-	// Optional: Datetime to schedule a future post. Accepts an ISO-8601 UTC date time in format "YYYY-MM-DDThh:mm:ssZ". Example: 2021-07-08T12:30:00Z
+	// Optional: Datetime to schedule a future post. 
+	// Accepts an ISO-8601 UTC date time in format "YYYY-MM-DDThh:mm:ssZ". Example: 2021-07-08T12:30:00Z
 	scheduleDate: "2020-08-07T15:17:00Z",
 
-	// Required if platform includes "reddit." Title of Reddit post
+	// Required if platform includes "reddit." Title of Reddit post.
 	title: "My Reddit Post",
 
-	// Required if platform includes "reddit." Subreddit to post to
+	// Required if platform includes "reddit." Subreddit to post.
 	subreddit: "test",
 
-	// Optional: Shorten links in the post for all platforms similar to bit.ly. Only URLS starting with http or https will be shortened. Default value: true.
+	// Optional: Shorten links in the post for all platforms similar to bit.ly.
+	// Only URLS starting with http or https will be shortened. Default value: true.
 	shorten_links: true
   });
 ```
@@ -154,7 +157,8 @@ const feedResponse = await social.feedAdd({
 	// Required: URL to shorten
 	url: "https://theRSSFeed",
 
-    // Optional: Value: "rss" or "substack". If not present, default to "rss"
+	// Optional: Value: "rss" or "substack". 
+	// If not present, default to "rss"
     type: "RSS",
   });
 ```

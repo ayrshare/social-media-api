@@ -2,7 +2,7 @@
 	"name": "social-post-api",
 	"version": "1.0.0",
 	"description": "Server-side posting to social media accounts such as Twitter, Facebook, and LinkedIn",
-	"main": "social-post-api.js",
+	"main": "index.js",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/nevermind-solutions/social-post-api"
@@ -10,10 +10,13 @@
 	"keywords": [
 		"Social Media",
 		"Social Networks",
+		"Social Posting",
 		"Social API",
 		"Facebook API",
 		"Twitter API",
-		"LinkedIn API"
+		"LinkedIn API",
+		"Reddit API",
+		"Telegram API"
 	],
 	"author": "Geoffrey Bourne",
 	"url": "https://www.ayrshare.com",
