@@ -1,0 +1,34 @@
+{
+	"name": "social-post-api",
+	"version": "1.0.0",
+	"description": "Post to social media accounts such as Twitter, Facebook, and LinkedIn",
+	"main": "social-post-api.js",
+	"scripts": {
+		"start": "node index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/fireRun-io/firebase-logging.git"
+	},
+	"keywords": [
+		"Social Media",
+		"Social Networks",
+		"Social API",
+		"Facebook API",
+		"Twitter API",
+		"LinkedIn API"
+	],
+	"author": "Geoffrey Bourne",
+	"url": "https://www.ayrshare.com",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/fireRun-io/firebase-logging/issues"
+	},
+	"bin": {
+		"social-post-api": "./index.js"
+	},
+	"homepage": "https://www.ayrshare.com/social-media-api-node",
+	"dependencies": {
+		"got": "^11.6.0"
+	}
+}
