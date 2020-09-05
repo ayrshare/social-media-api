@@ -14,7 +14,9 @@ const doPost = (endpoint, data, headers) => {
       responseType: "json",
     })
     .then((res) => res.body)
-    .catch(console.error);
+    .catch(err => {
+      return err.response.body;
+    });
 };
 
 const doDelete = (endpoint, data, headers) => {
@@ -25,7 +27,9 @@ const doDelete = (endpoint, data, headers) => {
 		responseType: "json",
 	  })
 	  .then((res) => res.body)
-	  .catch(console.error);
+	  .catch(err => {
+      return err.response.body;
+    });
   };
 
 const doGet = (endpoint, headers, params) => {
@@ -35,7 +39,9 @@ const doGet = (endpoint, headers, params) => {
       responseType: "json",
     })
     .then((res) => res.body)
-    .catch(console.error);
+    .catch(err => {
+      return err.response.body;
+    });
 };
 
 class SocialPost {

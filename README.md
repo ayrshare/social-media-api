@@ -50,15 +50,17 @@ const run = async () => {
   const post = await social.post({
     post: "One more time",
     platforms: ["twitter", "facebook", "linkedin"],
-  });
+  }).catch(console.error);
   console.log(post);
 
   /** history */
-  const history = await social.history();
+  const history = await social.history()
+  	.catch(console.error);
   console.log(history);
 
   /** delete */
-  const deletePost = await social.delete({ id: post.id });
+  const deletePost = await social.delete({ id: post.id })
+  	.catch(console.error);
   console.log(deletePost);
 };
 
@@ -97,7 +99,7 @@ const postResponse = await social.post({
 	// Optional: Shorten links in the post for all platforms similar to bit.ly.
 	// Only URLS starting with http or https will be shortened. Default value: true.
 	shorten_links: true
-  });
+  }).catch(console.error);
 ```
 
 ### Delete
@@ -108,7 +110,7 @@ Delete a post with a given post ID, obtained from the "post" response. Returns a
 const deleteResponse = await social.delete({
     // Required
     id: "POST ID",
-  });
+  }).catch(console.error);
 ```
 
 ### History
@@ -116,7 +118,7 @@ const deleteResponse = await social.delete({
 Get a history of all posts and their current status. Returns a promise that resolves to an array of post objects.
 
 ``` javascript
-const historyResponse = await social.history();
+const historyResponse = await social.history().catch(console.error);
 ```
 
 ### Upload Media
@@ -133,7 +135,7 @@ const uploadResponse = await social.upload({
 
 	// Optional
     description: "best image"
-});
+}).catch(console.error);
 ```
 
 ### Get Media
@@ -141,7 +143,7 @@ const uploadResponse = await social.upload({
 Get all media URLS. Returns a promise that resolves to an array of URL objects.
 
 ``` javascript
-const mediaResponse = await social.media();
+const mediaResponse = await social.media().catch(console.error);
 ```
 
 ### Shorten URL
@@ -152,7 +154,7 @@ Shorten a URL and return the shortened URL.
 const shortenResponse = await social.shorten({
     // Required: URL to shorten
     url: "https://theURLtoShorten.com/whatmore",
-  });
+  }).catch(console.error);
 ```
 
 ### Add an RSS or Substack Feed
@@ -167,7 +169,7 @@ const feedResponse = await social.feedAdd({
 	// Optional: Value: "rss" or "substack". 
 	// If not set, defaults to "rss"
     type: "RSS",
-  });
+  }).catch(console.error);
 ```
 
 ### Delete an RSS or Substack Feed
@@ -178,7 +180,7 @@ Delete an RSS feed for a given ID.
 const feedResponse = await social.feedDelete({
 	// Required: ID of the feed
 	id: "Feed ID",
-  });
+  }).catch(console.error);
 ```
 
 ## Additional Information
