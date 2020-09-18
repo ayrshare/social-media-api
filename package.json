@@ -1,17 +1,21 @@
 {
 	"name": "social-post-api",
-	"version": "1.0.2",
-	"description": "Server-side posting to social media accounts such as Twitter, Facebook, and LinkedIn",
+	"version": "1.0.3",
+	"description": "Automate posting to Twitter, Facebook, LinkedIn, Reddit, and Telegram via an API",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/nevermind-solutions/social-post-api"
 	},
 	"keywords": [
+		"Ayrshare",
 		"Social Media",
 		"Social Networks",
+		"Social Networking",
 		"Social Posting",
 		"Social API",
+		"Automation",
+		"Automate Social Post",
 		"Facebook API",
 		"Twitter API",
 		"LinkedIn API",
@@ -29,6 +33,6 @@
 	},
 	"homepage": "https://www.ayrshare.com",
 	"dependencies": {
-		"got": "^11.6.0"
+		"got": "^11.6.2"
 	}
 }
