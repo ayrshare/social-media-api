@@ -14,23 +14,23 @@ const doPost = (endpoint, data, headers) => {
       responseType: "json",
     })
     .then((res) => res.body)
-    .catch(err => {
+    .catch((err) => {
       return err.response.body;
     });
 };
 
 const doDelete = (endpoint, data, headers) => {
-	return got
-	  .delete(`${BASE_URL}/${endpoint}`, {
-		headers,
-		json: data,
-		responseType: "json",
-	  })
-	  .then((res) => res.body)
-	  .catch(err => {
+  return got
+    .delete(`${BASE_URL}/${endpoint}`, {
+      headers,
+      json: data,
+      responseType: "json",
+    })
+    .then((res) => res.body)
+    .catch((err) => {
       return err.response.body;
     });
-  };
+};
 
 const doGet = (endpoint, headers, params) => {
   return got
@@ -39,7 +39,7 @@ const doGet = (endpoint, headers, params) => {
       responseType: "json",
     })
     .then((res) => res.body)
-    .catch(err => {
+    .catch((err) => {
       return err.response.body;
     });
 };
@@ -102,7 +102,7 @@ class SocialPost {
   }
 
   feedAdd(data) {
-	const { url } = data;
+    const { url } = data;
 
     if (!url) {
       return ERROR_MSG;
@@ -112,7 +112,7 @@ class SocialPost {
   }
 
   feedDelete(data) {
-	const { id } = data;
+    const { id } = data;
 
     if (!id) {
       return ERROR_MSG;

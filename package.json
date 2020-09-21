@@ -1,7 +1,7 @@
 {
 	"name": "social-post-api",
-	"version": "1.0.3",
-	"description": "Automate posting to Twitter, Facebook, LinkedIn, Reddit, and Telegram via an API",
+	"version": "1.0.4",
+	"description": "Automate social media posting to Twitter, Facebook, LinkedIn, Reddit, and Telegram via an API",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
@@ -33,6 +33,6 @@
 	},
 	"homepage": "https://www.ayrshare.com",
 	"dependencies": {
-		"got": "^11.6.2"
+		"got": "^11.7.0"
 	}
 }

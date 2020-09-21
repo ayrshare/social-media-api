@@ -6,6 +6,8 @@ Social Post API is a client for [Ayrshare's](https://www.ayrshare.com) APIs. Ayr
 
 Ayrshare also provides data integrations such as RSS and [Substack](https://www.ayrshare.com/substack) to automate the creation of content.
 
+Also, check out our [video](https://youtu.be/WQTQmjvqvMM) of installing and using the package.
+
 ## Installation
 
 `npm i social-post-api`
