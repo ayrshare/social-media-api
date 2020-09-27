@@ -15,7 +15,11 @@ const doPost = (endpoint, data, headers) => {
     })
     .then((res) => res.body)
     .catch((err) => {
-      return err.response.body;
+      if (err && err.response && err.response.body) {
+        return err.response.body;
+      } else {
+        return err;
+      }
     });
 };
 
@@ -28,19 +32,32 @@ const doDelete = (endpoint, data, headers) => {
     })
     .then((res) => res.body)
     .catch((err) => {
-      return err.response.body;
+      if (err && err.response && err.response.body) {
+        return err.response.body;
+      } else {
+        return err;
+      }
     });
 };
 
 const doGet = (endpoint, headers, params) => {
   return got
-    .get(`${BASE_URL}/${endpoint}${params ? `?${params.join("&")}` : ""}`, {
-      headers,
-      responseType: "json",
-    })
+    .get(
+      `${BASE_URL}/${endpoint}${
+        params ? `?${new URLSearchParams(params).toString()}` : ""
+      }`,
+      {
+        headers,
+        responseType: "json",
+      }
+    )
     .then((res) => res.body)
     .catch((err) => {
-      return err.response.body;
+      if (err && err.response && err.response.body) {
+        return err.response.body;
+      } else {
+        return err;
+      }
     });
 };
 
@@ -64,21 +81,21 @@ class SocialPost {
   }
 
   delete(data) {
-    const { id } = data;
+    const { id, bulk } = data;
 
-    if (!id) {
+    if (!id && !bulk) {
       return ERROR_MSG;
     }
 
     return doDelete("delete", data, this.headers);
   }
 
-  history() {
-    return doGet("history", this.headers);
+  history(params) {
+    return doGet("history", this.headers, params);
   }
 
-  media() {
-    return doGet("media", this.headers);
+  media(params) {
+    return doGet("media", this.headers, params);
   }
 
   upload(data) {

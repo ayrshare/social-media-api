@@ -11,11 +11,11 @@ const test = async () => {
   console.log(post);
 
   /** Test history */
-  const history = await social.history();
+  const history = await social.history({ lastRecords: 2, lastDays: 10 });
   console.log(history);
 
   /** Test delete */
-  const deletePost = await social.delete({ id: post.id });
+  const deletePost = await social.delete({ bulk: [post.id] });
   console.log(deletePost);
 
   const feedAdd = await social.feedAdd({

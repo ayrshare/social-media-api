@@ -40,7 +40,7 @@ const social = new SocialPost(API_KEY);
 
 ### History, Post, Delete Example
 
-This example shows how to post, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook, and LinkedIn.
+This simple example shows how to post, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook, and LinkedIn. Note, Telegram and Reddit also available.
 
 ``` javascript
 const SocialPost = require("social-post-api");
@@ -57,12 +57,12 @@ const run = async () => {
 
   /** history */
   const history = await social.history()
-  	.catch(console.error);
+     .catch(console.error);
   console.log(history);
 
   /** delete */
   const deletePost = await social.delete({ id: post.id })
-  	.catch(console.error);
+     .catch(console.error);
   console.log(deletePost);
 };
 
@@ -86,7 +86,7 @@ const postResponse = await social.post({
     platforms: ["twitter", "facebook", "linkedin", "telegram", "reddit"],
 
 	// Optional: URLs of images to include in the post
-	media_urls: ["https://my.com/image.png"],
+	media_urls: ["https://myimage.com/image.png"],
 
 	// Optional: Datetime to schedule a future post. 
 	// Accepts an ISO-8601 UTC date time in format "YYYY-MM-DDThh:mm:ssZ". Example: 2021-07-08T12:30:00Z
@@ -106,21 +106,25 @@ const postResponse = await social.post({
 
 ### Delete
 
-Delete a post with a given post ID, obtained from the "post" response. Returns a promise with the delete status.
+Delete a post with a given post ID, obtained from the "post" response. Returns a promise with the delete status. Also, can bulk delete multiple IDs at once using the "bulk" key.
 
 ``` javascript
 const deleteResponse = await social.delete({
     // Required
-    id: "POST ID",
+    id: "POST ID",                          // optional, but required if "bulk" not present
+    bulk: ["Post ID 1", "Post ID 2", ...]   // optional, but required if "id" not present
   }).catch(console.error);
 ```
 
 ### History
 
-Get a history of all posts and their current status. Returns a promise that resolves to an array of post objects.
+Get a history of all posts and their current status in descending order. Returns a promise that resolves to an array of post objects.
 
 ``` javascript
-const historyResponse = await social.history().catch(console.error);
+const historyResponse = await social.history({
+  lastRecords: 10,    // optional: returns the last X number of history records
+  lastDays: 30,       // optional: returns the last X number of days of history records. Defaults to 30 if not present.
+}).catch(console.error);
 ```
 
 ### Upload Media
