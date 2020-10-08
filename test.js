@@ -1,5 +1,5 @@
 const SocialPost = require("./index.js");
-const API_KEY = require("./api-key.json").API_KEY;
+const API_KEY = require("./api-key.json").API_KEY;  // Add your API Key to a .json file
 const social = new SocialPost(API_KEY);
 
 const test = async () => {
@@ -17,6 +17,9 @@ const test = async () => {
   /** Test delete */
   const deletePost = await social.delete({ bulk: [post.id] });
   console.log(deletePost);
+
+  const user = await social.user();
+  console.log(user);
 
   const feedAdd = await social.feedAdd({
     type: "substack",

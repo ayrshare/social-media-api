@@ -2,7 +2,7 @@
 
 <img src="https://www.ayrshare.com/wp-content/uploads/2020/08/ayr-logo-2156-reduced.png" width="400">
 
-Social Post API is a client for [Ayrshare's](https://www.ayrshare.com) APIs. Ayrshare is a powerful set of APIs that enable you to automate server-side social media posts to Twitter, Facebook, LinkedIn, Reddit, and Telegram. The Ayrshare API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there).
+Social Post API is a client for [Ayrshare's](https://www.ayrshare.com) APIs. Ayrshare is a powerful set of APIs that enable you to automate server-side social media posts to Twitter, Facebook, LinkedIn, Reddit, and Telegram. The Ayrshare API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the [full list of features](https://docs.ayrshare.com/rest-api/overview).
 
 Ayrshare also provides data integrations such as RSS and [Substack](https://www.ayrshare.com/substack) to automate the creation of content.
 
@@ -152,6 +152,14 @@ Get all media URLS. Returns a promise that resolves to an array of URL objects.
 const mediaResponse = await social.media().catch(console.error);
 ```
 
+### User
+
+Get data about the logged in user, such as post quota, used quota, active social networks, and created date.
+
+``` javascript
+const user = await social.user().catch(console.error);
+```
+
 ### Shorten URL
 
 Shorten a URL and return the shortened URL.
@@ -163,9 +171,20 @@ const shortenResponse = await social.shorten({
   }).catch(console.error);
 ```
 
+### Analytics
+
+Get analytics on shortened links: clicked and source of clicks for iOS, Android, or Desktop.
+
+``` javascript
+const analytics = await social.analytics({
+  // Optional range 1-7, default 1 day.
+  lastDays: 3
+}).catch(console.error);
+```
+
 ### Add an RSS or Substack Feed
 
-Add a new RSS or Substack feed to auto post all new articles. Returns a promise that resolved to an object containing the feed ID.
+Add a new RSS or Substack feed to auto post all new articles. Returns a promise that resolved to an object containing the feed ID. See [How to Automate Your Blog or Newsletter](https://www.ayrshare.com/how-to-automatically-post-your-blog-or-newsletter-to-social-media/) for more info.
 
 ``` javascript
 const feedResponse = await social.feedAdd({

@@ -98,6 +98,14 @@ class SocialPost {
     return doGet("media", this.headers, params);
   }
 
+  analytics(params) {
+    return doGet("analytics", this.headers, params);
+  }
+
+  user(params) {
+    return doGet("user", this.headers, params);
+  }
+
   upload(data) {
     const { file, fileName, description } = data;
 
