@@ -3,7 +3,7 @@ const got = require("got");
 const BASE_URL = "https://app.ayrshare.com/api";
 const ERROR_MSG = {
   status: "error",
-  message: "Wrong parameters. Please check at https://docs.ayrshare.com",
+  message: "Wrong parameters. Please check at https://docs.ayrshare.com/rest-api/endpoints",
 };
 
 const doPost = (endpoint, data, headers) => {
@@ -144,6 +144,26 @@ class SocialPost {
     }
 
     return doDelete("feed", data, this.headers);
+  }
+
+  createProfile(data) {
+    const { title } = data;
+
+    if (!title) {
+      return ERROR_MSG;
+    }
+
+    return doPost("create-profile", data, this.headers);
+  }
+
+  deleteProfile(data) {
+    const { profileKey } = data;
+
+    if (!profileKey) {
+      return ERROR_MSG;
+    }
+
+    return doDelete("delete-profile", data, this.headers);
   }
 }
 

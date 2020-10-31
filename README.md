@@ -2,7 +2,7 @@
 
 <img src="https://www.ayrshare.com/wp-content/uploads/2020/08/ayr-logo-2156-reduced.png" width="400">
 
-Social Post API is a client for [Ayrshare's](https://www.ayrshare.com) APIs. Ayrshare is a powerful set of APIs that enable you to automate server-side social media posts to Twitter, Facebook, LinkedIn, Reddit, and Telegram. The Ayrshare API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the [full list of features](https://docs.ayrshare.com/rest-api/overview).
+Social Post API is a client for [Ayrshare's](https://www.ayrshare.com) APIs. Ayrshare is a powerful set of APIs that enable you to automate server-side social media posts to Twitter, Facebook, LinkedIn, Instagram, Reddit, and Telegram. The Ayrshare API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the [full list of features](https://docs.ayrshare.com/rest-api/overview).
 
 Ayrshare also provides data integrations such as RSS and [Substack](https://www.ayrshare.com/substack) to automate the creation of content.
 
@@ -18,7 +18,7 @@ Also, check out our [video](https://youtu.be/WQTQmjvqvMM) of installing and usin
    
    ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-login-1.jpg)
 
-2. Enable your social media accounts such as Twitter, Facebook, LinkedIn, Reddit, or Telegram in the Ayrshare dashboard.
+2. Enable your social media accounts such as Twitter, Facebook, LinkedIn, Reddit, Instagram, or Telegram in the Ayrshare dashboard.
    
    ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-social-scaled.jpg)
 
@@ -208,8 +208,34 @@ const feedResponse = await social.feedDelete({
   }).catch(console.error);
 ```
 
-## Additional Information
+## Business Member Functions - Business Membership Required
 
-Additional examples, responses, etc can be found at:
+### Create Profile
+
+Create a new account profile under the primary account
+
+``` javascript
+const createProfileResponse = await social.createProfile({
+    // Required: title
+    title: "New Profile Title",
+  }).catch(console.error);
+```
+
+### Delete Profile
+
+Delete a profile owned by the primary account
+
+``` javascript
+const deleteProfileResponse = await social.deleteProfile({
+    // Required: profileKey - the API Key of the profile to delete
+    profileKey: "JI9s-kJII-9283-OMKM",
+  }).catch(console.error);
+```
+
+## Additional Information and Support
+
+Additional examples, responses, etc. can be found at:
 
 [API REST Endpoint Docs](https://docs.ayrshare.com/rest-api/endpoints)
+
+Please [contact us](mailto:contact@ayrshare.com) with your questions, or just to give us shout-out!
