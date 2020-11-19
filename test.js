@@ -17,7 +17,7 @@ const test = async () => {
    const postInstagram = await social.post({
     post: "One more time",
     platforms: ["instagram"],
-    media_urls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"]
+    media_urls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"],
     tagged: ["@ayrshare"],
     shorten_links: true
   });
@@ -65,5 +65,3 @@ const test = async () => {
   console.log(deleteProfile);
   /** ------------------------------------------------ */
 };
-
-test();
