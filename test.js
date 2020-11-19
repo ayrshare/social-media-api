@@ -23,7 +23,8 @@ const test = async () => {
   });
   console.log(postInstagram);
 
-  /** Test Upload */
+  /** Test Upload -  Video required*/
+  /*
   const content = await datauri('./test-video.mp4');
   const upload = await social.upload({
     file: content,
@@ -31,6 +32,7 @@ const test = async () => {
     description: "A great test"
   });
   console.log(upload);
+  */
 
   /** Test history */
   const history = await social.history({ lastRecords: 2, lastDays: 10 });
