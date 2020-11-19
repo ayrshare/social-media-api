@@ -2,7 +2,7 @@
 
 <img src="https://www.ayrshare.com/wp-content/uploads/2020/08/ayr-logo-2156-reduced.png" width="400">
 
-Social Post API is a client for [Ayrshare's](https://www.ayrshare.com) APIs. Ayrshare is a powerful set of APIs that enable you to automate server-side social media posts to Twitter, Facebook, LinkedIn, Instagram, Reddit, and Telegram. The Ayrshare API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the [full list of features](https://docs.ayrshare.com/rest-api/overview).
+Social Post API is a client for [Ayrshare's](https://www.ayrshare.com) APIs. Ayrshare is a powerful set of APIs that enable you to automate server-side social media posts to Twitter, Instagram, Facebook, LinkedIn, Reddit, and Telegram for yourself, company, or clients. The Ayrshare API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the [full list of features](https://docs.ayrshare.com/rest-api/overview).
 
 Ayrshare also provides data integrations such as RSS and [Substack](https://www.ayrshare.com/substack) to automate the creation of content.
 
@@ -40,7 +40,7 @@ const social = new SocialPost(API_KEY);
 
 ### History, Post, Delete Example
 
-This simple example shows how to post, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook, and LinkedIn. Note, Telegram and Reddit also available.
+This simple example shows how to post, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook, and LinkedIn. Note, Instagram, Telegram and Reddit also available.
 
 ``` javascript
 const SocialPost = require("social-post-api");
@@ -208,7 +208,7 @@ const feedResponse = await social.feedDelete({
   }).catch(console.error);
 ```
 
-## Business Member Functions - Business Membership Required
+## Business Member Functions for Multiple Clients - Business Membership Required
 
 ### Create Profile
 
@@ -236,6 +236,6 @@ const deleteProfileResponse = await social.deleteProfile({
 
 Additional examples, responses, etc. can be found at:
 
-[API REST Endpoint Docs](https://docs.ayrshare.com/rest-api/endpoints)
+[RESTful API Endpoint Docs](https://docs.ayrshare.com/rest-api/endpoints)
 
-Please [contact us](mailto:contact@ayrshare.com) with your questions, or just to give us shout-out!
+Please [contact us](mailto:contact@ayrshare.com) with your questions, or just to give us shout-out 📢!

@@ -2,6 +2,8 @@ const SocialPost = require("./index.js");
 const API_KEY = require("./api-key.json").API_KEY;  // Add your API Key to a .json file
 const social = new SocialPost(API_KEY);
 
+const datauri = require('datauri');
+
 const test = async () => {
   /** Test post */
   const post = await social.post({
@@ -10,6 +12,25 @@ const test = async () => {
     shorten_links: true
   });
   console.log(post);
+
+   /** Test Instagram post */
+   const postInstagram = await social.post({
+    post: "One more time",
+    platforms: ["instagram"],
+    media_urls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"]
+    tagged: ["@ayrshare"],
+    shorten_links: true
+  });
+  console.log(postInstagram);
+
+  /** Test Upload */
+  const content = await datauri('./test-video.mp4');
+  const upload = await social.upload({
+    file: content,
+    fileName: "Test.mp4",
+    description: "A great test"
+  });
+  console.log(upload);
 
   /** Test history */
   const history = await social.history({ lastRecords: 2, lastDays: 10 });

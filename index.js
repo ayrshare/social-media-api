@@ -1,6 +1,7 @@
 const got = require("got");
 
 const BASE_URL = "https://app.ayrshare.com/api";
+
 const ERROR_MSG = {
   status: "error",
   message: "Wrong parameters. Please check at https://docs.ayrshare.com/rest-api/endpoints",

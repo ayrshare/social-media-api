@@ -1,7 +1,7 @@
 {
 	"name": "social-post-api",
-	"version": "1.0.7",
-	"description": "Automate social media posting to Twitter, Facebook, LinkedIn, Reddit, and Telegram with an API",
+	"version": "1.0.8",
+	"description": "Automate social media posting to Twitter, Instagram, Facebook, LinkedIn, Reddit, and Telegram with an API",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
@@ -22,7 +22,8 @@
 		"LinkedIn API",
 		"Reddit API",
 		"Telegram API",
-		"Instagram API"
+		"Instagram API",
+		"Instagram"
 	],
 	"author": "Geoffrey Bourne",
 	"url": "https://www.ayrshare.com",
@@ -35,6 +36,7 @@
 	},
 	"homepage": "https://www.ayrshare.com",
 	"dependencies": {
+		"datauri": "^3.0.0",
 		"got": "^11.8.0"
 	}
 }
