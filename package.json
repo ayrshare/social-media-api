@@ -1,6 +1,6 @@
 {
 	"name": "social-post-api",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "Automate social media posting to Twitter, Instagram, Facebook, LinkedIn, Reddit, and Telegram with an API",
 	"main": "index.js",
 	"repository": {
