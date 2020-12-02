@@ -65,3 +65,5 @@ const test = async () => {
   console.log(deleteProfile);
   /** ------------------------------------------------ */
 };
+
+test();

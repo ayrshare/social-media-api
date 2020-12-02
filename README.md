@@ -4,7 +4,7 @@
 
 Social Post API is a client for [Ayrshare's](https://www.ayrshare.com) APIs. Ayrshare is a powerful set of APIs that enable you to automate server-side social media posts to Twitter, Instagram, Facebook, LinkedIn, Reddit, and Telegram for yourself, company, or clients. The Ayrshare API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the [full list of features](https://docs.ayrshare.com/rest-api/overview).
 
-Ayrshare also provides data integrations such as RSS and [Substack](https://www.ayrshare.com/substack) to automate the creation of content.
+If you have a platform or manage multiple clients [contact us](https://www.ayrshare.com/business-plan-for-all-your-clients/) about the business plan.
 
 Also, check out our [video](https://youtu.be/WQTQmjvqvMM) of installing and using the package.
 
@@ -14,17 +14,17 @@ Also, check out our [video](https://youtu.be/WQTQmjvqvMM) of installing and usin
 
 ## Setup
 
-1. Create a free [Ayrshare account](https://app.ayrshare.com).
-   
+**1.** Create a free [Ayrshare account](https://app.ayrshare.com).
+
    ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-login-1.jpg)
 
-2. Enable your social media accounts such as Twitter, Facebook, LinkedIn, Reddit, Instagram, or Telegram in the Ayrshare dashboard.
-   
-   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-social-scaled.jpg)
+**2.** Enable your social media accounts such as Twitter, Facebook, LinkedIn, Reddit, Instagram, or Telegram in the Ayrshare dashboard.
 
-3. Copy your API Key from the Ayrshare dashboard. Used for authentication.
-   
-   ![alt API Key](https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-api-key-scaled.jpg)
+   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2020/12/ayrshare-social-scaled-1.jpg)
+  
+**3.** Copy your API Key from the Ayrshare dashboard. Used for authentication.
+
+   ![alt API Key](https://www.ayrshare.com/wp-content/uploads/2020/12/ayrshare-api-key-scaled-1.jpg)
 
 
 ## Getting Started
@@ -209,6 +209,8 @@ const feedResponse = await social.feedDelete({
 ```
 
 ## Business Member Functions for Multiple Clients - Business Membership Required
+
+See [here](https://www.ayrshare.com/business-plan-for-all-your-clients/) for more information
 
 ### Create Profile
 
