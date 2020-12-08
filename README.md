@@ -35,7 +35,7 @@ Create a new Social Post object with your API Key.
 
 ``` javascript
 const SocialPost = require("social-post-api");
-const social = new SocialPost(API_KEY);
+const social = new SocialPost('Your API Key');
 ```
 
 ### History, Post, Delete Example
@@ -44,7 +44,7 @@ This simple example shows how to post, get history, and delete the post. This ex
 
 ``` javascript
 const SocialPost = require("social-post-api");
-const API_KEY = "8jKj782Aw8910dCN"; // get an API Key at ayrshare.com
+const API_KEY = "Your API Key"; // get an API Key at ayrshare.com
 const social = new SocialPost(API_KEY);
 
 const run = async () => {
@@ -86,7 +86,7 @@ const postResponse = await social.post({
     platforms: ["twitter", "facebook", "linkedin", "telegram", "reddit"],
 
 	// Optional: URLs of images to include in the post
-	media_urls: ["https://myimage.com/image.png"],
+	media_urls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"],
 
 	// Optional: Datetime to schedule a future post. 
 	// Accepts an ISO-8601 UTC date time in format "YYYY-MM-DDThh:mm:ssZ". Example: 2021-07-08T12:30:00Z
