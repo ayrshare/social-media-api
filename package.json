@@ -1,11 +1,11 @@
 {
 	"name": "social-post-api",
-	"version": "1.0.12",
-	"description": "Automate social media posting to Twitter, Instagram, Facebook, LinkedIn, Reddit, and Telegram with an API",
+	"version": "1.0.13",
+	"description": "Automate social media posting to Twitter, Instagram, Facebook, LinkedIn, Reddit, and Telegram with an API for your company or clients.",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/nevermind-solutions/social-post-api"
+		"url": "git+https://github.com/ayrshare/social-post-api"
 	},
 	"keywords": [
 		"Ayrshare",
@@ -23,13 +23,14 @@
 		"Reddit API",
 		"Telegram API",
 		"Instagram API",
-		"Instagram"
+		"Instagram",
+		"Social Media Multiple Accounts"
 	],
 	"author": "Geoffrey Bourne",
 	"url": "https://www.ayrshare.com",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/nevermind-solutions/social-post-api/issues"
+		"url": "https://github.com/ayrshare/social-post-api/issues"
 	},
 	"bin": {
 		"social-post-api": "./index.js"
