@@ -40,7 +40,7 @@ const social = new SocialPost('Your API Key');
 
 ### History, Post, Delete Example
 
-This simple example shows how to post, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook, and LinkedIn. Note, Instagram, Telegram and Reddit also available.
+This simple example shows how to post an image or video, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook, and LinkedIn. Note, Instagram, Telegram and Reddit also available.
 
 ``` javascript
 const SocialPost = require("social-post-api");
@@ -74,7 +74,7 @@ run();
 
 ### Post
 
-Published a new post to the specified social networks either immediately or at scheduled future date. Returns a promise that resolves to an object containing the post ID and post status (success, error).
+Published a new post to the specified social networks either immediately or at scheduled future date. Returns a promise that resolves to an object containing the post ID and post status (success, error). See the [post endpoint](https://docs.ayrshare.com/rest-api/endpoints/post) for the full capabilities.
 
 ``` javascript
 const postResponse = await social.post({
@@ -82,10 +82,10 @@ const postResponse = await social.post({
     post: "Best post ever!",
 
 	// Required: Social media platforms to post. 
-	// Accepts an array of strings with values: "facebook", "twitter", "linkedin", "reddit", or "telegram".
-    platforms: ["twitter", "facebook", "linkedin", "telegram", "reddit"],
+	// Accepts an array of strings with values: "facebook", "twitter", "instagram", "linkedin", "reddit", or "telegram".
+    platforms: ["twitter", "facebook", "instagram", "linkedin", "telegram", "reddit"],
 
-	// Optional: URLs of images to include in the post
+	// Optional: URLs of images or videos to include in the post
 	media_urls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"],
 
 	// Optional: Datetime to schedule a future post. 
@@ -106,7 +106,7 @@ const postResponse = await social.post({
 
 ### Delete
 
-Delete a post with a given post ID, obtained from the "post" response. Returns a promise with the delete status. Also, can bulk delete multiple IDs at once using the "bulk" key.
+Delete a post with a given post ID, obtained from the "post" response. Returns a promise with the delete status. Also, can bulk delete multiple IDs at once using the "bulk" key. See the [delete endpoint](https://docs.ayrshare.com/rest-api/endpoints/delete) for more details.
 
 ``` javascript
 const deleteResponse = await social.delete({
@@ -118,7 +118,7 @@ const deleteResponse = await social.delete({
 
 ### History
 
-Get a history of all posts and their current status in descending order. Returns a promise that resolves to an array of post objects.
+Get a history of all posts and their current status in descending order. Returns a promise that resolves to an array of post objects. See the [history endpoint](https://docs.ayrshare.com/rest-api/endpoints/history) for more details.
 
 ``` javascript
 const historyResponse = await social.history({
@@ -129,7 +129,7 @@ const historyResponse = await social.history({
 
 ### Upload Media
 
-Upload and store a new image. Returns a URL referencing the image. Can be used in "image_url" in "post".
+Upload and store a new image. Returns a URL referencing the image. Can be used in "image_url" in "post". See the [media endpoint](https://docs.ayrshare.com/rest-api/endpoints/media) for more details.
 
 ``` javascript
 const uploadResponse = await social.upload({
@@ -146,7 +146,7 @@ const uploadResponse = await social.upload({
 
 ### Get Media
 
-Get all media URLS. Returns a promise that resolves to an array of URL objects.
+Get all media URLS. Returns a promise that resolves to an array of URL objects. See the [media endpoint](https://docs.ayrshare.com/rest-api/endpoints/media) for more details.
 
 ``` javascript
 const mediaResponse = await social.media().catch(console.error);
@@ -154,7 +154,7 @@ const mediaResponse = await social.media().catch(console.error);
 
 ### User
 
-Get data about the logged in user, such as post quota, used quota, active social networks, and created date.
+Get data about the logged in user, such as post quota, used quota, active social networks, and created date. See the [user endpoint](https://docs.ayrshare.com/rest-api/endpoints/user) for more details.
 
 ``` javascript
 const user = await social.user().catch(console.error);
@@ -162,7 +162,7 @@ const user = await social.user().catch(console.error);
 
 ### Shorten URL
 
-Shorten a URL and return the shortened URL.
+Shorten a URL and return the shortened URL. See the [shorten endpoint](https://docs.ayrshare.com/rest-api/endpoints/shorten) for more details.
 
 ``` javascript
 const shortenResponse = await social.shorten({
@@ -173,12 +173,23 @@ const shortenResponse = await social.shorten({
 
 ### Analytics
 
-Get analytics on shortened links: clicked and source of clicks for iOS, Android, or Desktop.
+Get analytics on shortened links: clicked and source of clicks for iOS, Android, or Desktop. See the [analytics endpoint](https://docs.ayrshare.com/rest-api/endpoints/analytics) for more details.
 
 ``` javascript
 const analytics = await social.analytics({
   // Optional range 1-7, default 1 day.
   lastDays: 3
+}).catch(console.error);
+```
+
+### Set Auto Schedule
+
+Set up an auto-post schedule by providing times to send. Post will automatically be sent at the next available time. If no more times are available today, the first available time tomorrow will be used, and so forth. See the [set-auto-schedule endpoint](https://docs.ayrshare.com/rest-api/endpoints/post#set-auto-schedule) for more details.
+
+``` javascript
+const setAutoSchedule = await social.setAutoSchedule({
+  schedule: ["13:05Z", "20:14Z"],   // required
+  title: "Instagram Schedule"       // optional 
 }).catch(console.error);
 ```
 
@@ -208,13 +219,13 @@ const feedResponse = await social.feedDelete({
   }).catch(console.error);
 ```
 
-## Business Member Functions for Multiple Clients - Business Membership Required
+## Business Member Functions for Multiple Clients - Business Plan Required
 
-See [here](https://www.ayrshare.com/business-plan-for-all-your-clients/) for more information
+The [Business Plan](https://www.ayrshare.com/business-plan-for-all-your-clients/) allows you to create, manage, and post on behalf of client profiles via the API or Dashboard GUI. You can [integrate](https://docs.ayrshare.com/multiple-client-accounts/overview) Ayrshare into your platform, product, or agency and give your clients social media capabilites. Please [contact us](mailto:contact@ayrshare.com) with any questions.
 
 ### Create Profile
 
-Create a new account profile under the primary account
+Create a new account profile under the primary account. See the [create profile endpoint](https://docs.ayrshare.com/rest-api/endpoints/profiles#create-a-new-profile) for more details.
 
 ``` javascript
 const createProfileResponse = await social.createProfile({
@@ -225,7 +236,7 @@ const createProfileResponse = await social.createProfile({
 
 ### Delete Profile
 
-Delete a profile owned by the primary account
+Delete a profile owned by the primary account. See the [delete profile endpoint](https://docs.ayrshare.com/rest-api/endpoints/profiles#delete-a-profile) for more details.
 
 ``` javascript
 const deleteProfileResponse = await social.deleteProfile({

@@ -1,30 +1,29 @@
 const SocialPost = require("./index.js");
-const API_KEY = require("./api-key.json").API_KEY;  // Add your API Key to a .json file
+const API_KEY = require("./api-key.json").API_KEY; // Add your API Key to a .json file
 const social = new SocialPost(API_KEY);
-
-const datauri = require('datauri');
 
 const test = async () => {
   /** Test post */
   const post = await social.post({
     post: "One more time",
     platforms: ["twitter", "facebook", "linkedin"],
-    shorten_links: true
+    shorten_links: true,
   });
   console.log(post);
 
-   /** Test Instagram post */
-   const postInstagram = await social.post({
+  /** Test Instagram post */
+  const postInstagram = await social.post({
     post: "One more time",
     platforms: ["instagram"],
     media_urls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"],
     tagged: ["@ayrshare"],
-    shorten_links: true
+    shorten_links: true,
   });
   console.log(postInstagram);
 
   /** Test Upload -  Video required*/
   /*
+  const datauri = require("datauri");
   const content = await datauri('./test-video.mp4');
   const upload = await social.upload({
     file: content,
@@ -53,14 +52,21 @@ const test = async () => {
   });
   console.log(feedAdd);
 
-  /** Business Membership - required  ---------------- */
+  /** Test Auto Schedule */
+  const setAutoSchedule = await social.setAutoSchedule({
+    schedule: ["13:05Z", "20:14Z"],
+    title: "test",
+  });
+  console.log(setAutoSchedule);
+
+  /** Business Plan Membership - required  ---------------- */
   const createProfile = await social.createProfile({
-    title: "Best Profile Title Ever"
+    title: "Best Profile Title Ever",
   });
   console.log(createProfile);
 
   const deleteProfile = await social.deleteProfile({
-    profileKey: createProfile.profileKey
+    profileKey: createProfile.profileKey,
   });
   console.log(deleteProfile);
   /** ------------------------------------------------ */

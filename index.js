@@ -166,6 +166,16 @@ class SocialPost {
 
     return doDelete("delete-profile", data, this.headers);
   }
+
+  setAutoSchedule(data) {
+    const { schedule } = data;
+
+    if (!schedule) {
+      return ERROR_MSG;
+    }
+
+    return doPost("set-auto-schedule", data, this.headers);
+  }
 }
 
 module.exports = SocialPost;
