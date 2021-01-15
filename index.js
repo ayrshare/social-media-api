@@ -7,11 +7,17 @@ const ERROR_MSG = {
   message: "Wrong parameters. Please check at https://docs.ayrshare.com/rest-api/endpoints",
 };
 
+const preProcess = (data) => {
+  data.source = "npm";
+
+  return data;
+};
+
 const doPost = (endpoint, data, headers) => {
   return got
     .post(`${BASE_URL}/${endpoint}`, {
       headers,
-      json: data,
+      json: preProcess(data),
       responseType: "json",
     })
     .then((res) => res.body)
@@ -28,7 +34,7 @@ const doDelete = (endpoint, data, headers) => {
   return got
     .delete(`${BASE_URL}/${endpoint}`, {
       headers,
-      json: data,
+      json: preProcess(data),
       responseType: "json",
     })
     .then((res) => res.body)
@@ -44,8 +50,8 @@ const doDelete = (endpoint, data, headers) => {
 const doGet = (endpoint, headers, params) => {
   return got
     .get(
-      `${BASE_URL}/${endpoint}${
-        params ? `?${new URLSearchParams(params).toString()}` : ""
+      `${BASE_URL}/${endpoint}?${
+        params ? `${new URLSearchParams(preProcess(params)).toString()}` : "source=npm"
       }`,
       {
         headers,

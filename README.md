@@ -245,6 +245,11 @@ const deleteProfileResponse = await social.deleteProfile({
   }).catch(console.error);
 ```
 
+## Other Packages & Integrations
+
+We have other package and integrations such as [Python](https://docs.ayrshare.com/packages/python-pypi), [Bubble.io](https://docs.ayrshare.com/packages/bubble.io), and [Airtable](https://docs.ayrshare.com/packages/airtable) + exmaples in PHP and Go.
+
+
 ## Additional Information and Support
 
 Additional examples, responses, etc. can be found at:
