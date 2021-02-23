@@ -105,8 +105,12 @@ class SocialPost {
     return doGet("media", this.headers, params);
   }
 
-  analytics(params) {
-    return doGet("analytics", this.headers, params);
+  analyticsLinks(params) {
+    return doGet("analytics/links", this.headers, params);
+  }
+
+  analyticsPost(data) {
+    return doPost("analytics/post", data, this.headers);
   }
 
   user(params) {
