@@ -1,7 +1,7 @@
 {
 	"name": "social-post-api",
-	"version": "1.0.16",
-	"description": "Automate social media posting to Twitter, Instagram, Facebook, LinkedIn, YouTube, Reddit, and Telegram with an API for your company or users.",
+	"version": "1.0.17",
+	"description": "Automate social media posting to Twitter, Instagram, Facebook, LinkedIn, YouTube, Google My Business, Reddit, and Telegram with an API for your company or users.",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
@@ -21,11 +21,14 @@
 		"Twitter API",
 		"LinkedIn API",
 		"Reddit API",
+		"Google My Business API",
+		"GMB API",
 		"Telegram API",
 		"Instagram API",
 		"YouTube API",
 		"Instagram",
-		"Social Media Multiple Accounts",
+		"Schedule Social Media",
+		"Social Media Multiple Users",
 		"Client Social Media",
 		"Agency Social Media"
 	],
@@ -41,6 +44,6 @@
 	"homepage": "https://www.ayrshare.com",
 	"dependencies": {
 		"datauri": "^3.0.0",
-		"got": "^11.8.1"
+		"got": "^11.8.2"
 	}
 }

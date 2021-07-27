@@ -1,14 +1,16 @@
-# Automated Social Media Posting APIs
+# Social Media Posting APIs
 
 <img src="https://www.ayrshare.com/wp-content/uploads/2020/08/ayr-logo-2156-reduced.png" width="400">
 
-Social Post API is a client for [Ayrshare's](https://www.ayrshare.com) APIs. Ayrshare is a powerful set of APIs that enable you to automate server-side social media posts to *Twitter*, *Instagram*, *Facebook*, *LinkedIn*, *YouTube*, *Reddit*, and *Telegram* for your company or on behalf of your users. 
+Social Post API is a wrapper SDK for [Ayrshare's APIs](https://www.ayrshare.com).
 
-The Ayrshare API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the [full list of features](https://docs.ayrshare.com/rest-api/overview).
+Ayrshare is a powerful set of APIs that enable you to send social media posts to *Twitter*, *Instagram*, *Facebook*, *LinkedIn*, *YouTube*, *Google My Business*, *Reddit*, and *Telegram* on behalf of your users.
 
-If you have a platform or manage multiple clients [contact us](https://www.ayrshare.com/business-plan-for-all-your-clients/) about the business plan.
+The Ayrshare API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the full list of [full list of features](https://docs.ayrshare.com/rest-api/overview).
 
-Also, check out our [video](https://youtu.be/WQTQmjvqvMM) of installing and using the package.
+Get started with a [free plan](https://www.ayrshare.com/pricing), or if you have a platform or manage multiple users check out the [Business Plan](https://www.ayrshare.com/business-plan-for-multiple-users/).
+
+For more information on setup, see our installation [video](https://youtu.be/WQTQmjvqvMM) or our [Quick Start Guide](https://docs.ayrshare.com/quick-start-guide).
 
 ## Installation
 
@@ -18,15 +20,15 @@ Also, check out our [video](https://youtu.be/WQTQmjvqvMM) of installing and usin
 
 **1.** Create a free [Ayrshare account](https://app.ayrshare.com).
 
-   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2020/09/ayrshare-login-1.jpg)
+   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2021/07/ayrshare-login.jpg)
 
 **2.** Enable your social media accounts such as Twitter, Facebook, LinkedIn, Reddit, Instagram, or Telegram in the Ayrshare dashboard.
 
-   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2020/12/ayrshare-social-scaled-1.jpg)
+   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2021/07/ayrshare-social-linkage-scaled.jpg)
   
 **3.** Copy your API Key from the Ayrshare dashboard. Used for authentication.
 
-   ![alt API Key](https://www.ayrshare.com/wp-content/uploads/2020/12/ayrshare-api-key-scaled-1.jpg)
+   ![alt API Key](https://www.ayrshare.com/wp-content/uploads/2021/07/ayrshare-api-key-scaled.jpg)
 
 
 ## Getting Started
@@ -42,7 +44,7 @@ const social = new SocialPost('Your API Key');
 
 ### History, Post, Delete Example
 
-This simple example shows how to post an image or video, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook, and LinkedIn. Note, Instagram, Telegram and Reddit also available.
+This simple example shows how to post an image or video, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook, Instagram, and LinkedIn. Note, YouTube, Google My Business, Telegram, and Reddit also available.
 
 ``` javascript
 const SocialPost = require("social-post-api");
@@ -52,8 +54,9 @@ const social = new SocialPost(API_KEY);
 const run = async () => {
   /** post */
   const post = await social.post({
-    post: "One more time",
-    platforms: ["twitter", "facebook", "linkedin"],
+    post: "Who you gonna call?",
+    platforms: ["twitter", "facebook", "instagram", "linkedin"],
+    mediaUrls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"]
   }).catch(console.error);
   console.log(post);
 
@@ -83,26 +86,26 @@ const postResponse = await social.post({
     // Required
     post: "Best post ever!",
 
-	// Required: Social media platforms to post. 
-	// Accepts an array of strings with values: "facebook", "twitter", "instagram", "linkedin", "reddit", or "telegram".
-    platforms: ["twitter", "facebook", "instagram", "linkedin", "telegram", "reddit"],
+    /** 
+     * Required: Social media platforms to post. 
+     * Accepts an array of strings with values: "facebook", "twitter", "instagram", "linkedin", "youtube", "gmb", "reddit", or "telegram".
+     * YouTube requires a video and not shown in the example. See https://docs.ayrshare.com/rest-api/endpoints/post#youtube
+     */
+    platforms: ["twitter", "facebook", "instagram", "linkedin", "gmb", "telegram"],
 
-	// Optional: URLs of images or videos to include in the post
-	media_urls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"],
+    // Optional: URLs of images or videos to include in the post
+    mediaUrls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"],
 
-	// Optional: Datetime to schedule a future post. 
-	// Accepts an ISO-8601 UTC date time in format "YYYY-MM-DDThh:mm:ssZ". Example: 2021-07-08T12:30:00Z
-	scheduleDate: "2020-08-07T15:17:00Z",
+    // Optional: Datetime to schedule a future post. 
+    // Accepts an ISO-8601 UTC date time in format "YYYY-MM-DDThh:mm:ssZ". Example: 2021-07-08T12:30:00Z
+    scheduleDate: "2020-08-07T15:17:00Z",
 
-	// Required if platform includes "reddit." Title of Reddit post.
-	title: "My Reddit Post",
+    // Optional: Shorten links in the post for all platforms similar to bit.ly.
+    // Only URLS starting with http or https will be shortened. Default value: true.
+    shortenLinks: true,
 
-	// Required if platform includes "reddit." Subreddit to post.
-	subreddit: "test",
-
-	// Optional: Shorten links in the post for all platforms similar to bit.ly.
-	// Only URLS starting with http or https will be shortened. Default value: true.
-	shorten_links: true
+    // Optional for Business Plans, otherwise remove
+    profileKeys: ["Profile API Key 1"];
   }).catch(console.error);
 ```
 
@@ -112,7 +115,6 @@ Delete a post with a given post ID, obtained from the "post" response. Returns a
 
 ``` javascript
 const deleteResponse = await social.delete({
-    // Required
     id: "POST ID",                          // optional, but required if "bulk" not present
     bulk: ["Post ID 1", "Post ID 2", ...]   // optional, but required if "id" not present
   }).catch(console.error);
@@ -129,19 +131,27 @@ const historyResponse = await social.history({
 }).catch(console.error);
 ```
 
+Get history by post ID
+
+``` javascript
+const historyByIdResponse = await social.history({
+  id: "pK0j89" // required: Ayrshare top level post ID
+}).catch(console.error);
+```
+
 ### Upload Media
 
 Upload and store a new image. Returns a URL referencing the image. Can be used in "image_url" in "post". See the [media endpoint](https://docs.ayrshare.com/rest-api/endpoints/media) for more details.
 
 ``` javascript
 const uploadResponse = await social.upload({
-	// Required: The image as a Base64 encoded string. Example encoding: https://www.base64-image.de/
-	file:"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ...",
+    // Required: The image as a Base64 encoded string. Example encoding: https://www.base64-image.de/
+    file:"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ...",
 
-	// Optional
-	fileName: "test.png",
+    // Optional
+    fileName: "test.png",
 
-	// Optional
+    // Optional
     description: "best image"
 }).catch(console.error);
 ```
@@ -175,7 +185,7 @@ const shortenResponse = await social.shorten({
 
 ### Analytics
 
-Get analytics on shortened links and shares, likes, and impressions. See the [analytics endpoint](https://docs.ayrshare.com/rest-api/endpoints/analytics) for more details.
+Get analytics on shortened links and shares, likes, shares, and impressions. See the [analytics endpoint](https://docs.ayrshare.com/rest-api/endpoints/analytics) for more details.
 
 ``` javascript
 const analyticsLinks = await social.analyticsLinks({
@@ -187,11 +197,33 @@ const analyticsLinks = await social.analyticsLinks({
 ``` javascript
 const analyticsPost = await social.analyticsPost({
   id: "Post ID",
-  platforms: ["twitter", "linkedin"]
+  platforms: ["twitter", "instagram", "facebook", "youtube", "linkedin"]
 }).catch(console.error);
 ```
 
-### Set Auto Schedule
+### Post a Comment
+
+Add a comment to a post. Currently only on Facebook and Instagram. See the [create comment endpoint](https://docs.ayrshare.com/rest-api/endpoints/comments#post-a-comment) for more details.
+
+``` javascript
+const postCommentResponse = await social.postComment({
+    id: "Pkdo9sjk2", // required: Post top-level ID.
+    platforms: ["instagram", "facebook"], // required: List of platforms to add comments. Currently available platforms: ["facebook", "instagram"]
+    comment: "What a comment" //required: Text of the new comment to add to the post.
+  }).catch(console.error);
+```
+
+### Get Comments
+
+Get comments for a post. Currently only on Facebook and Instagram. See the [get comment endpoint](https://docs.ayrshare.com/rest-api/endpoints/comments#get-comments) for more details.
+
+``` javascript
+const getCommentResponse = await social.getComments({
+    id: "Pkdo9sjk2", // required: Post top-level ID.
+  }).catch(console.error);
+```
+
+### Set, Delete, and List Auto Schedule
 
 Set up an auto-post schedule by providing times to send. Post will automatically be sent at the next available time. If no more times are available today, the first available time tomorrow will be used, and so forth. See the [set-auto-schedule endpoint](https://docs.ayrshare.com/rest-api/endpoints/post#set-auto-schedule) for more details.
 
@@ -202,17 +234,26 @@ const setAutoSchedule = await social.setAutoSchedule({
 }).catch(console.error);
 ```
 
+``` javascript
+const deleteAutoSchedule = await social.deleteAutoSchedule({
+  title: "Instagram Schedule" // optional, else default is used
+}).catch(console.error);
+```
+
+``` javascript
+const listAutoSchedule = await social.listAutoSchedule().catch(console.error);
+```
+
 ### Add an RSS or Substack Feed
 
 Add a new RSS or Substack feed to auto post all new articles. Returns a promise that resolved to an object containing the feed ID. See [How to Automate Your Blog or Newsletter](https://www.ayrshare.com/how-to-automatically-post-your-blog-or-newsletter-to-social-media/) for more info.
 
 ``` javascript
 const feedResponse = await social.feedAdd({
-	// Required: URL to shorten
-	url: "https://theRSSFeed",
+    url: "https://theRSSFeed", // required: URL to shorten
 
-	// Optional: Value: "rss" or "substack". 
-	// If not set, defaults to "rss"
+    // Optional: Value: "rss" or "substack". 
+    // If not set, defaults to "rss"
     type: "RSS",
   }).catch(console.error);
 ```
@@ -223,14 +264,13 @@ Delete an RSS feed for a given ID.
 
 ``` javascript
 const feedResponse = await social.feedDelete({
-	// Required: ID of the feed
-	id: "Feed ID",
+    id: "Feed ID", // required: ID of the feed
   }).catch(console.error);
 ```
 
-## Business Member Functions for Multiple Clients - Business Plan Required
+## Business Member Functions for Multiple Users - Business or Enterprise Plan Required
 
-The [Business Plan](https://www.ayrshare.com/business-plan-for-all-your-clients/) allows you to create, manage, and post on behalf of client profiles via the API or Dashboard GUI. You can [integrate](https://docs.ayrshare.com/multiple-client-accounts/overview) Ayrshare into your platform, product, or agency and give your clients social media capabilites. Please [contact us](mailto:contact@ayrshare.com) with any questions.
+The [Business Plan](https://www.ayrshare.com/business-plan-for-multiple-users/) allows you to create, manage, and post on behalf of client profiles via the API or Dashboard GUI. You can [integrate](https://docs.ayrshare.com/multiple-client-accounts/overview) Ayrshare into your platform, product, or agency and give your clients social media capabilites. Please [contact us](mailto:contact@ayrshare.com) with any questions.
 
 ### Create Profile
 
@@ -254,9 +294,50 @@ const deleteProfileResponse = await social.deleteProfile({
   }).catch(console.error);
 ```
 
+### Get Profiles
+
+Get all the profiles associated with the Primary account. See the [get profile endpoint](https://docs.ayrshare.com/rest-api/endpoints/profiles#get-profiles) for more details.
+
+``` javascript
+const getProfileResponse = await social.getProfiles().catch(console.error);
+```
+
+### Generate a JWT Url
+
+Generate a JWT Token and URL used for authorizing a user's access to the Social Account linking page. See the [generate JWT endpoint](https://docs.ayrshare.com/rest-api/endpoints/profiles#generate-a-jwt) for more details.
+
+``` javascript
+const generateJWTResponse = await social.generateJWT({
+    domain: "ACME", // required
+    privateKey: "-----BEGIN RSA PRIVATE KEY...", // required
+    profileKey: "PROFILE_KEY", // required
+}).catch(console.error);
+```
+
+### Register, Unregister, and List Webhooks
+
+A webhook allows you to be notified when certain system actions occur via a call to a URL you provide. Register a webhook by providing your URL and the type of action you wish to be notified. When the action occurs a POST message will be sent to the provided URL. See the [webhooks endpoints](https://docs.ayrshare.com/rest-api/endpoints/webhooks) for more details.
+
+``` javascript
+const registerWebhook = await social.registerWebhook({
+    action: "social", // required: Available actions: "feed", "social".
+    url: "https://myhook", // required: Your URL to be called on action. URL must be in a valid format and begin with https://
+}).catch(console.error);
+```
+
+``` javascript
+const unregisterWebhook = await social.unregisterWebhook({
+    action: "social", // required: Available actions: "feed", "social".
+}).catch(console.error);
+```
+
+``` javascript
+const listWebhooks = await social.listWebhooks().catch(console.error);
+```
+
 ## Other Packages & Integrations
 
-We have other package and integrations such as [Python](https://docs.ayrshare.com/packages/python-pypi), [Bubble.io](https://docs.ayrshare.com/packages/bubble.io), and [Airtable](https://docs.ayrshare.com/packages/airtable) + exmaples in PHP and Go.
+We have other package and integrations such as [Python](https://docs.ayrshare.com/packages/python-pypi), [Bubble.io](https://docs.ayrshare.com/packages/bubble.io), and [Airtable](https://docs.ayrshare.com/packages/airtable) + examples in PHP and Go.
 
 
 ## Additional Information and Support
@@ -264,5 +345,7 @@ We have other package and integrations such as [Python](https://docs.ayrshare.co
 Additional examples, responses, etc. can be found at:
 
 [RESTful API Endpoint Docs](https://docs.ayrshare.com/rest-api/endpoints)
+
+See our [changelog](https://docs.ayrshare.com/additional-info/whats-new-in-2021) for the latest and greatest.
 
 Please [contact us](mailto:contact@ayrshare.com) with your questions, or just to give us shout-out 📢!

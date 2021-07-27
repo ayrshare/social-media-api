@@ -1,5 +1,5 @@
 const SocialPost = require("./index.js");
-const API_KEY = require("./api-key.json").API_KEY; // Add your API Key to a .json file
+const { API_KEY, PROFILE_KEY, DOMAIN } = require("./config.json"); // Add your API Key to a .json file, Profile Key (Business Plan), and Domain (Business Plan)
 const social = new SocialPost(API_KEY);
 
 /** Test history */
@@ -41,9 +41,10 @@ const testDelete = async (id) => {
 /** Test post */
 const testPost = async () => {
   const post = await social.post({
-    post: "One more time",
-    platforms: ["twitter", "facebook", "linkedin"],
-    shorten_links: true,
+    post: "What a wonderful post!",
+    platforms: ["twitter", "facebook", "linkedin", "instagram"],
+    mediaUrls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"],
+    shortenLinks: true,
   });
   console.log(post);
 
@@ -74,9 +75,28 @@ const testVideoPost = async () => {
   console.log(upload);
 };
 
-const testPostandDelete = async () => {
-  const id = await testPost();
-  return testDelete(id);
+const testAnalytics = async (id) => {
+  const analytics = await social.analyticsPost({
+    id,
+    platforms: ["facebook", "instagram", "twitter", "linkedin"],
+  });
+  return console.log("Analytics:", analytics);
+};
+
+const testGetComments = async (id) => {
+  const analytics = await social.getComments({
+    id,
+  });
+  return console.log("Comments:", analytics);
+};
+
+const testPostComment = async (id) => {
+  const analytics = await social.postComment({
+    id,
+    platforms: ["facebook", "instagram"],
+    comment: "My thoughts exactly",
+  });
+  return console.log("Comments:", analytics);
 };
 
 /** Business Plan Membership - required  ---------------- */
@@ -100,9 +120,28 @@ const testCreateandDelete = async () => {
   const profileKey = await testCreateProfile();
   return testDeleteProfile(profileKey);
 };
+
+const testGenerateJWT = async () => {
+  const fs = require("fs");
+  const privateKey = fs.readFileSync(`./private.key`, "utf8");
+
+  const jwt = await social.generateJWT({
+    domain: DOMAIN,
+    privateKey,
+    profileKey: PROFILE_KEY,
+  });
+
+  return console.log("JWT", jwt);
+};
 /** ------------------------------------------------ */
 
-testPostandDelete();
+const run = async () => {
+  const id = await testPost();
+  await testPostComment(id);
+  await testAnalytics(id);
+  await testGetComments(id);
+  return testDelete(id);
+};
 
 /*
 testHistory();
@@ -112,8 +151,13 @@ testFeed();
 testPost();
 testInstagramPost();
 testVideoPost();
+testAnalytics(id);
+testComments();
 */
 
 /** Business Plan */
 // testCreateProfile();
 // testCreateandDelete();
+// testGenerateJWT();
+
+run();

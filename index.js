@@ -1,10 +1,10 @@
 const got = require("got");
 
 const BASE_URL = "https://app.ayrshare.com/api";
-
 const ERROR_MSG = {
   status: "error",
-  message: "Wrong parameters. Please check at https://docs.ayrshare.com/rest-api/endpoints",
+  message:
+    "Wrong parameters. Please check at https://docs.ayrshare.com/rest-api/endpoints",
 };
 
 const preProcess = (data) => {
@@ -51,7 +51,9 @@ const doGet = (endpoint, headers, params) => {
   return got
     .get(
       `${BASE_URL}/${endpoint}?${
-        params ? `${new URLSearchParams(preProcess(params)).toString()}` : "source=npm"
+        params
+          ? `${new URLSearchParams(preProcess(params)).toString()}`
+          : "source=npm"
       }`,
       {
         headers,
@@ -98,7 +100,9 @@ class SocialPost {
   }
 
   history(params) {
-    return doGet("history", this.headers, params);
+    const id = params && params.id ? params.id : null;
+
+    return doGet(`history${id ? `/${id}` : ""}`, this.headers, params);
   }
 
   media(params) {
@@ -157,6 +161,20 @@ class SocialPost {
     return doDelete("feed", data, this.headers);
   }
 
+  postComment(data) {
+    const { id, platforms, comment } = data;
+
+    if (!id || !platforms || !comment) {
+      return ERROR_MSG;
+    }
+
+    return doPost("comments", data, this.headers);
+  }
+
+  getComments(params) {
+    return doGet("comments", this.headers, params);
+  }
+
   createProfile(data) {
     const { title } = data;
 
@@ -164,7 +182,7 @@ class SocialPost {
       return ERROR_MSG;
     }
 
-    return doPost("create-profile", data, this.headers);
+    return doPost("profiles/create-profile", data, this.headers);
   }
 
   deleteProfile(data) {
@@ -174,7 +192,21 @@ class SocialPost {
       return ERROR_MSG;
     }
 
-    return doDelete("delete-profile", data, this.headers);
+    return doDelete("profiles/delete-profile", data, this.headers);
+  }
+
+  getProfiles(params) {
+    return doGet("profiles", this.headers, params);
+  }
+
+  generateJWT(data) {
+    const { domain, privateKey, profileKey } = data;
+
+    if (!domain || !privateKey || !profileKey) {
+      return ERROR_MSG;
+    }
+
+    return doPost("profiles/generateJWT", data, this.headers);
   }
 
   setAutoSchedule(data) {
@@ -184,7 +216,39 @@ class SocialPost {
       return ERROR_MSG;
     }
 
-    return doPost("set-auto-schedule", data, this.headers);
+    return doPost("auto-schedule/set", data, this.headers);
+  }
+
+  deleteAutoSchedule(data) {
+    return doDelete("auto-schedule/delete", data, this.headers);
+  }
+
+  listAutoSchedule(params) {
+    return doGet("auto-schedule/list", this.headers, params);
+  }
+
+  registerWebook(data) {
+    const { action, url } = data;
+
+    if (!action || !url) {
+      return ERROR_MSG;
+    }
+
+    return doPost("hook/webhook", data, this.headers);
+  }
+
+  unregisterWebhook(data) {
+    const { action } = data;
+
+    if (!action) {
+      return ERROR_MSG;
+    }
+
+    return doDelete("hook/webhook", data, this.headers);
+  }
+
+  listWebhooks(params) {
+    return doGet("hook/webhook", this.headers, params);
   }
 }
 
