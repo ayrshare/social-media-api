@@ -1,7 +1,7 @@
 {
 	"name": "social-post-api",
-	"version": "1.0.17",
-	"description": "Automate social media posting to Twitter, Instagram, Facebook, LinkedIn, YouTube, Google My Business, Reddit, and Telegram with an API for your company or users.",
+	"version": "1.0.18",
+	"description": "Social media posting APIs for Twitter, Instagram, Facebook, LinkedIn, YouTube, Google My Business, Reddit, and Telegram. Easily integrate with your platform or app to schedule posts, get analytics, or add comments on behalf of your users.",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
@@ -28,6 +28,7 @@
 		"YouTube API",
 		"Instagram",
 		"Schedule Social Media",
+		"Social Media White Label",
 		"Social Media Multiple Users",
 		"Client Social Media",
 		"Agency Social Media"

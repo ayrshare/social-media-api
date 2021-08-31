@@ -4,7 +4,7 @@
 
 Social Post API is a wrapper SDK for [Ayrshare's APIs](https://www.ayrshare.com).
 
-Ayrshare is a powerful set of APIs that enable you to send social media posts to *Twitter*, *Instagram*, *Facebook*, *LinkedIn*, *YouTube*, *Google My Business*, *Reddit*, and *Telegram* on behalf of your users.
+Ayrshare is a powerful set of APIs that enable you to send social media posts, get analytics, and add comments to *Twitter*, *Instagram*, *Facebook*, *LinkedIn*, *YouTube*, *Google My Business*, *Reddit*, and *Telegram* on behalf of your users.
 
 The Ayrshare API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the full list of [full list of features](https://docs.ayrshare.com/rest-api/overview).
 
@@ -22,7 +22,7 @@ For more information on setup, see our installation [video](https://youtu.be/WQT
 
    ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2021/07/ayrshare-login.jpg)
 
-**2.** Enable your social media accounts such as Twitter, Facebook, LinkedIn, Reddit, Instagram, or Telegram in the Ayrshare dashboard.
+**2.** Enable your social media accounts such as Twitter, Facebook, LinkedIn, Reddit, Instagram, Google My Business, or Telegram in the Ayrshare dashboard.
 
    ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2021/07/ayrshare-social-linkage-scaled.jpg)
   
@@ -55,7 +55,7 @@ const run = async () => {
   /** post */
   const post = await social.post({
     post: "Who you gonna call?",
-    platforms: ["twitter", "facebook", "instagram", "linkedin"],
+    platforms: ["twitter", "facebook", "instagram", "linkedin", "gmb"],
     mediaUrls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"]
   }).catch(console.error);
   console.log(post);
@@ -111,7 +111,7 @@ const postResponse = await social.post({
 
 ### Delete
 
-Delete a post with a given post ID, obtained from the "post" response. Returns a promise with the delete status. Also, can bulk delete multiple IDs at once using the "bulk" key. See the [delete endpoint](https://docs.ayrshare.com/rest-api/endpoints/delete) for more details.
+Delete a post with a given post ID, obtained from the "post" response. Returns a promise with the delete status. Also, can bulk delete multiple IDs at once using the "bulk" key. See the [delete endpoint](https://docs.ayrshare.com/rest-api/endpoints/post#delete-a-post) for more details.
 
 ``` javascript
 const deleteResponse = await social.delete({
