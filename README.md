@@ -1,4 +1,4 @@
-# Social Media Posting APIs
+# Social Media Posting and Scheduling APIs
 
 <img src="https://www.ayrshare.com/wp-content/uploads/2020/08/ayr-logo-2156-reduced.png" width="400">
 
@@ -44,7 +44,7 @@ const social = new SocialPost('Your API Key');
 
 ### History, Post, Delete Example
 
-This simple example shows how to post an image or video, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook, Instagram, and LinkedIn. Note, YouTube, Google My Business, Telegram, and Reddit also available.
+This simple example shows how to post an image or video, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook Pages, Facebook Groups, Instagram, LinkedIn. Note, YouTube, Google My Business, Telegram, and Reddit also available.
 
 ``` javascript
 const SocialPost = require("social-post-api");
@@ -55,7 +55,7 @@ const run = async () => {
   /** post */
   const post = await social.post({
     post: "Who you gonna call?",
-    platforms: ["twitter", "facebook", "instagram", "linkedin", "gmb"],
+    platforms: ["twitter", "facebook", "fbg", "instagram", "linkedin", "gmb"],
     mediaUrls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"]
   }).catch(console.error);
   console.log(post);
@@ -91,7 +91,7 @@ const postResponse = await social.post({
      * Accepts an array of strings with values: "facebook", "twitter", "instagram", "linkedin", "youtube", "gmb", "reddit", or "telegram".
      * YouTube requires a video and not shown in the example. See https://docs.ayrshare.com/rest-api/endpoints/post#youtube
      */
-    platforms: ["twitter", "facebook", "instagram", "linkedin", "gmb", "telegram"],
+    platforms: ["twitter", "facebook", "fbg", "instagram", "linkedin", "gmb", "telegram"],
 
     // Optional: URLs of images or videos to include in the post
     mediaUrls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"],
