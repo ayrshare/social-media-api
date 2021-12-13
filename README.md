@@ -4,7 +4,7 @@
 
 Social Post API is a wrapper SDK for [Ayrshare's APIs](https://www.ayrshare.com).
 
-Ayrshare is a powerful set of APIs that enable you to send social media posts, get analytics, and add comments to *Twitter*, *Instagram*, *Facebook*, *LinkedIn*, *YouTube*, *Google My Business*, *Reddit*, and *Telegram* on behalf of your users.
+Ayrshare is a powerful set of APIs that enable you to send social media posts, get analytics, and add comments to *Twitter*, *Instagram*, *Facebook*, *LinkedIn*, *YouTube*, *Google My Business*, *Pinterest*, *TikTok*, *Reddit*, and *Telegram* on behalf of your users.
 
 The Ayrshare API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the full list of [full list of features](https://docs.ayrshare.com/rest-api/overview).
 
@@ -44,7 +44,7 @@ const social = new SocialPost('Your API Key');
 
 ### History, Post, Delete Example
 
-This simple example shows how to post an image or video, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook Pages, Facebook Groups, Instagram, LinkedIn. Note, YouTube, Google My Business, Telegram, and Reddit also available.
+This simple example shows how to post an image or video, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook Pages, Facebook Groups, Instagram, LinkedIn. Note, YouTube, Google My Business, Telegram, TikTok, and Reddit also available.
 
 ``` javascript
 const SocialPost = require("social-post-api");
@@ -185,7 +185,7 @@ const shortenResponse = await social.shorten({
 
 ### Analytics
 
-Get analytics on shortened links and shares, likes, shares, and impressions. See the [analytics endpoint](https://docs.ayrshare.com/rest-api/endpoints/analytics) for more details.
+Get analytics on shortened links and shares, likes, shares, and impressions with for a post or at the accounts level. See the [analytics endpoint](https://docs.ayrshare.com/rest-api/endpoints/analytics) for more details.
 
 ``` javascript
 const analyticsLinks = await social.analyticsLinks({
@@ -198,6 +198,12 @@ const analyticsLinks = await social.analyticsLinks({
 const analyticsPost = await social.analyticsPost({
   id: "Post ID",
   platforms: ["twitter", "instagram", "facebook", "youtube", "linkedin"]
+}).catch(console.error);
+```
+
+``` javascript
+const analyticsSocial = await social.analyticsSocial({
+  platforms: ["twitter", "instagram", "facebook", "youtube", "pinterest"]
 }).catch(console.error);
 ```
 

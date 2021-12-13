@@ -1,5 +1,13 @@
 const SocialPost = require("./index.js");
-const { API_KEY, PROFILE_KEY, DOMAIN } = require("./config.json"); // Add your API Key to a .json file, Profile Key (Business Plan), and Domain (Business Plan)
+/**
+ * Add your API Key to a .json file, Profile Key (Business Plan), and Domain (Business Plan)
+ * {
+ *  "API_KEY": "your api key",
+ *  "PROFIL_KEY": "user profile key",
+ *  "DOMAIN": "Business Plan domain"
+ * }
+ */
+const { API_KEY, PROFILE_KEY, DOMAIN } = require("./config.json");
 const social = new SocialPost(API_KEY);
 
 /** Test history */

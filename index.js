@@ -117,12 +117,16 @@ class SocialPost {
     return doPost("analytics/post", data, this.headers);
   }
 
+  analyticsSocial(data) {
+    return doPost("analytics/social", data, this.headers);
+  }
+
   user(params) {
     return doGet("user", this.headers, params);
   }
 
   upload(data) {
-    const { file, fileName, description } = data;
+    const { file } = data;
 
     if (!file) {
       return ERROR_MSG;
