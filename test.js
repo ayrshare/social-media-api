@@ -11,15 +11,17 @@ const { API_KEY, PROFILE_KEY, DOMAIN } = require("./config.json");
 const social = new SocialPost(API_KEY);
 
 /** Test history */
-const testHistory = async () => {
-  const history = await social.history({ lastRecords: 2, lastDays: 10 });
-  console.log(history);
+const testHistory = async (platform, id) => {
+  const history = await social.history(
+    platform ? { platform } : id ? { id } : null
+  );
+  console.log("testHistory:", history);
 };
 
 /** Test get details on the current user */
 const testUser = async () => {
   const user = await social.user();
-  console.log(user);
+  console.log("testUser:", user);
 };
 
 /** Test Add a feed */
@@ -28,7 +30,7 @@ const testFeed = async () => {
     type: "substack",
     url: "https://bankless.substack.com/",
   });
-  console.log(feedAdd);
+  console.log("testFeed:", feedAdd);
 };
 
 /** Test Auto Schedule */
@@ -37,24 +39,37 @@ const testAutoSchedule = async () => {
     schedule: ["13:05Z", "20:14Z"],
     title: "test",
   });
-  console.log(setAutoSchedule);
+  console.log("testAutoSchedule:", setAutoSchedule);
 };
 
 /** Test delete */
 const testDelete = async (id) => {
   const deletePost = await social.delete({ id });
-  console.log(deletePost);
+  console.log("testDelete:", deletePost);
 };
 
 /** Test post */
 const testPost = async () => {
   const post = await social.post({
-    post: "What a wonderful post!",
-    platforms: ["twitter", "facebook", "linkedin", "instagram"],
-    mediaUrls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"],
+    randomPost: true,
+    // platforms: ["twitter", "facebook", "linkedin", "instagram"],
+    platforms: ["twitter"],
+    randomMediaUrl: true,
     shortenLinks: true,
+    requiresApproval: true,
   });
-  console.log(post);
+  console.log("testPost: ", post);
+
+  return post.id;
+};
+
+/** Test Post Update */
+const testPostUpdate = async (id) => {
+  const post = await social.updatePost({
+    id,
+    approved: true,
+  });
+  console.log("test post update: ", post);
 
   return post.id;
 };
@@ -62,13 +77,13 @@ const testPost = async () => {
 /** Test Instagram post */
 const testInstagramPost = async () => {
   const postInstagram = await social.post({
-    post: "One more time",
+    randomPost: true,
     platforms: ["instagram"],
     media_urls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"],
     tagged: ["@ayrshare"],
     shorten_links: true,
   });
-  console.log(postInstagram);
+  console.log("testInstagramPost:", postInstagram);
 };
 
 /** Test Upload -  Video required*/
@@ -80,22 +95,35 @@ const testVideoPost = async () => {
     fileName: "Test.mp4",
     description: "A great test",
   });
-  console.log(upload);
+  console.log("testVideoPost:", upload);
 };
 
 const testAnalytics = async (id) => {
   const analytics = await social.analyticsPost({
     id,
-    platforms: ["facebook", "instagram", "twitter", "linkedin"],
+    // platforms: ["facebook", "instagram", "twitter", "linkedin"],
+    platforms: ["facebook"],
   });
-  return console.log("Analytics:", analytics);
+  return console.log("testAnalytics:", analytics);
+};
+
+const testAnalyticsSocial = async (platforms) => {
+  const analytics = await social.analyticsSocial({
+    platforms,
+  });
+  return console.log("testAnalyticsSocial:", analytics);
 };
 
 const testGetComments = async (id) => {
   const analytics = await social.getComments({
     id,
   });
-  return console.log("Comments:", analytics);
+  return console.log("testGetComments:", analytics);
+};
+
+const testListWebhooks = async () => {
+  const listWebhooks = await social.listWebhooks();
+  console.log("testListWebhooks:", listWebhooks);
 };
 
 const testPostComment = async (id) => {
@@ -104,7 +132,7 @@ const testPostComment = async (id) => {
     platforms: ["facebook", "instagram"],
     comment: "My thoughts exactly",
   });
-  return console.log("Comments:", analytics);
+  return console.log("testPostComment:", analytics);
 };
 
 /** Business Plan Membership - required  ---------------- */
@@ -121,7 +149,7 @@ const testDeleteProfile = async (profileKey) => {
   const deleteProfile = await social.deleteProfile({
     profileKey: profileKey,
   });
-  console.log(deleteProfile);
+  console.log("testDeleteProfile:", deleteProfile);
 };
 
 const testCreateandDelete = async () => {
@@ -139,16 +167,38 @@ const testGenerateJWT = async () => {
     profileKey: PROFILE_KEY,
   });
 
-  return console.log("JWT", jwt);
+  return console.log("testGenerateJWT", jwt);
+};
+
+const testUpdateProfile = async (profileKey) => {
+  const updateProfile = await social.updateProfile({
+    profileKey,
+    title: "A Nice Title",
+  });
+  console.log("UpdateProfile:", updateProfile);
+};
+
+const testUnlinkSocial = async (profileKey, platform) => {
+  const unlinkSocial = await social.unlinkSocial({ profileKey, platform });
+  console.log("testUnlinkSocial:", unlinkSocial);
+};
+
+const testGetBrandByUser = async (platforms, username) => {
+  const getBrandByUser = await social.getBrandByUser({
+    platforms,
+    instagramUser: username,
+  });
+  console.log("testGetBrandByUser:", getBrandByUser);
 };
 /** ------------------------------------------------ */
 
 const run = async () => {
-  const id = await testPost();
-  await testPostComment(id);
-  await testAnalytics(id);
-  await testGetComments(id);
-  return testDelete(id);
+  // const id = await testPost();
+  // const update = await testPostUpdate(id);
+  // await testPostComment(id);
+  // await testAnalytics("lZDx0mCKwpgCHGp9gLy5");
+  // await testGetComments(id);
+  // testDelete(id);
 };
 
 /*
@@ -161,11 +211,18 @@ testInstagramPost();
 testVideoPost();
 testAnalytics(id);
 testComments();
+testListWebhooks();
+testAnalyticsSocial(["facebook"]);
 */
 
 /** Business Plan */
-// testCreateProfile();
-// testCreateandDelete();
-// testGenerateJWT();
+/*
+  testCreateProfile();
+  testCreateandDelete();
+  testGenerateJWT();
+  testUnlinkSocial(PROFILE_KEY, "twitter");
+  testGetBrandByUser(["instagram"], "@ayrshare");
+  testUpdateProfile(PROFILE_KEY);
+*/
 
 run();

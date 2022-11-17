@@ -1,6 +1,7 @@
 const got = require("got");
 
-const BASE_URL = "https://app.ayrshare.com/api";
+// const BASE_URL = "https://app.ayrshare.com/api";
+const BASE_URL = "http://localhost:5001/ayrshare/us-central1/api";
 const ERROR_MSG = {
   status: "error",
   message:
@@ -47,19 +48,48 @@ const doDelete = (endpoint, data, headers) => {
     });
 };
 
-const doGet = (endpoint, headers, params) => {
+const doPut = (endpoint, data, headers) => {
   return got
-    .get(
-      `${BASE_URL}/${endpoint}?${
-        params
-          ? `${new URLSearchParams(preProcess(params)).toString()}`
-          : "source=npm"
-      }`,
-      {
-        headers,
-        responseType: "json",
+    .put(`${BASE_URL}/${endpoint}`, {
+      headers,
+      json: preProcess(data),
+      responseType: "json",
+    })
+    .then((res) => res.body)
+    .catch((err) => {
+      if (err && err.response && err.response.body) {
+        return err.response.body;
+      } else {
+        return err;
       }
-    )
+    });
+};
+
+const buildParams = (data) => {
+  const params = new URLSearchParams();
+  Object.entries(data).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      value.forEach((value, i) =>
+        params.append(`${key}[${i}]`, value.toString())
+      );
+    } else {
+      params.append(key, value.toString());
+    }
+  });
+
+  return params.toString();
+};
+
+const doGet = (endpoint, headers, params) => {
+  const url = `${BASE_URL}/${endpoint}?${
+    params ? buildParams(preProcess(params)) : "source=npm"
+  }`;
+
+  return got
+    .get(url, {
+      headers,
+      responseType: "json",
+    })
     .then((res) => res.body)
     .catch((err) => {
       if (err && err.response && err.response.body) {
@@ -80,9 +110,9 @@ class SocialPost {
   }
 
   post(data) {
-    const { post, platforms } = data;
+    const { post, randomPost, platforms } = data;
 
-    if (!post || !platforms || platforms.length === 0) {
+    if ((!post && !randomPost) || !platforms || platforms.length === 0) {
       return ERROR_MSG;
     }
 
@@ -96,11 +126,31 @@ class SocialPost {
       return ERROR_MSG;
     }
 
-    return doDelete("delete", data, this.headers);
+    return doDelete("post", data, this.headers);
   }
 
+  // new - DONE 1
+  updatePost(data) {
+    const { id } = data;
+
+    if (!id) {
+      return ERROR_MSG;
+    }
+
+    return doPut("post", data, this.headers);
+  }
+
+  // new - DONE 1
+  /**
+   * Handle history, history by id, and get all history
+   */
   history(params) {
-    const id = params && params.id ? params.id : null;
+    const id =
+      params && params.id
+        ? params.id
+        : params && params.platform
+        ? params.platform
+        : null;
 
     return doGet(`history${id ? `/${id}` : ""}`, this.headers, params);
   }
@@ -113,11 +163,25 @@ class SocialPost {
     return doGet("analytics/links", this.headers, params);
   }
 
+  // new - DONE 1
   analyticsPost(data) {
+    const { id, platforms } = data;
+
+    if (!id || !platforms) {
+      return ERROR_MSG;
+    }
+
     return doPost("analytics/post", data, this.headers);
   }
 
+  // new - DONE 1 
   analyticsSocial(data) {
+    const { platforms } = data;
+
+    if (!platforms) {
+      return ERROR_MSG;
+    }
+
     return doPost("analytics/social", data, this.headers);
   }
 
@@ -165,6 +229,22 @@ class SocialPost {
     return doDelete("feed", data, this.headers);
   }
 
+  // new
+  feedGet(data) {
+    return doGet("feed", data, this.headers);
+  }
+
+  // new
+  feedUpdate(data) {
+    const { id } = data;
+
+    if (!id) {
+      return ERROR_MSG;
+    }
+
+    return doPut("feed", data, this.headers);
+  }
+
   postComment(data) {
     const { id, platforms, comment } = data;
 
@@ -186,7 +266,7 @@ class SocialPost {
       return ERROR_MSG;
     }
 
-    return doPost("profiles/create-profile", data, this.headers);
+    return doPost("profiles/profile", data, this.headers);
   }
 
   deleteProfile(data) {
@@ -196,7 +276,18 @@ class SocialPost {
       return ERROR_MSG;
     }
 
-    return doDelete("profiles/delete-profile", data, this.headers);
+    return doDelete("profiles/profile", data, this.headers);
+  }
+
+  // new - DONE 1
+  updateProfile(data) {
+    const { profileKey } = data;
+
+    if (!profileKey) {
+      return ERROR_MSG;
+    }
+
+    return doPut("profiles/profile", data, this.headers);
   }
 
   getProfiles(params) {
@@ -211,6 +302,17 @@ class SocialPost {
     }
 
     return doPost("profiles/generateJWT", data, this.headers);
+  }
+
+  // new - DONE 1
+  unlinkSocial(data) {
+    const { profileKey, platform } = data;
+
+    if (!profileKey || !platform) {
+      return ERROR_MSG;
+    }
+
+    return doDelete("profiles/social", data, this.headers);
   }
 
   setAutoSchedule(data) {
@@ -253,6 +355,17 @@ class SocialPost {
 
   listWebhooks(params) {
     return doGet("hook/webhook", this.headers, params);
+  }
+
+  // new - DONE 1
+  getBrandByUser(params) {
+    const { platforms } = params;
+
+    if (!platforms) {
+      return ERROR_MSG;
+    }
+
+    return doGet("brand/byUser", this.headers, params);
   }
 }
 

@@ -1,7 +1,7 @@
 {
 	"name": "social-post-api",
-	"version": "1.0.20",
-	"description": "Social media posting APIs for Twitter, Instagram, Facebook Pages, Facebook Groups, LinkedIn, YouTube, Google My Business, Reddit, TikTok, and Telegram. Easily integrate with your platform or app to schedule posts, get analytics, or add comments on behalf of your users.",
+	"version": "1.0.4",
+	"description": "Social Media API to post and get analytics for Twitter, Instagram, Facebook Pages, Facebook Groups, LinkedIn, YouTube, Google My Business, Reddit, TikTok, and Telegram. Easily integrate with your platform or app to schedule posts, get analytics, or add comments on behalf of your users.",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
@@ -14,6 +14,7 @@
 		"Social Networking",
 		"Social Posting",
 		"Social Media API",
+		"Social API",
 		"API Social Post",
 		"Automation",
 		"Automate Social Post",
@@ -29,6 +30,7 @@
 		"TikTok API",
 		"TikTok Posting",
 		"Instagram",
+		"Instgram API",
 		"Schedule Social Media",
 		"Social Media White Label",
 		"Social Media Multiple Users",
@@ -48,6 +50,6 @@
 	"homepage": "https://www.ayrshare.com",
 	"dependencies": {
 		"datauri": "^3.0.0",
-		"got": "^11.8.2"
+		"got": "^11.8.5"
 	}
 }

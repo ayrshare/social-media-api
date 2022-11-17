@@ -1,4 +1,4 @@
-# Social Media Posting and Scheduling APIs
+# Social Media APIs for Posting, Scheduling, and Analytics
 
 <img src="https://www.ayrshare.com/wp-content/uploads/2020/08/ayr-logo-2156-reduced.png" width="400">
 
@@ -10,7 +10,7 @@ The Ayrshare API handles all the setup and maintenance for the social media netw
 
 Get started with a [free plan](https://www.ayrshare.com/pricing), or if you have a platform or manage multiple users check out the [Business Plan](https://www.ayrshare.com/business-plan-for-multiple-users/).
 
-For more information on setup, see our installation [video](https://youtu.be/WQTQmjvqvMM) or our [Quick Start Guide](https://docs.ayrshare.com/quick-start-guide).
+For more information on setup, see our installation [video](https://youtu.be/G8M6DZdtcMc) or our [Quick Start Guide](https://docs.ayrshare.com/quick-start-guide).
 
 ## Installation
 
@@ -22,13 +22,13 @@ For more information on setup, see our installation [video](https://youtu.be/WQT
 
    ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2021/07/ayrshare-login.jpg)
 
-**2.** Enable your social media accounts such as Twitter, Facebook, LinkedIn, Reddit, Instagram, Google My Business, or Telegram in the Ayrshare dashboard.
+**2.** Enable your social media accounts such as Twitter, Facebook, LinkedIn, Reddit, Instagram, Google My Business, Telegram, TikTok, or YouTube in the Ayrshare dashboard.
 
-   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2021/07/ayrshare-social-linkage-scaled.jpg)
+   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/social-api-linking.jpg)
   
 **3.** Copy your API Key from the Ayrshare dashboard. Used for authentication.
 
-   ![alt API Key](https://www.ayrshare.com/wp-content/uploads/2021/07/ayrshare-api-key-scaled.jpg)
+   ![alt API Key](https://www.ayrshare.com/wp-content/uploads/social-api-key.jpg)
 
 
 ## Getting Started
@@ -56,7 +56,7 @@ const run = async () => {
   const post = await social.post({
     post: "Who you gonna call?",
     platforms: ["twitter", "facebook", "fbg", "instagram", "linkedin", "gmb"],
-    mediaUrls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"]
+    mediaUrls: ["https://img.ayrshare.com/012/gb.jpg"]
   }).catch(console.error);
   console.log(post);
 
@@ -75,7 +75,9 @@ run();
 ```
 
 
-## API
+## Social API
+
+The following section details the different functions of the social media API.
 
 ### Post
 
@@ -94,7 +96,7 @@ const postResponse = await social.post({
     platforms: ["twitter", "facebook", "fbg", "instagram", "linkedin", "gmb", "telegram"],
 
     // Optional: URLs of images or videos to include in the post
-    mediaUrls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"],
+    mediaUrls: ["https://img.ayrshare.com/012/gb.jpg"],
 
     // Optional: Datetime to schedule a future post. 
     // Accepts an ISO-8601 UTC date time in format "YYYY-MM-DDThh:mm:ssZ". Example: 2021-07-08T12:30:00Z
@@ -136,6 +138,14 @@ Get history by post ID
 ``` javascript
 const historyByIdResponse = await social.history({
   id: "pK0j89" // required: Ayrshare top level post ID
+}).catch(console.error);
+```
+
+Get All Post History
+
+``` javascript
+const historyAllPostsResponse = await social.history({
+  platform: "facebook"
 }).catch(console.error);
 ```
 
@@ -203,7 +213,7 @@ const analyticsPost = await social.analyticsPost({
 
 ``` javascript
 const analyticsSocial = await social.analyticsSocial({
-  platforms: ["twitter", "instagram", "facebook", "youtube", "pinterest"]
+  platforms: ["twitter", "instagram", "facebook", "youtube", "pinterest", "tiktok", "reddit", "linkedin"]
 }).catch(console.error);
 ```
 
@@ -274,7 +284,7 @@ const feedResponse = await social.feedDelete({
   }).catch(console.error);
 ```
 
-## Business Member Functions for Multiple Users - Business or Enterprise Plan Required
+## Business Functions for Multiple Users - Business or Enterprise Plan Required
 
 The [Business Plan](https://www.ayrshare.com/business-plan-for-multiple-users/) allows you to create, manage, and post on behalf of client profiles via the API or Dashboard GUI. You can [integrate](https://docs.ayrshare.com/multiple-client-accounts/overview) Ayrshare into your platform, product, or agency and give your clients social media capabilites. Please [contact us](mailto:contact@ayrshare.com) with any questions.
 
@@ -300,12 +310,36 @@ const deleteProfileResponse = await social.deleteProfile({
   }).catch(console.error);
 ```
 
+### Update Profile
+
+Update a profile owned by the primary account. See the [update profile endpoint](https://docs.ayrshare.com/rest-api/endpoints/profiles#update-a-user-profile) for more details.
+
+``` javascript
+const updateProfileResponse = await social.updateProfile({
+    // Required: profileKey - the API Key of the profile to delete
+    profileKey: "JI9s-kJII-9283-OMKM",
+    title: "This is a greate new title"
+  }).catch(console.error);
+```
+
 ### Get Profiles
 
-Get all the profiles associated with the Primary account. See the [get profile endpoint](https://docs.ayrshare.com/rest-api/endpoints/profiles#get-profiles) for more details.
+Get all the profiles associated with the primary account. See the [get profile endpoint](https://docs.ayrshare.com/rest-api/endpoints/profiles#get-profiles) for more details.
 
 ``` javascript
 const getProfileResponse = await social.getProfiles().catch(console.error);
+```
+
+### Unlink Social Network
+
+Unlink a social account for a given user profile owned by the primary account. See the [unlink social network endpoint](https://docs.ayrshare.com/rest-api/endpoints/profiles#unlink-a-social-network) for more details.
+
+``` javascript
+const unlinkResponse = await social.unlinkSocial({
+    // Required: profileKey - the API Key of the profile to delete
+    profileKey: "JI9s-kJII-9283-OMKM",
+    platform: "facebook"
+  }).catch(console.error);
 ```
 
 ### Generate a JWT Url
@@ -318,6 +352,18 @@ const generateJWTResponse = await social.generateJWT({
     privateKey: "-----BEGIN RSA PRIVATE KEY...", // required
     profileKey: "PROFILE_KEY", // required
 }).catch(console.error);
+```
+
+### Get Brand Info on a User
+
+Get brand information on users and companies public social media accounts. See the [brand endpoint](https://docs.ayrshare.com/rest-api/endpoints/brand) for more details.
+
+``` javascript
+const brandResponse = await social.getBrandByUser({
+    platforms: ["intsgram", "facebook"],
+    instagramUser: "@ayrshare",
+    facebookUser: "ayrshare",
+  }).catch(console.error);
 ```
 
 ### Register, Unregister, and List Webhooks
@@ -352,6 +398,6 @@ Additional examples, responses, etc. can be found at:
 
 [RESTful API Endpoint Docs](https://docs.ayrshare.com/rest-api/endpoints)
 
-See our [changelog](https://docs.ayrshare.com/additional-info/whats-new-in-2021) for the latest and greatest.
+See our [changelog](https://docs.ayrshare.com/additional-info/whats-new) for the latest and greatest.
 
-Please [contact us](mailto:contact@ayrshare.com) with your questions, or just to give us shout-out 📢!
+Please [contact us](mailto:support@ayrshare.com) with your questions, or just to give us shout-out 📢!
