@@ -193,7 +193,7 @@ const testGetBrandByUser = async (platforms, username) => {
 /** ------------------------------------------------ */
 
 const run = async () => {
-  // const id = await testPost();
+  const id = await testPost();
   // const update = await testPostUpdate(id);
   // await testPostComment(id);
   // await testAnalytics("lZDx0mCKwpgCHGp9gLy5");

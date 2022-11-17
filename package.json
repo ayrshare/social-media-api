@@ -1,6 +1,6 @@
 {
 	"name": "social-post-api",
-	"version": "1.0.4",
+	"version": "1.1.1",
 	"description": "Social Media API to post and get analytics for Twitter, Instagram, Facebook Pages, Facebook Groups, LinkedIn, YouTube, Google My Business, Reddit, TikTok, and Telegram. Easily integrate with your platform or app to schedule posts, get analytics, or add comments on behalf of your users.",
 	"main": "index.js",
 	"repository": {

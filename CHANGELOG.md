@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.4] 2022-11-17
+## [1.1.1] 2022-11-17
 
 - Added new functions: `updateProfile`, `unlinkSocial`, `getBrandByUser`.
 - Added `history` get all posts.
