@@ -2,11 +2,11 @@
 
 <img src="https://www.ayrshare.com/wp-content/uploads/2020/08/ayr-logo-2156-reduced.png" width="400">
 
-Social Post API is a wrapper SDK for [Ayrshare's APIs](https://www.ayrshare.com).
+The Social Media API is a wrapper SDK for [Ayrshare's APIs](https://www.ayrshare.com).
 
-Ayrshare is a powerful set of APIs that enable you to send social media posts, get analytics, and add comments to *Twitter*, *Instagram*, *Facebook*, *LinkedIn*, *YouTube*, *Google My Business*, *Pinterest*, *TikTok*, *Reddit*, and *Telegram* on behalf of your users.
+Ayrshare is a powerful set of APIs that enable you to send social media posts, get analytics, and add comments to *Twitter*, *Instagram*, *Facebook*, *LinkedIn*, *YouTube*, *Google My Business*, *Pinterest*, *TikTok*, *Reddit*, and *Telegram* on behalf of your users or clients.
 
-The Ayrshare API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the full list of [full list of features](https://docs.ayrshare.com/rest-api/overview).
+The Ayrshare Social API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the full list of [full list of features](https://docs.ayrshare.com/rest-api/overview).
 
 Get started with a [free plan](https://www.ayrshare.com/pricing), or if you have a platform or manage multiple users check out the [Business Plan](https://www.ayrshare.com/business-plan-for-multiple-users/).
 
