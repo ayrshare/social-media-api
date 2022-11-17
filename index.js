@@ -1,7 +1,7 @@
 const got = require("got");
 
-// const BASE_URL = "https://app.ayrshare.com/api";
-const BASE_URL = "http://localhost:5001/ayrshare/us-central1/api";
+const BASE_URL = "https://app.ayrshare.com/api";
+// const BASE_URL = "http://localhost:5001/ayrshare/us-central1/api";
 const ERROR_MSG = {
   status: "error",
   message:
@@ -129,7 +129,6 @@ class SocialPost {
     return doDelete("post", data, this.headers);
   }
 
-  // new - DONE 1
   updatePost(data) {
     const { id } = data;
 
@@ -140,7 +139,6 @@ class SocialPost {
     return doPut("post", data, this.headers);
   }
 
-  // new - DONE 1
   /**
    * Handle history, history by id, and get all history
    */
@@ -163,7 +161,6 @@ class SocialPost {
     return doGet("analytics/links", this.headers, params);
   }
 
-  // new - DONE 1
   analyticsPost(data) {
     const { id, platforms } = data;
 
@@ -229,12 +226,10 @@ class SocialPost {
     return doDelete("feed", data, this.headers);
   }
 
-  // new
   feedGet(data) {
     return doGet("feed", data, this.headers);
   }
 
-  // new
   feedUpdate(data) {
     const { id } = data;
 
@@ -279,7 +274,6 @@ class SocialPost {
     return doDelete("profiles/profile", data, this.headers);
   }
 
-  // new - DONE 1
   updateProfile(data) {
     const { profileKey } = data;
 
@@ -304,7 +298,6 @@ class SocialPost {
     return doPost("profiles/generateJWT", data, this.headers);
   }
 
-  // new - DONE 1
   unlinkSocial(data) {
     const { profileKey, platform } = data;
 
@@ -357,7 +350,6 @@ class SocialPost {
     return doGet("hook/webhook", this.headers, params);
   }
 
-  // new - DONE 1
   getBrandByUser(params) {
     const { platforms } = params;
 
