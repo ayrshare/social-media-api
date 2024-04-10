@@ -28,7 +28,7 @@ const testUser = async () => {
 const testFeed = async () => {
   const feedAdd = await social.feedAdd({
     type: "substack",
-    url: "https://bankless.substack.com/",
+    url: "https://bankless.substack.com/"
   });
   console.log("testFeed:", feedAdd);
 };
@@ -37,7 +37,7 @@ const testFeed = async () => {
 const testAutoSchedule = async () => {
   const setAutoSchedule = await social.setAutoSchedule({
     schedule: ["13:05Z", "20:14Z"],
-    title: "test",
+    title: "test"
   });
   console.log("testAutoSchedule:", setAutoSchedule);
 };
@@ -56,18 +56,28 @@ const testPost = async () => {
     platforms: ["twitter"],
     randomMediaUrl: true,
     shortenLinks: true,
-    requiresApproval: true,
+    requiresApproval: true
   });
   console.log("testPost: ", post);
 
   return post.id;
 };
 
+const testGetPost = async (id) => {
+  const post = await social.getPost({ id });
+  console.log("testGetPost: ", post);
+};
+
+const testRetryPost = async (id) => {
+  const post = await social.retryPost({ id });
+  console.log("testRetryPost: ", post);
+};
+
 /** Test Post Update */
 const testPostUpdate = async (id) => {
   const post = await social.updatePost({
     id,
-    approved: true,
+    approved: true
   });
   console.log("test post update: ", post);
 
@@ -81,7 +91,7 @@ const testInstagramPost = async () => {
     platforms: ["instagram"],
     media_urls: ["https://images.ayrshare.com/imgs/GhostBusters.jpg"],
     tagged: ["@ayrshare"],
-    shorten_links: true,
+    shorten_links: true
   });
   console.log("testInstagramPost:", postInstagram);
 };
@@ -93,7 +103,7 @@ const testVideoPost = async () => {
   const upload = await social.upload({
     file: content,
     fileName: "Test.mp4",
-    description: "A great test",
+    description: "A great test"
   });
   console.log("testVideoPost:", upload);
 };
@@ -102,21 +112,21 @@ const testAnalytics = async (id) => {
   const analytics = await social.analyticsPost({
     id,
     // platforms: ["facebook", "instagram", "twitter", "linkedin"],
-    platforms: ["facebook"],
+    platforms: ["facebook"]
   });
   return console.log("testAnalytics:", analytics);
 };
 
 const testAnalyticsSocial = async (platforms) => {
   const analytics = await social.analyticsSocial({
-    platforms,
+    platforms
   });
   return console.log("testAnalyticsSocial:", analytics);
 };
 
 const testGetComments = async (id) => {
   const analytics = await social.getComments({
-    id,
+    id
   });
   return console.log("testGetComments:", analytics);
 };
@@ -130,7 +140,7 @@ const testPostComment = async (id) => {
   const analytics = await social.postComment({
     id,
     platforms: ["facebook", "instagram"],
-    comment: "My thoughts exactly",
+    comment: "My thoughts exactly"
   });
   return console.log("testPostComment:", analytics);
 };
@@ -138,7 +148,7 @@ const testPostComment = async (id) => {
 /** Business Plan Membership - required  ---------------- */
 const testCreateProfile = async () => {
   const createProfile = await social.createProfile({
-    title: "Best Profile Title Ever",
+    title: "Best Profile Title Ever"
   });
   console.log(createProfile);
 
@@ -147,7 +157,7 @@ const testCreateProfile = async () => {
 
 const testDeleteProfile = async (profileKey) => {
   const deleteProfile = await social.deleteProfile({
-    profileKey: profileKey,
+    profileKey: profileKey
   });
   console.log("testDeleteProfile:", deleteProfile);
 };
@@ -164,7 +174,7 @@ const testGenerateJWT = async () => {
   const jwt = await social.generateJWT({
     domain: DOMAIN,
     privateKey,
-    profileKey: PROFILE_KEY,
+    profileKey: PROFILE_KEY
   });
 
   return console.log("testGenerateJWT", jwt);
@@ -173,7 +183,7 @@ const testGenerateJWT = async () => {
 const testUpdateProfile = async (profileKey) => {
   const updateProfile = await social.updateProfile({
     profileKey,
-    title: "A Nice Title",
+    title: "A Nice Title"
   });
   console.log("UpdateProfile:", updateProfile);
 };
@@ -186,14 +196,149 @@ const testUnlinkSocial = async (profileKey, platform) => {
 const testGetBrandByUser = async (platforms, username) => {
   const getBrandByUser = await social.getBrandByUser({
     platforms,
-    instagramUser: username,
+    instagramUser: username
   });
   console.log("testGetBrandByUser:", getBrandByUser);
 };
+
+const testMediaMeta = async (url) => {
+  const mediaMeta = await social.mediaMeta({
+    url
+  });
+  console.log("testMediaMeta:", mediaMeta);
+};
+
+const testMediaUploadUrl = async (fileName, contentType) => {
+  const mediaMeta = await social.mediaUploadUrl({
+    fileName,
+    contentType
+  });
+  console.log("testMediaUploadUrl:", mediaMeta);
+};
+
+const testGeneratePost = async (text) => {
+  const generatePost = await social.generatePost({
+    text
+  });
+  console.log("testGeneratePost:", generatePost);
+};
+
+const testGenerateRewrite = async (post) => {
+  const generateRewrite = await social.generateRewrite({
+    post
+  });
+  console.log("testGenerateRewrite:", generateRewrite);
+};
+
+const testGenerateTranscription = async (videoUrl) => {
+  const generateTranscription = await social.generateTranscription({
+    videoUrl
+  });
+  console.log("testGenerateTranscription:", generateTranscription);
+};
+
+const testGenerateTranslation = async (text, lang) => {
+  const generateTranslation = await social.generateTranslation({
+    text,
+    lang
+  });
+  console.log("testGenerateTranslation:", generateTranslation);
+};
+
+const testGenerateAltText = async (url) => {
+  const generateAltText = await social.generateAltText({
+    url
+  });
+  console.log("testGenerateAltText:", generateAltText);
+};
+
+const testAutoHashtags = async (post) => {
+  const autoHashtags = await social.autoHashtags({
+    post
+  });
+  console.log("testAutoHashtags:", autoHashtags);
+};
+
+const testRecommendHashtags = async (keyword) => {
+  const recommendHashtags = await social.recommendHashtags({
+    keyword
+  });
+  console.log("testRecommendHashtags:", recommendHashtags);
+};
+
+const testCheckBannedHashtags = async (hashtag) => {
+  const checkBannedHashtags = await social.checkBannedHashtags({
+    hashtag
+  });
+  console.log("testCheckBannedHashtags:", checkBannedHashtags);
+};
+
+const testShortLink = async (url) => {
+  const shortLink = await social.shortLink({
+    url
+  });
+  console.log("testShortLink:", shortLink);
+};
+
+const testShortLinkAnalytics = async (id) => {
+  const shortLinkAnalytics = await social.shortLinkAnalytics({
+    id
+  });
+  console.log("testShortLinkAnalytics:", shortLinkAnalytics);
+};
+
+const testReviews = async (platform) => {
+  const reviews = await social.reviews({ platform });
+  console.log("testReviews:", reviews);
+};
+
+const testReview = async (id, platform) => {
+  const review = await social.review({
+    id,
+    platform
+  });
+  console.log("testReview:", review);
+};
+
+const testReplyReview = async (reviewId, platform, reply) => {
+  const replyReview = await social.replyReview({
+    reviewId,
+    platform,
+    reply
+  });
+  console.log("testReplyReview:", replyReview);
+};
+
+const testDeleteReview = async (reviewId, platform) => {
+  const deleteReview = await social.deleteReview({
+    reviewId,
+    platform
+  });
+  console.log("testDeleteReview:", deleteReview);
+};
+
+const testDeleteComments = async (id) => {
+  const deleteComment = await social.deleteComments({
+    id
+  });
+  console.log("testDeleteComment:", deleteComment);
+};
+
+const testReplyComment = async (commentId, platforms, comment) => {
+  const replyComment = await social.replyComment({
+    commentId,
+    platforms,
+    comment
+  });
+  console.log("testReplyComment:", replyComment);
+};
+
 /** ------------------------------------------------ */
 
 const run = async () => {
-  const id = await testPost();
+  // const id = await testPost();
+  // await testGetPost(id);
+  // await testRetryPost(id);
   // const update = await testPostUpdate(id);
   // await testPostComment(id);
   // await testAnalytics("lZDx0mCKwpgCHGp9gLy5");
@@ -201,9 +346,7 @@ const run = async () => {
   // testDelete(id);
 };
 
-/*
-testHistory();
-testUser();
+/*testUser();
 testAutoSchedule();
 testFeed();
 testPost();
@@ -213,6 +356,13 @@ testAnalytics(id);
 testComments();
 testListWebhooks();
 testAnalyticsSocial(["facebook"]);
+testMediaMeta("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg");
+testDeleteComment("XOVUGutufIy5UZFb01e0");
+testReplyComment(
+  "Nsa2SWqt32BuY4ooeh7Au",
+  ["instagram"],
+  "Thank you for the comment!"
+);
 */
 
 /** Business Plan */
@@ -223,6 +373,25 @@ testAnalyticsSocial(["facebook"]);
   testUnlinkSocial(PROFILE_KEY, "twitter");
   testGetBrandByUser(["instagram"], "@ayrshare");
   testUpdateProfile(PROFILE_KEY);
+  testMediaUploadUrl("tree.jpg", "jpeg");
+  testAutoHashtags("This is a test post");
+  testRecommendHashtags("post");
+  testCheckBannedHashtags("instagram");
+  testReviews("facebook");
+  testReview("10114455408676943", "facebook");
+  testReplyReview("10114455408676943", "facebook", "Thank you for the review!");
+  testDeleteReview("10114455408676943", "facebook");
+*/
+
+/* Max Pack */
+/*
+  testGeneratePost("This is a test post");
+  testGenerateRewrite("This is a test post");
+  testGenerateTranscription("https://img.ayrshare.com/random/landscape5.mp4");
+  testGenerateTranslation("This is a test post", "fr");
+  testGenerateAltText("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg");
+  testShortLink("https://www.ayrshare.com/");
+  testShortLinkAnalytics("qR--d8");
 */
 
 run();

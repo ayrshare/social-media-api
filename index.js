@@ -5,7 +5,7 @@ const BASE_URL = "https://app.ayrshare.com/api";
 const ERROR_MSG = {
   status: "error",
   message:
-    "Wrong parameters. Please check at https://docs.ayrshare.com/rest-api/endpoints",
+    "Wrong parameters. Please check at https://docs.ayrshare.com/rest-api/endpoints"
 };
 
 const preProcess = (data) => {
@@ -19,7 +19,7 @@ const doPost = (endpoint, data, headers) => {
     .post(`${BASE_URL}/${endpoint}`, {
       headers,
       json: preProcess(data),
-      responseType: "json",
+      responseType: "json"
     })
     .then((res) => res.body)
     .catch((err) => {
@@ -36,7 +36,7 @@ const doDelete = (endpoint, data, headers) => {
     .delete(`${BASE_URL}/${endpoint}`, {
       headers,
       json: preProcess(data),
-      responseType: "json",
+      responseType: "json"
     })
     .then((res) => res.body)
     .catch((err) => {
@@ -53,7 +53,7 @@ const doPut = (endpoint, data, headers) => {
     .put(`${BASE_URL}/${endpoint}`, {
       headers,
       json: preProcess(data),
-      responseType: "json",
+      responseType: "json"
     })
     .then((res) => res.body)
     .catch((err) => {
@@ -88,7 +88,7 @@ const doGet = (endpoint, headers, params) => {
   return got
     .get(url, {
       headers,
-      responseType: "json",
+      responseType: "json"
     })
     .then((res) => res.body)
     .catch((err) => {
@@ -105,7 +105,7 @@ class SocialPost {
     this.apiKey = apiKey;
     this.headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
+      Authorization: `Bearer ${apiKey}`
     };
   }
 
@@ -139,6 +139,26 @@ class SocialPost {
     return doPut("post", data, this.headers);
   }
 
+  retryPost(data) {
+    const { id } = data;
+
+    if (!id) {
+      return ERROR_MSG;
+    }
+
+    return doPut("post/retry", data, this.headers);
+  }
+
+  getPost(data) {
+    const { id } = data;
+
+    if (!id) {
+      return ERROR_MSG;
+    }
+
+    return doGet(`post/${id}`, this.headers);
+  }
+
   /**
    * Handle history, history by id, and get all history
    */
@@ -157,6 +177,14 @@ class SocialPost {
     return doGet("media", this.headers, params);
   }
 
+  mediaMeta(params) {
+    return doGet("media/meta", this.headers, params);
+  }
+
+  mediaUploadUrl(params) {
+    return doGet("media/uploadUrl", this.headers, params);
+  }
+
   analyticsLinks(params) {
     return doGet("analytics/links", this.headers, params);
   }
@@ -171,7 +199,7 @@ class SocialPost {
     return doPost("analytics/post", data, this.headers);
   }
 
-  // new - DONE 1 
+  // new - DONE 1
   analyticsSocial(data) {
     const { platforms } = data;
 
@@ -196,14 +224,14 @@ class SocialPost {
     return doPost("upload", data, this.headers);
   }
 
-  shorten(data) {
+  short(data) {
     const { url } = data;
 
     if (!url) {
       return ERROR_MSG;
     }
 
-    return doPost("shorten", data, this.headers);
+    return doPost("short", data, this.headers);
   }
 
   feedAdd(data) {
@@ -251,7 +279,33 @@ class SocialPost {
   }
 
   getComments(params) {
-    return doGet("comments", this.headers, params);
+    const { id } = params;
+
+    if (!id) {
+      return ERROR_MSG;
+    }
+
+    return doGet(`comments/${id}`, this.headers, params);
+  }
+
+  deleteComments(params) {
+    const { id } = params;
+
+    if (!id) {
+      return ERROR_MSG;
+    }
+
+    return doDelete(`comments/${id}`, params, this.headers);
+  }
+
+  replyComment(params) {
+    const { commentId, platforms, comment } = params;
+
+    if (!commentId || !platforms || !comment) {
+      return ERROR_MSG;
+    }
+
+    return doPost(`comments/reply`, params, this.headers);
   }
 
   createProfile(data) {
@@ -358,6 +412,146 @@ class SocialPost {
     }
 
     return doGet("brand/byUser", this.headers, params);
+  }
+
+  generatePost(params) {
+    const { text } = params;
+
+    if (!text) {
+      return ERROR_MSG;
+    }
+
+    return doPost("generate/post", params, this.headers);
+  }
+
+  generateRewrite(params) {
+    const { post } = params;
+
+    if (!post) {
+      return ERROR_MSG;
+    }
+
+    return doPost("generate/rewrite", params, this.headers);
+  }
+
+  generateTranscription(params) {
+    const { videoUrl } = params;
+
+    if (!videoUrl) {
+      return ERROR_MSG;
+    }
+
+    return doPost("generate/transcription", params, this.headers);
+  }
+
+  generateTranslation(params) {
+    const { text, lang } = params;
+
+    if (!text || !lang) {
+      return ERROR_MSG;
+    }
+
+    return doPost("generate/translate", params, this.headers);
+  }
+
+  generateAltText(params) {
+    const { url } = params;
+
+    if (!url) {
+      return ERROR_MSG;
+    }
+
+    return doPost("generate/altText", params, this.headers);
+  }
+
+  autoHashtags(params) {
+    const { post } = params;
+
+    if (!post) {
+      return ERROR_MSG;
+    }
+
+    return doPost("hashtags/auto", params, this.headers);
+  }
+
+  recommendHashtags(params) {
+    const { keyword } = params;
+
+    if (!keyword) {
+      return ERROR_MSG;
+    }
+
+    return doGet(`hashtags/recommend`, this.headers, params);
+  }
+
+  checkBannedHashtags(params) {
+    const { hashtag } = params;
+
+    if (!hashtag) {
+      return ERROR_MSG;
+    }
+
+    return doGet("hashtags/banned", this.headers, params);
+  }
+
+  shortLink(params) {
+    const { url } = params;
+
+    if (!url) {
+      return ERROR_MSG;
+    }
+
+    return doPost("links", params, this.headers);
+  }
+
+  shortLinkAnalytics(params) {
+    const { id } = params;
+
+    if (!id) {
+      return ERROR_MSG;
+    }
+
+    return doGet(`links/${id}`, this.headers, params);
+  }
+
+  reviews(params) {
+    const { platform } = params;
+
+    if (!platform) {
+      return ERROR_MSG;
+    }
+
+    return doGet("reviews", this.headers, params);
+  }
+
+  review(params) {
+    const { id, platform } = params;
+
+    if (!platform || !id) {
+      return ERROR_MSG;
+    }
+
+    return doGet(`reviews/${id}`, this.headers, params);
+  }
+
+  replyReview(params) {
+    const { platform, reviewId, reply } = params;
+
+    if (!platform || !reviewId || !reply) {
+      return ERROR_MSG;
+    }
+
+    return doPost("reviews", params, this.headers);
+  }
+
+  deleteReview(params) {
+    const { platform, reviewId } = params;
+
+    if (!platform || !reviewId) {
+      return ERROR_MSG;
+    }
+
+    return doDelete("reviews", params, this.headers);
   }
 }
 
