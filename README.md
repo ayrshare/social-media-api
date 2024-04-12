@@ -122,6 +122,23 @@ const deleteResponse = await social.delete({
   }).catch(console.error);
 ```
 
+### Get Post
+
+Get a post with a given post ID, obtained from the "post" response. Returns a promise that resolves to an array containing the post object. See the [get endpoint](https://docs.ayrshare.com/rest-api/endpoints/post#get-retrieve-a-post) for more details.
+
+``` javascript
+const getResponse = await social.getPost({ id }).catch(console.error);
+```
+
+### Retry Post
+
+Retry a failed post with a given post ID, obtained from the "post" response. Returns a promise that resolves to an object containing the post status and ID. See the [retry endpoint](https://docs.ayrshare.com/rest-api/endpoints/post#put-retry-a-post) for more details.
+
+``` javascript
+const retryResponse = await social.retryPost({ id }).catch(console.error);
+```
+
+
 ### History
 
 Get a history of all posts and their current status in descending order. Returns a promise that resolves to an array of post objects. See the [history endpoint](https://docs.ayrshare.com/rest-api/endpoints/history) for more details.
@@ -174,23 +191,48 @@ Get all media URLS. Returns a promise that resolves to an array of URL objects. 
 const mediaResponse = await social.media().catch(console.error);
 ```
 
+### Get Media Upload URL for Large Files
+
+Get a URL to upload large files. Returns a promise that resolves to an object containing an access URL and an upload URL. See the [media upload url endpoint](https://docs.ayrshare.com/rest-api/endpoints/media#upload-large-media-files) for more details.
+
+``` javascript
+const mediaUploadResponse = await social.mediaUploadUrl({ 
+    fileName: "test.png", // required: The name of the file to upload
+    contentType: "image/png" // required: The content type of the file
+}).catch(console.error);
+```
+
+### Verify Media Exists
+
+Verify that the media file exists when uploaded. See the [media verify exists endpoint](https://docs.ayrshare.com/rest-api/endpoints/media#verify-media-url-exists) for more details.
+
+``` javascript
+const verifyMediaResponse = await social.verifyMediaExists({
+    mediaUrl: "https://theImage.jpg" // required: URL of the image to verify exists
+}).catch(console.error);
+```
+
+### Resize Image
+
+Get image resized according to social network requirements. See the [resize image endpoint](https://docs.ayrshare.com/rest-api/endpoints/media#resize-an-image) for more details.
+
+``` javascript
+const resizeImageResponse = await social.resizeImage({
+    imageUrl: "https://theImage.jpg", // required: URL of the image to resize
+    platform: "facebook" // required: Platform to resize the image for. 
+    watermarkUrl: "https://theWatermark.png", // optional: URL of the watermark image to add to the image.
+    effects: { color: "#A020F0" } // optional: Change opacity, colors, etc. See endpoint for more details.
+    dimensions: { width: 1200, height: 628 } // optional: Width and height of the image. Required if platform is not specified.
+    mode: "blur" // optional. See endpoint for more details.
+}).catch(console.error);
+```
+
 ### User
 
 Get data about the logged in user, such as post quota, used quota, active social networks, and created date. See the [user endpoint](https://docs.ayrshare.com/rest-api/endpoints/user) for more details.
 
 ``` javascript
 const user = await social.user().catch(console.error);
-```
-
-### Shorten URL
-
-Shorten a URL and return the shortened URL. See the [shorten endpoint](https://docs.ayrshare.com/rest-api/endpoints/shorten) for more details.
-
-``` javascript
-const shortenResponse = await social.shorten({
-    // Required: URL to shorten
-    url: "https://theURLtoShorten.com/whatmore",
-  }).catch(console.error);
 ```
 
 ### Analytics
@@ -236,6 +278,29 @@ Get comments for a post. Currently only on Facebook and Instagram. See the [get 
 ``` javascript
 const getCommentResponse = await social.getComments({
     id: "Pkdo9sjk2", // required: Post top-level ID.
+  }).catch(console.error);
+```
+
+### Delete Comments
+
+Delete either a single comment or all comments under a post that were sent via Ayrshare. Available for Facebook, Instagram, LinkedIn, Reddit, TikTok, X/Twitter, and YouTube. See the [delete comment endpoint](https://docs.ayrshare.com/rest-api/endpoints/comments#delete-delete-comments) for more details.
+
+``` javascript
+const deleteCommentResponse = await social.deleteComment({
+    id: "Pkdo9sjk2", // required: Post top-level ID or social comment ID
+    platforms: ["instagram", "facebook"], // optional: Required only if using the social comment id.
+  }).catch(console.error);
+```
+
+### Reply Comment
+
+Reply to a comment. Available for Facebook, Instagram, LinkedIn, TikTok, X/Twitter, and YouTube. See the [reply comment endpoint](https://docs.ayrshare.com/rest-api/endpoints/comments#post-reply-to-a-comment) for more details.
+
+``` javascript
+const replyCommentResponse = await social.replyComment({
+    commentId: "Pkdo9sjk2", // required: The Ayrshare commentId returned from the POST comment endpoint. Be sure to use the top level commentId.
+    platforms: ["instagram", "facebook"], // required: Array of platforms to post the reply. Values: facebook, instagram, linkedin, tiktok, twitter, youtube
+    comment: "What a comment" // required: The reply to add to the comment.
   }).catch(console.error);
 ```
 
@@ -385,6 +450,171 @@ const unregisterWebhook = await social.unregisterWebhook({
 
 ``` javascript
 const listWebhooks = await social.listWebhooks().catch(console.error);
+```
+
+### Generate Post
+
+Generate a new social post using ChatGPT. Token limits applicable. See the [generate post endpoint](https://docs.ayrshare.com/rest-api/endpoints/generate#generate-a-post-text) for more details.
+
+``` javascript
+const generatePostResponse = await social.generatePost({
+    text: "I love social media", // required: Description of what the post should be about. 
+    hashtags: true, //optional: Include hashtags in the post. Default: true
+    emojis: true, // optional: Include emojis in the post. Default: false
+    twitter: true, // optional: Construct a post 280 or few characters. Default: false
+}).catch(console.error);
+```
+
+### Generate Rewrite
+Generate variations of a social media post using ChatGPT. Token limits applicable. See the [generate rewrite endpoint](https://docs.ayrshare.com/rest-api/endpoints/generate#rewrite-a-post-1) for more details.
+
+``` javascript
+const generateRewriteResponse = await social.generateRewrite({
+    post: "I love social media", // required: The post text to be rewritten. 
+    emojis: true, // optional: Include emojis in the post. Default: false
+    hashtags: true, // optional: Include hashtags in the post. Default: false
+    twitter: true, // optional: Construct a post 280 or few characters. Default: false
+    rewrites: 5, // optional: Number of rewrites to generate. Default: 5
+}).catch(console.error);
+```
+
+### Generate Transcription
+
+Provide a transcription of a video file. See the [generate transcription endpoint](https://docs.ayrshare.com/rest-api/endpoints/generate#transcribe-a-video-1) for more details.
+
+``` javascript
+const generateTranscriptionResponse = await social.generateTranscription({
+    videoUrl: "https://theVideo.mp4", // required: URL encoded video URL. The video must be hosted by Ayrshare.
+}).catch(console.error);
+```
+
+### Generate Translation
+
+Translate text for a post to over 100 different languages. See the [generate translation endpoint](https://docs.ayrshare.com/rest-api/endpoints/generate#translate-post-text) for more details.
+
+``` javascript
+const generateTranslationResponse = await social.generateTranslation({
+    text: "I love social media", // required: The text to be translated.
+    lang: "es", // required: The language code to translate the text to. 
+}).catch(console.error);
+```
+
+### Generate Alt Text
+
+Create AI-generated alt text for your images.  See the [generate alt text endpoint](https://docs.ayrshare.com/rest-api/endpoints/generate#post-generate-alt-text-for-an-image) for more details.
+
+``` javascript
+const generateAltTextResponse = await social.generateAltText({
+    url: "https://theImage.jpg", // required: URL of the image to generate alt text for.
+    keywords: ["social media", "ayrshare"], // optional: Keywords to help the AI generate better alt text.
+    lang: "en" // optional: The language code to generate the alt text in. Default: "en"
+}).catch(console.error);
+```
+
+### Auto Hashtags
+
+Automatically add hashtags to your post. See the [auto hashtags endpoint](https://docs.ayrshare.com/rest-api/endpoints/hashtags#auto-hashtags) for more details.
+
+``` javascript
+const autoHashtagsResponse = await social.autoHashtags({
+    post: "I love social media", // required: Post text to add hashtags for.
+    position: "auto" // optional: Position of the hashtags. Values: "auto", "end". Default: "auto".
+    max: 2 // optional: Maximum number of hashtags to add, ranging 1-5. Default: 2.
+}).catch(console.error);
+```
+
+### Recommend Hashtags
+
+Get suggestions for hashtags based on a keyword. See the [recommend hashtags endpoint](https://docs.ayrshare.com/rest-api/endpoints/hashtags#recommend-hashtags) for more details.
+
+``` javascript
+const recommendHashtagsResponse = await social.recommendHashtags({
+    keyword: "social media", // required: Keyword to get hashtags for.
+}).catch(console.error);
+```
+
+### Check Banned Hashtags
+
+Check if a hashtag is banned on Instagram or other social networks. See the [check banned hashtags endpoint](https://docs.ayrshare.com/rest-api/endpoints/hashtags#check-banned-hashtags) for more details.
+
+``` javascript
+const checkBannedHashtagsResponse = await social.checkBannedHashtags({
+    hashtag: "socialmedia", // required: Hashtag to check.
+}).catch(console.error);
+```
+
+### Shorten link
+
+Provide a URL and a shortened link will be returned. See the [shorten link endpoint](https://docs.ayrshare.com/rest-api/endpoints/links#create-a-short-link-from-a-url) for more details.
+
+``` javascript
+const shortenLinkResponse = await social.shortLink({
+    url: "https://theURL.com", // required: URL to shorten.
+    utmId: "1234", // optional: UTM ID to track the link. See more details about utm parameters at endpoint link above.
+    utmSource: "source", // optional
+    utmMedium: "medium", // optional
+    utmCampaign: "campaign", // optional
+    utmTerm: "term", // optional
+    utmContent: "content", // optional
+}).catch(console.error);
+```
+
+### Analytics for Shortened Links
+
+Return analytics for all shortened links or a single link for a given link ID. See the [analytics link endpoint](https://docs.ayrshare.com/rest-api/endpoints/links#get-analytics-on-shortened-links) for more details.
+
+``` javascript
+const analyticsLinkResponse = await social.shortLinkAnalytics({
+    id: "Link ID", // optional: Link ID to get analytics for.
+    fromCreatedDate: "2023-07-08T12:30:00Z", // optional: Get history of links shortened after this date.
+    toCreatedDate: "2023-07-08T12:30:00Z", // optional: Get history of links shortened before this date.
+    fromClickDate: "2023-07-08T12:30:00Z", // optional: Get history of links clicked after this date.
+    toClickDate: "2023-07-08T12:30:00Z", // optional: Get history of links clicked before this date.
+}).catch(console.error);
+```
+
+### Get All Reviews
+
+Retrieve all the reviews for the specified platform. See the [get all reviews endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#get-all-reviews) for more details.
+
+``` javascript
+const allReviewsResponse = await social.reviews({
+    platform: "facebook", // required: Platform to get reviews for. Currently available: "facebook", "gmb"
+}).catch(console.error);
+```
+
+### Get Single Review
+
+Retrieve a single review. See the [get single review endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#get-a-single-review) for more details.
+
+``` javascript
+const singleReviewResponse = await social.review({
+    id: "Review ID", // required
+    platform: "gmb", // required: Platform to get review for. Currently available: "gmb"
+}).catch(console.error);
+```
+
+### Reply to Review
+
+Reply to a review. See the [reply to review endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#reply-to-a-review) for more details.
+
+``` javascript
+const replyReviewResponse = await social.replyReview({
+    reviewId: "Review ID", // required: Review ID to reply to.
+    platform: "facebook", // required: Platform to reply to review for. Currently available: "facebook", "gmb"
+    reply: "Thank you for the review" // required: Text of the reply to the review.
+}).catch(console.error);
+```
+
+### Delete Review Reply
+
+Delete a review reply. See the [delete review reply endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#delete-a-review-reply) for more details.
+
+``` javascript
+const deleteReviewResponse = await social.deleteReview({
+    reviewId: "Review ID", // required: Review ID to delete reply for.
+    platform: "gmb", // required: Platform to delete reply for. Currently available: "gmb"
+}).catch(console.error);
 ```
 
 ## Other Packages & Integrations

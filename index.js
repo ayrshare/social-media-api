@@ -177,12 +177,32 @@ class SocialPost {
     return doGet("media", this.headers, params);
   }
 
-  mediaMeta(params) {
-    return doGet("media/meta", this.headers, params);
+  verifyMediaExists(params) {
+    const { mediaUrl } = params;
+
+    if (!mediaUrl) {
+      return ERROR_MSG;
+    }
+
+    return doPost("media/urlExists", params, this.headers);
   }
 
   mediaUploadUrl(params) {
     return doGet("media/uploadUrl", this.headers, params);
+  }
+
+  mediaMeta(params) {
+    return doGet("media/meta", this.headers, params);
+  }
+
+  resizeImage(params) {
+    const { imageUrl, platform } = params;
+
+    if (!imageUrl || !platform) {
+      return ERROR_MSG;
+    }
+
+    return doPost("media/resize", params, this.headers);
   }
 
   analyticsLinks(params) {
@@ -224,7 +244,7 @@ class SocialPost {
     return doPost("upload", data, this.headers);
   }
 
-  short(data) {
+  shorten(data) {
     const { url } = data;
 
     if (!url) {
@@ -380,7 +400,7 @@ class SocialPost {
     return doGet("auto-schedule/list", this.headers, params);
   }
 
-  registerWebook(data) {
+  registerWebhook(data) {
     const { action, url } = data;
 
     if (!action || !url) {
@@ -544,7 +564,7 @@ class SocialPost {
     return doPost("reviews", params, this.headers);
   }
 
-  deleteReview(params) {
+  deleteReplyReview(params) {
     const { platform, reviewId } = params;
 
     if (!platform || !reviewId) {

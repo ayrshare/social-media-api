@@ -201,6 +201,13 @@ const testGetBrandByUser = async (platforms, username) => {
   console.log("testGetBrandByUser:", getBrandByUser);
 };
 
+const testVerifyMediaExists = async (mediaUrl) => {
+  const verifyMediaExists = await social.verifyMediaExists({
+    mediaUrl
+  });
+  console.log("testVerifyMediaExists:", verifyMediaExists);
+};
+
 const testMediaMeta = async (url) => {
   const mediaMeta = await social.mediaMeta({
     url
@@ -214,6 +221,14 @@ const testMediaUploadUrl = async (fileName, contentType) => {
     contentType
   });
   console.log("testMediaUploadUrl:", mediaMeta);
+};
+
+const testResizeImage = async (imageUrl, platform) => {
+  const resizeImage = await social.resizeImage({
+    imageUrl,
+    platform
+  });
+  console.log("testResizeImage:", resizeImage);
 };
 
 const testGeneratePost = async (text) => {
@@ -309,12 +324,12 @@ const testReplyReview = async (reviewId, platform, reply) => {
   console.log("testReplyReview:", replyReview);
 };
 
-const testDeleteReview = async (reviewId, platform) => {
-  const deleteReview = await social.deleteReview({
+const testDeleteReplyReview = async (reviewId, platform) => {
+  const deleteReplyReview = await social.deleteReplyReview({
     reviewId,
     platform
   });
-  console.log("testDeleteReview:", deleteReview);
+  console.log("testDeleteReplyReview:", deleteReplyReview);
 };
 
 const testDeleteComments = async (id) => {
@@ -374,6 +389,13 @@ testReplyComment(
   testGetBrandByUser(["instagram"], "@ayrshare");
   testUpdateProfile(PROFILE_KEY);
   testMediaUploadUrl("tree.jpg", "jpeg");
+  testVerifyMediaExists(
+  "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
+  );
+  testResizeImage(
+    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
+    "facebook"
+  );
   testAutoHashtags("This is a test post");
   testRecommendHashtags("post");
   testCheckBannedHashtags("instagram");
