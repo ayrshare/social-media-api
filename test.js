@@ -351,7 +351,7 @@ const testReplyComment = async (commentId, platforms, comment) => {
 /** ------------------------------------------------ */
 
 const run = async () => {
-  // const id = await testPost();
+  const id = await testPost();
   // await testGetPost(id);
   // await testRetryPost(id);
   // const update = await testPostUpdate(id);
@@ -361,7 +361,9 @@ const run = async () => {
   // testDelete(id);
 };
 
-/*testUser();
+/*
+testHistory();
+testUser();
 testAutoSchedule();
 testFeed();
 testPost();
