@@ -231,42 +231,6 @@ const testResizeImage = async (imageUrl, platform) => {
   console.log("testResizeImage:", resizeImage);
 };
 
-const testGeneratePost = async (text) => {
-  const generatePost = await social.generatePost({
-    text
-  });
-  console.log("testGeneratePost:", generatePost);
-};
-
-const testGenerateRewrite = async (post) => {
-  const generateRewrite = await social.generateRewrite({
-    post
-  });
-  console.log("testGenerateRewrite:", generateRewrite);
-};
-
-const testGenerateTranscription = async (videoUrl) => {
-  const generateTranscription = await social.generateTranscription({
-    videoUrl
-  });
-  console.log("testGenerateTranscription:", generateTranscription);
-};
-
-const testGenerateTranslation = async (text, lang) => {
-  const generateTranslation = await social.generateTranslation({
-    text,
-    lang
-  });
-  console.log("testGenerateTranslation:", generateTranslation);
-};
-
-const testGenerateAltText = async (url) => {
-  const generateAltText = await social.generateAltText({
-    url
-  });
-  console.log("testGenerateAltText:", generateAltText);
-};
-
 const testAutoHashtags = async (post) => {
   const autoHashtags = await social.autoHashtags({
     post
@@ -286,20 +250,6 @@ const testCheckBannedHashtags = async (hashtag) => {
     hashtag
   });
   console.log("testCheckBannedHashtags:", checkBannedHashtags);
-};
-
-const testShortLink = async (url) => {
-  const shortLink = await social.shortLink({
-    url
-  });
-  console.log("testShortLink:", shortLink);
-};
-
-const testShortLinkAnalytics = async (id) => {
-  const shortLinkAnalytics = await social.shortLinkAnalytics({
-    id
-  });
-  console.log("testShortLinkAnalytics:", shortLinkAnalytics);
 };
 
 const testReviews = async (platform) => {
@@ -346,6 +296,59 @@ const testReplyComment = async (commentId, platforms, comment) => {
     comment
   });
   console.log("testReplyComment:", replyComment);
+};
+
+/** ------------------------------------------------ */
+
+/** Max Pack - required  ---------------- */
+const testGeneratePost = async (text) => {
+  const generatePost = await social.generatePost({
+    text
+  });
+  console.log("testGeneratePost:", generatePost);
+};
+
+const testGenerateRewrite = async (post) => {
+  const generateRewrite = await social.generateRewrite({
+    post
+  });
+  console.log("testGenerateRewrite:", generateRewrite);
+};
+
+const testGenerateTranscription = async (videoUrl) => {
+  const generateTranscription = await social.generateTranscription({
+    videoUrl
+  });
+  console.log("testGenerateTranscription:", generateTranscription);
+};
+
+const testGenerateTranslation = async (text, lang) => {
+  const generateTranslation = await social.generateTranslation({
+    text,
+    lang
+  });
+  console.log("testGenerateTranslation:", generateTranslation);
+};
+
+const testGenerateAltText = async (url) => {
+  const generateAltText = await social.generateAltText({
+    url
+  });
+  console.log("testGenerateAltText:", generateAltText);
+};
+
+const testShortLink = async (url) => {
+  const shortLink = await social.shortLink({
+    url
+  });
+  console.log("testShortLink:", shortLink);
+};
+
+const testShortLinkAnalytics = async (id) => {
+  const shortLinkAnalytics = await social.shortLinkAnalytics({
+    id
+  });
+  console.log("testShortLinkAnalytics:", shortLinkAnalytics);
 };
 
 /** ------------------------------------------------ */

@@ -286,7 +286,7 @@ const getCommentResponse = await social.getComments({
 Delete either a single comment or all comments under a post that were sent via Ayrshare. Available for Facebook, Instagram, LinkedIn, Reddit, TikTok, X/Twitter, and YouTube. See the [delete comment endpoint](https://docs.ayrshare.com/rest-api/endpoints/comments#delete-delete-comments) for more details.
 
 ``` javascript
-const deleteCommentResponse = await social.deleteComment({
+const deleteCommentResponse = await social.deleteComments({
     id: "Pkdo9sjk2", // required: Post top-level ID or social comment ID
     platforms: ["instagram", "facebook"], // optional: Required only if using the social comment id.
   }).catch(console.error);
@@ -349,6 +349,26 @@ const feedResponse = await social.feedDelete({
   }).catch(console.error);
 ```
 
+### Get Feeds
+
+Get all registered RSS feeds. Returns a promise that resolves to an array of feed objects. See the [get feeds endpoint](https://docs.ayrshare.com/rest-api/endpoints/feed#get-rss-feeds) for more details.
+
+``` javascript
+const feedsResponse = await social.feedGet().catch(console.error);
+```
+
+### Update Feed
+
+Update an RSS feed for a given ID. Returns a promise that resolves to an object containing the feed ID. See the [update feed endpoint](https://docs.ayrshare.com/rest-api/endpoints/feed#update-rss-feed) for more details.
+
+``` javascript
+const feedResponse = await social.feedUpdate({
+    id: "Feed ID", // required: ID of the feed
+    useFirstImage: true, // optional: Use the first image in the article to add to the post.
+    autoHashtag: true, // optional: Automatically add hashtags to the post.
+  }).catch(console.error);
+```
+
 ## Business Functions for Multiple Users - Business or Enterprise Plan Required
 
 The [Business Plan](https://www.ayrshare.com/business-plan-for-multiple-users/) allows you to create, manage, and post on behalf of client profiles via the API or Dashboard GUI. You can [integrate](https://docs.ayrshare.com/multiple-client-accounts/overview) Ayrshare into your platform, product, or agency and give your clients social media capabilites. Please [contact us](mailto:contact@ayrshare.com) with any questions.
@@ -381,7 +401,7 @@ Update a profile owned by the primary account. See the [update profile endpoint]
 
 ``` javascript
 const updateProfileResponse = await social.updateProfile({
-    // Required: profileKey - the API Key of the profile to delete
+    // Required: profileKey - the API Key of the profile to update
     profileKey: "JI9s-kJII-9283-OMKM",
     title: "This is a greate new title"
   }).catch(console.error);
@@ -425,7 +445,7 @@ Get brand information on users and companies public social media accounts. See t
 
 ``` javascript
 const brandResponse = await social.getBrandByUser({
-    platforms: ["intsgram", "facebook"],
+    platforms: ["instagram", "facebook"],
     instagramUser: "@ayrshare",
     facebookUser: "ayrshare",
   }).catch(console.error);
@@ -451,6 +471,84 @@ const unregisterWebhook = await social.unregisterWebhook({
 ``` javascript
 const listWebhooks = await social.listWebhooks().catch(console.error);
 ```
+
+### Auto Hashtags
+
+Automatically add hashtags to your post. See the [auto hashtags endpoint](https://docs.ayrshare.com/rest-api/endpoints/hashtags#auto-hashtags) for more details.
+
+``` javascript
+const autoHashtagsResponse = await social.autoHashtags({
+    post: "I love social media", // required: Post text to add hashtags for.
+    position: "auto" // optional: Position of the hashtags. Values: "auto", "end". Default: "auto".
+    max: 2 // optional: Maximum number of hashtags to add, ranging 1-5. Default: 2.
+}).catch(console.error);
+```
+
+### Recommend Hashtags
+
+Get suggestions for hashtags based on a keyword. See the [recommend hashtags endpoint](https://docs.ayrshare.com/rest-api/endpoints/hashtags#recommend-hashtags) for more details.
+
+``` javascript
+const recommendHashtagsResponse = await social.recommendHashtags({
+    keyword: "social media", // required: Keyword to get hashtags for.
+}).catch(console.error);
+```
+
+### Check Banned Hashtags
+
+Check if a hashtag is banned on Instagram or other social networks. See the [check banned hashtags endpoint](https://docs.ayrshare.com/rest-api/endpoints/hashtags#check-banned-hashtags) for more details.
+
+``` javascript
+const checkBannedHashtagsResponse = await social.checkBannedHashtags({
+    hashtag: "socialmedia", // required: Hashtag to check.
+}).catch(console.error);
+```
+
+### Get All Reviews
+
+Retrieve all the reviews for the specified platform. See the [get all reviews endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#get-all-reviews) for more details.
+
+``` javascript
+const allReviewsResponse = await social.reviews({
+    platform: "facebook", // required: Platform to get reviews for. Currently available: "facebook", "gmb"
+}).catch(console.error);
+```
+
+### Get Single Review
+
+Retrieve a single review. See the [get single review endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#get-a-single-review) for more details.
+
+``` javascript
+const singleReviewResponse = await social.review({
+    id: "Review ID", // required
+    platform: "gmb", // required: Platform to get review for. Currently available: "gmb"
+}).catch(console.error);
+```
+
+### Reply to Review
+
+Reply to a review. See the [reply to review endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#reply-to-a-review) for more details.
+
+``` javascript
+const replyReviewResponse = await social.replyReview({
+    reviewId: "Review ID", // required: Review ID to reply to.
+    platform: "facebook", // required: Platform to reply to review for. Currently available: "facebook", "gmb"
+    reply: "Thank you for the review" // required: Text of the reply to the review.
+}).catch(console.error);
+```
+
+### Delete Review Reply
+
+Delete a review reply. See the [delete review reply endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#delete-a-review-reply) for more details.
+
+``` javascript
+const deleteReplyReviewResponse = await social.deleteReplyReview({
+    reviewId: "Review ID", // required: Review ID to delete reply for.
+    platform: "gmb", // required: Platform to delete reply for. Currently available: "gmb"
+}).catch(console.error);
+```
+
+## Max Pack Required
 
 ### Generate Post
 
@@ -511,38 +609,6 @@ const generateAltTextResponse = await social.generateAltText({
 }).catch(console.error);
 ```
 
-### Auto Hashtags
-
-Automatically add hashtags to your post. See the [auto hashtags endpoint](https://docs.ayrshare.com/rest-api/endpoints/hashtags#auto-hashtags) for more details.
-
-``` javascript
-const autoHashtagsResponse = await social.autoHashtags({
-    post: "I love social media", // required: Post text to add hashtags for.
-    position: "auto" // optional: Position of the hashtags. Values: "auto", "end". Default: "auto".
-    max: 2 // optional: Maximum number of hashtags to add, ranging 1-5. Default: 2.
-}).catch(console.error);
-```
-
-### Recommend Hashtags
-
-Get suggestions for hashtags based on a keyword. See the [recommend hashtags endpoint](https://docs.ayrshare.com/rest-api/endpoints/hashtags#recommend-hashtags) for more details.
-
-``` javascript
-const recommendHashtagsResponse = await social.recommendHashtags({
-    keyword: "social media", // required: Keyword to get hashtags for.
-}).catch(console.error);
-```
-
-### Check Banned Hashtags
-
-Check if a hashtag is banned on Instagram or other social networks. See the [check banned hashtags endpoint](https://docs.ayrshare.com/rest-api/endpoints/hashtags#check-banned-hashtags) for more details.
-
-``` javascript
-const checkBannedHashtagsResponse = await social.checkBannedHashtags({
-    hashtag: "socialmedia", // required: Hashtag to check.
-}).catch(console.error);
-```
-
 ### Shorten link
 
 Provide a URL and a shortened link will be returned. See the [shorten link endpoint](https://docs.ayrshare.com/rest-api/endpoints/links#create-a-short-link-from-a-url) for more details.
@@ -573,49 +639,6 @@ const analyticsLinkResponse = await social.shortLinkAnalytics({
 }).catch(console.error);
 ```
 
-### Get All Reviews
-
-Retrieve all the reviews for the specified platform. See the [get all reviews endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#get-all-reviews) for more details.
-
-``` javascript
-const allReviewsResponse = await social.reviews({
-    platform: "facebook", // required: Platform to get reviews for. Currently available: "facebook", "gmb"
-}).catch(console.error);
-```
-
-### Get Single Review
-
-Retrieve a single review. See the [get single review endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#get-a-single-review) for more details.
-
-``` javascript
-const singleReviewResponse = await social.review({
-    id: "Review ID", // required
-    platform: "gmb", // required: Platform to get review for. Currently available: "gmb"
-}).catch(console.error);
-```
-
-### Reply to Review
-
-Reply to a review. See the [reply to review endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#reply-to-a-review) for more details.
-
-``` javascript
-const replyReviewResponse = await social.replyReview({
-    reviewId: "Review ID", // required: Review ID to reply to.
-    platform: "facebook", // required: Platform to reply to review for. Currently available: "facebook", "gmb"
-    reply: "Thank you for the review" // required: Text of the reply to the review.
-}).catch(console.error);
-```
-
-### Delete Review Reply
-
-Delete a review reply. See the [delete review reply endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#delete-a-review-reply) for more details.
-
-``` javascript
-const deleteReviewResponse = await social.deleteReview({
-    reviewId: "Review ID", // required: Review ID to delete reply for.
-    platform: "gmb", // required: Platform to delete reply for. Currently available: "gmb"
-}).catch(console.error);
-```
 
 ## Other Packages & Integrations
 

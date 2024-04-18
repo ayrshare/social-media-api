@@ -69,11 +69,9 @@ const buildParams = (data) => {
   const params = new URLSearchParams();
   Object.entries(data).forEach(([key, value]) => {
     if (Array.isArray(value)) {
-      value.forEach((value, i) =>
-        params.append(`${key}[${i}]`, value.toString())
-      );
+      value.forEach((value, i) => params.append(`${key}[${i}]`, value));
     } else {
-      params.append(key, value.toString());
+      params.append(key, value);
     }
   });
 
@@ -110,52 +108,23 @@ class SocialPost {
   }
 
   post(data) {
-    const { post, randomPost, platforms } = data;
-
-    if ((!post && !randomPost) || !platforms || platforms.length === 0) {
-      return ERROR_MSG;
-    }
-
     return doPost("post", data, this.headers);
   }
 
   delete(data) {
-    const { id, bulk } = data;
-
-    if (!id && !bulk) {
-      return ERROR_MSG;
-    }
-
     return doDelete("post", data, this.headers);
   }
 
   updatePost(data) {
-    const { id } = data;
-
-    if (!id) {
-      return ERROR_MSG;
-    }
-
     return doPut("post", data, this.headers);
   }
 
   retryPost(data) {
-    const { id } = data;
-
-    if (!id) {
-      return ERROR_MSG;
-    }
-
     return doPut("post/retry", data, this.headers);
   }
 
   getPost(data) {
     const { id } = data;
-
-    if (!id) {
-      return ERROR_MSG;
-    }
-
     return doGet(`post/${id}`, this.headers);
   }
 
@@ -178,12 +147,6 @@ class SocialPost {
   }
 
   verifyMediaExists(params) {
-    const { mediaUrl } = params;
-
-    if (!mediaUrl) {
-      return ERROR_MSG;
-    }
-
     return doPost("media/urlExists", params, this.headers);
   }
 
@@ -196,12 +159,6 @@ class SocialPost {
   }
 
   resizeImage(params) {
-    const { imageUrl, platform } = params;
-
-    if (!imageUrl || !platform) {
-      return ERROR_MSG;
-    }
-
     return doPost("media/resize", params, this.headers);
   }
 
@@ -210,23 +167,11 @@ class SocialPost {
   }
 
   analyticsPost(data) {
-    const { id, platforms } = data;
-
-    if (!id || !platforms) {
-      return ERROR_MSG;
-    }
-
     return doPost("analytics/post", data, this.headers);
   }
 
   // new - DONE 1
   analyticsSocial(data) {
-    const { platforms } = data;
-
-    if (!platforms) {
-      return ERROR_MSG;
-    }
-
     return doPost("analytics/social", data, this.headers);
   }
 
@@ -235,42 +180,18 @@ class SocialPost {
   }
 
   upload(data) {
-    const { file } = data;
-
-    if (!file) {
-      return ERROR_MSG;
-    }
-
     return doPost("upload", data, this.headers);
   }
 
   shorten(data) {
-    const { url } = data;
-
-    if (!url) {
-      return ERROR_MSG;
-    }
-
-    return doPost("short", data, this.headers);
+    return doPost("shorten", data, this.headers);
   }
 
   feedAdd(data) {
-    const { url } = data;
-
-    if (!url) {
-      return ERROR_MSG;
-    }
-
     return doPost("feed", data, this.headers);
   }
 
   feedDelete(data) {
-    const { id } = data;
-
-    if (!id) {
-      return ERROR_MSG;
-    }
-
     return doDelete("feed", data, this.headers);
   }
 
@@ -279,82 +200,36 @@ class SocialPost {
   }
 
   feedUpdate(data) {
-    const { id } = data;
-
-    if (!id) {
-      return ERROR_MSG;
-    }
-
     return doPut("feed", data, this.headers);
   }
 
   postComment(data) {
-    const { id, platforms, comment } = data;
-
-    if (!id || !platforms || !comment) {
-      return ERROR_MSG;
-    }
-
     return doPost("comments", data, this.headers);
   }
 
   getComments(params) {
     const { id } = params;
-
-    if (!id) {
-      return ERROR_MSG;
-    }
-
     return doGet(`comments/${id}`, this.headers, params);
   }
 
   deleteComments(params) {
     const { id } = params;
-
-    if (!id) {
-      return ERROR_MSG;
-    }
-
     return doDelete(`comments/${id}`, params, this.headers);
   }
 
   replyComment(params) {
-    const { commentId, platforms, comment } = params;
-
-    if (!commentId || !platforms || !comment) {
-      return ERROR_MSG;
-    }
-
     return doPost(`comments/reply`, params, this.headers);
   }
 
   createProfile(data) {
-    const { title } = data;
-
-    if (!title) {
-      return ERROR_MSG;
-    }
-
     return doPost("profiles/profile", data, this.headers);
   }
 
   deleteProfile(data) {
-    const { profileKey } = data;
-
-    if (!profileKey) {
-      return ERROR_MSG;
-    }
-
     return doDelete("profiles/profile", data, this.headers);
   }
 
   updateProfile(data) {
-    const { profileKey } = data;
-
-    if (!profileKey) {
-      return ERROR_MSG;
-    }
-
     return doPut("profiles/profile", data, this.headers);
   }
 
@@ -363,32 +238,14 @@ class SocialPost {
   }
 
   generateJWT(data) {
-    const { domain, privateKey, profileKey } = data;
-
-    if (!domain || !privateKey || !profileKey) {
-      return ERROR_MSG;
-    }
-
     return doPost("profiles/generateJWT", data, this.headers);
   }
 
   unlinkSocial(data) {
-    const { profileKey, platform } = data;
-
-    if (!profileKey || !platform) {
-      return ERROR_MSG;
-    }
-
     return doDelete("profiles/social", data, this.headers);
   }
 
   setAutoSchedule(data) {
-    const { schedule } = data;
-
-    if (!schedule) {
-      return ERROR_MSG;
-    }
-
     return doPost("auto-schedule/set", data, this.headers);
   }
 
@@ -401,22 +258,10 @@ class SocialPost {
   }
 
   registerWebhook(data) {
-    const { action, url } = data;
-
-    if (!action || !url) {
-      return ERROR_MSG;
-    }
-
     return doPost("hook/webhook", data, this.headers);
   }
 
   unregisterWebhook(data) {
-    const { action } = data;
-
-    if (!action) {
-      return ERROR_MSG;
-    }
-
     return doDelete("hook/webhook", data, this.headers);
   }
 
@@ -425,152 +270,64 @@ class SocialPost {
   }
 
   getBrandByUser(params) {
-    const { platforms } = params;
-
-    if (!platforms) {
-      return ERROR_MSG;
-    }
-
     return doGet("brand/byUser", this.headers, params);
   }
 
   generatePost(params) {
-    const { text } = params;
-
-    if (!text) {
-      return ERROR_MSG;
-    }
-
     return doPost("generate/post", params, this.headers);
   }
 
   generateRewrite(params) {
-    const { post } = params;
-
-    if (!post) {
-      return ERROR_MSG;
-    }
-
     return doPost("generate/rewrite", params, this.headers);
   }
 
   generateTranscription(params) {
-    const { videoUrl } = params;
-
-    if (!videoUrl) {
-      return ERROR_MSG;
-    }
-
     return doPost("generate/transcription", params, this.headers);
   }
 
   generateTranslation(params) {
-    const { text, lang } = params;
-
-    if (!text || !lang) {
-      return ERROR_MSG;
-    }
-
     return doPost("generate/translate", params, this.headers);
   }
 
   generateAltText(params) {
-    const { url } = params;
-
-    if (!url) {
-      return ERROR_MSG;
-    }
-
     return doPost("generate/altText", params, this.headers);
   }
 
   autoHashtags(params) {
-    const { post } = params;
-
-    if (!post) {
-      return ERROR_MSG;
-    }
-
     return doPost("hashtags/auto", params, this.headers);
   }
 
   recommendHashtags(params) {
-    const { keyword } = params;
-
-    if (!keyword) {
-      return ERROR_MSG;
-    }
-
     return doGet(`hashtags/recommend`, this.headers, params);
   }
 
   checkBannedHashtags(params) {
-    const { hashtag } = params;
-
-    if (!hashtag) {
-      return ERROR_MSG;
-    }
-
     return doGet("hashtags/banned", this.headers, params);
   }
 
   shortLink(params) {
-    const { url } = params;
-
-    if (!url) {
-      return ERROR_MSG;
-    }
-
     return doPost("links", params, this.headers);
   }
 
   shortLinkAnalytics(params) {
     const { id } = params;
-
-    if (!id) {
-      return ERROR_MSG;
-    }
-
     return doGet(`links/${id}`, this.headers, params);
   }
 
   reviews(params) {
-    const { platform } = params;
-
-    if (!platform) {
-      return ERROR_MSG;
-    }
-
     return doGet("reviews", this.headers, params);
   }
 
   review(params) {
-    const { id, platform } = params;
-
-    if (!platform || !id) {
-      return ERROR_MSG;
-    }
-
+    const { id } = params;
     return doGet(`reviews/${id}`, this.headers, params);
   }
 
   replyReview(params) {
-    const { platform, reviewId, reply } = params;
-
-    if (!platform || !reviewId || !reply) {
-      return ERROR_MSG;
-    }
-
     return doPost("reviews", params, this.headers);
   }
 
   deleteReplyReview(params) {
-    const { platform, reviewId } = params;
-
-    if (!platform || !reviewId) {
-      return ERROR_MSG;
-    }
-
     return doDelete("reviews", params, this.headers);
   }
 }
