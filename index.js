@@ -5,7 +5,7 @@ const BASE_URL = "https://app.ayrshare.com/api";
 const ERROR_MSG = {
   status: "error",
   message:
-    "Wrong parameters. Please check at https://docs.ayrshare.com/rest-api/endpoints",
+    "Wrong parameters. Please check at https://docs.ayrshare.com/rest-api/endpoints"
 };
 
 const preProcess = (data) => {
@@ -19,7 +19,7 @@ const doPost = (endpoint, data, headers) => {
     .post(`${BASE_URL}/${endpoint}`, {
       headers,
       json: preProcess(data),
-      responseType: "json",
+      responseType: "json"
     })
     .then((res) => res.body)
     .catch((err) => {
@@ -36,7 +36,7 @@ const doDelete = (endpoint, data, headers) => {
     .delete(`${BASE_URL}/${endpoint}`, {
       headers,
       json: preProcess(data),
-      responseType: "json",
+      responseType: "json"
     })
     .then((res) => res.body)
     .catch((err) => {
@@ -53,7 +53,7 @@ const doPut = (endpoint, data, headers) => {
     .put(`${BASE_URL}/${endpoint}`, {
       headers,
       json: preProcess(data),
-      responseType: "json",
+      responseType: "json"
     })
     .then((res) => res.body)
     .catch((err) => {
@@ -69,11 +69,9 @@ const buildParams = (data) => {
   const params = new URLSearchParams();
   Object.entries(data).forEach(([key, value]) => {
     if (Array.isArray(value)) {
-      value.forEach((value, i) =>
-        params.append(`${key}[${i}]`, value.toString())
-      );
+      value.forEach((value, i) => params.append(`${key}[${i}]`, value));
     } else {
-      params.append(key, value.toString());
+      params.append(key, value);
     }
   });
 
@@ -88,7 +86,7 @@ const doGet = (endpoint, headers, params) => {
   return got
     .get(url, {
       headers,
-      responseType: "json",
+      responseType: "json"
     })
     .then((res) => res.body)
     .catch((err) => {
@@ -105,38 +103,29 @@ class SocialPost {
     this.apiKey = apiKey;
     this.headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
+      Authorization: `Bearer ${apiKey}`
     };
   }
 
   post(data) {
-    const { post, randomPost, platforms } = data;
-
-    if ((!post && !randomPost) || !platforms || platforms.length === 0) {
-      return ERROR_MSG;
-    }
-
     return doPost("post", data, this.headers);
   }
 
   delete(data) {
-    const { id, bulk } = data;
-
-    if (!id && !bulk) {
-      return ERROR_MSG;
-    }
-
     return doDelete("post", data, this.headers);
   }
 
   updatePost(data) {
-    const { id } = data;
-
-    if (!id) {
-      return ERROR_MSG;
-    }
-
     return doPut("post", data, this.headers);
+  }
+
+  retryPost(data) {
+    return doPut("post/retry", data, this.headers);
+  }
+
+  getPost(data) {
+    const { id } = data;
+    return doGet(`post/${id}`, this.headers);
   }
 
   /**
@@ -157,28 +146,32 @@ class SocialPost {
     return doGet("media", this.headers, params);
   }
 
+  verifyMediaExists(params) {
+    return doPost("media/urlExists", params, this.headers);
+  }
+
+  mediaUploadUrl(params) {
+    return doGet("media/uploadUrl", this.headers, params);
+  }
+
+  mediaMeta(params) {
+    return doGet("media/meta", this.headers, params);
+  }
+
+  resizeImage(params) {
+    return doPost("media/resize", params, this.headers);
+  }
+
   analyticsLinks(params) {
     return doGet("analytics/links", this.headers, params);
   }
 
   analyticsPost(data) {
-    const { id, platforms } = data;
-
-    if (!id || !platforms) {
-      return ERROR_MSG;
-    }
-
     return doPost("analytics/post", data, this.headers);
   }
 
-  // new - DONE 1 
+  // new - DONE 1
   analyticsSocial(data) {
-    const { platforms } = data;
-
-    if (!platforms) {
-      return ERROR_MSG;
-    }
-
     return doPost("analytics/social", data, this.headers);
   }
 
@@ -187,42 +180,18 @@ class SocialPost {
   }
 
   upload(data) {
-    const { file } = data;
-
-    if (!file) {
-      return ERROR_MSG;
-    }
-
     return doPost("upload", data, this.headers);
   }
 
   shorten(data) {
-    const { url } = data;
-
-    if (!url) {
-      return ERROR_MSG;
-    }
-
     return doPost("shorten", data, this.headers);
   }
 
   feedAdd(data) {
-    const { url } = data;
-
-    if (!url) {
-      return ERROR_MSG;
-    }
-
     return doPost("feed", data, this.headers);
   }
 
   feedDelete(data) {
-    const { id } = data;
-
-    if (!id) {
-      return ERROR_MSG;
-    }
-
     return doDelete("feed", data, this.headers);
   }
 
@@ -231,56 +200,36 @@ class SocialPost {
   }
 
   feedUpdate(data) {
-    const { id } = data;
-
-    if (!id) {
-      return ERROR_MSG;
-    }
-
     return doPut("feed", data, this.headers);
   }
 
   postComment(data) {
-    const { id, platforms, comment } = data;
-
-    if (!id || !platforms || !comment) {
-      return ERROR_MSG;
-    }
-
     return doPost("comments", data, this.headers);
   }
 
   getComments(params) {
-    return doGet("comments", this.headers, params);
+    const { id } = params;
+    return doGet(`comments/${id}`, this.headers, params);
+  }
+
+  deleteComments(params) {
+    const { id } = params;
+    return doDelete(`comments/${id}`, params, this.headers);
+  }
+
+  replyComment(params) {
+    return doPost(`comments/reply`, params, this.headers);
   }
 
   createProfile(data) {
-    const { title } = data;
-
-    if (!title) {
-      return ERROR_MSG;
-    }
-
     return doPost("profiles/profile", data, this.headers);
   }
 
   deleteProfile(data) {
-    const { profileKey } = data;
-
-    if (!profileKey) {
-      return ERROR_MSG;
-    }
-
     return doDelete("profiles/profile", data, this.headers);
   }
 
   updateProfile(data) {
-    const { profileKey } = data;
-
-    if (!profileKey) {
-      return ERROR_MSG;
-    }
-
     return doPut("profiles/profile", data, this.headers);
   }
 
@@ -289,32 +238,14 @@ class SocialPost {
   }
 
   generateJWT(data) {
-    const { domain, privateKey, profileKey } = data;
-
-    if (!domain || !privateKey || !profileKey) {
-      return ERROR_MSG;
-    }
-
     return doPost("profiles/generateJWT", data, this.headers);
   }
 
   unlinkSocial(data) {
-    const { profileKey, platform } = data;
-
-    if (!profileKey || !platform) {
-      return ERROR_MSG;
-    }
-
     return doDelete("profiles/social", data, this.headers);
   }
 
   setAutoSchedule(data) {
-    const { schedule } = data;
-
-    if (!schedule) {
-      return ERROR_MSG;
-    }
-
     return doPost("auto-schedule/set", data, this.headers);
   }
 
@@ -326,23 +257,11 @@ class SocialPost {
     return doGet("auto-schedule/list", this.headers, params);
   }
 
-  registerWebook(data) {
-    const { action, url } = data;
-
-    if (!action || !url) {
-      return ERROR_MSG;
-    }
-
+  registerWebhook(data) {
     return doPost("hook/webhook", data, this.headers);
   }
 
   unregisterWebhook(data) {
-    const { action } = data;
-
-    if (!action) {
-      return ERROR_MSG;
-    }
-
     return doDelete("hook/webhook", data, this.headers);
   }
 
@@ -351,13 +270,65 @@ class SocialPost {
   }
 
   getBrandByUser(params) {
-    const { platforms } = params;
-
-    if (!platforms) {
-      return ERROR_MSG;
-    }
-
     return doGet("brand/byUser", this.headers, params);
+  }
+
+  generatePost(params) {
+    return doPost("generate/post", params, this.headers);
+  }
+
+  generateRewrite(params) {
+    return doPost("generate/rewrite", params, this.headers);
+  }
+
+  generateTranscription(params) {
+    return doPost("generate/transcription", params, this.headers);
+  }
+
+  generateTranslation(params) {
+    return doPost("generate/translate", params, this.headers);
+  }
+
+  generateAltText(params) {
+    return doPost("generate/altText", params, this.headers);
+  }
+
+  autoHashtags(params) {
+    return doPost("hashtags/auto", params, this.headers);
+  }
+
+  recommendHashtags(params) {
+    return doGet(`hashtags/recommend`, this.headers, params);
+  }
+
+  checkBannedHashtags(params) {
+    return doGet("hashtags/banned", this.headers, params);
+  }
+
+  shortLink(params) {
+    return doPost("links", params, this.headers);
+  }
+
+  shortLinkAnalytics(params) {
+    const { id } = params;
+    return doGet(`links/${id}`, this.headers, params);
+  }
+
+  reviews(params) {
+    return doGet("reviews", this.headers, params);
+  }
+
+  review(params) {
+    const { id } = params;
+    return doGet(`reviews/${id}`, this.headers, params);
+  }
+
+  replyReview(params) {
+    return doPost("reviews", params, this.headers);
+  }
+
+  deleteReplyReview(params) {
+    return doDelete("reviews", params, this.headers);
   }
 }
 
