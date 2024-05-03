@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.2.1] 2024-05-03
+## [1.2.2] 2024-05-03
 
 - Added new endpoints with examples including resize, verify, webhooks, and more. Please see ReadMe for details.
 - Added new test cases.
@@ -10,7 +10,8 @@
 
 ### Breaking Changes
 
-Renamed the package from `social-post-api` to `social-media-api`. Be sure to update your package require/import.
+- Renamed the package from `social-post-api` to `social-media-api`. Be sure to update your package require/import.
+- Class export changed from `SocialPost` to `SocialMediaAPI`.
 
 Why the change? Because as Ayrshare has matured we've gone well beyond just posting.
 

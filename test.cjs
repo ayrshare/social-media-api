@@ -1,6 +1,6 @@
 // npx rollup index.js --file index.cjs --format cjs
 
-const SocialPost = require("./index.cjs");
+const SocialMediaAPI = require("./index.cjs");
 /**
  * Add your API Key to a config.js file, Profile Key (Business Plan), and Domain (Business Plan)
  * {
@@ -12,7 +12,7 @@ const SocialPost = require("./index.cjs");
 const config = require("./config.json");
 const { API_KEY, PROFILE_KEY, DOMAIN } = config;
 
-const social = new SocialPost(API_KEY);
+const social = new SocialMediaAPI(API_KEY);
 
 /** Test history */
 const testHistory = async (platform, id) => {

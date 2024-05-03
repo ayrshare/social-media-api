@@ -98,7 +98,7 @@ const doGet = (endpoint, headers, params) => {
     });
 };
 
-class SocialPost {
+class SocialMediaAPI {
   constructor(apiKey) {
     this.apiKey = apiKey;
     this.headers = {
@@ -332,4 +332,4 @@ class SocialPost {
   }
 }
 
-export default SocialPost;
+export default SocialMediaAPI;

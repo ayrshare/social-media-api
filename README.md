@@ -37,8 +37,8 @@ For more information on setup, see our installation [video](https://youtu.be/G8M
 Create a new Social Post object with your API Key.
 
 ``` javascript
-const SocialPost = require("social-media-api");
-const social = new SocialPost('Your API Key');
+const SocialMediaAPI = require("social-media-api");
+const social = new SocialMediaAPI('Your API Key');
 ```
 
 ### History, Post, Delete Example
@@ -46,9 +46,9 @@ const social = new SocialPost('Your API Key');
 This simple example shows how to post an image or video, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook Pages, Facebook Groups, Instagram, LinkedIn. Note, YouTube, Google My Business, Telegram, TikTok, and Reddit also available.
 
 ``` javascript
-const SocialPost = require("social-media-api");
+const SocialMediaAPI = require("social-media-api");
 const API_KEY = "Your API Key"; // get an API Key at ayrshare.com
-const social = new SocialPost(API_KEY);
+const social = new SocialMediaAPI(API_KEY);
 
 const run = async () => {
   /** post */

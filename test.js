@@ -1,6 +1,6 @@
 // npx rollup index.js --file index.cjs --format cjs
 
-import SocialPost from "./index.js";
+import SocialMediaAPI from "./index.js";
 /**
  * Add your API Key to a config.js file, Profile Key (Business Plan), and Domain (Business Plan)
  * {
@@ -12,7 +12,7 @@ import SocialPost from "./index.js";
 import config from "./config.js";
 const { API_KEY, PROFILE_KEY, DOMAIN } = config;
 
-const social = new SocialPost(API_KEY);
+const social = new SocialMediaAPI(API_KEY);
 
 /** Test history */
 const testHistory = async (platform, id) => {
