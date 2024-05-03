@@ -1,12 +1,12 @@
 # Social Media APIs for Posting, Scheduling, and Analytics
 
-<img src="https://www.ayrshare.com/wp-content/uploads/2020/08/ayr-logo-2156-reduced.png" width="400">
+![Ayrshare logo](https://www.ayrshare.com/wp-content/uploads/2020/08/ayr-logo-2156-reduced.png)
 
 The Social Media API is a wrapper SDK for [Ayrshare's APIs](https://www.ayrshare.com).
 
-Ayrshare is a powerful set of APIs that enable you to send social media posts, get analytics, and add comments to *Twitter*, *Instagram*, *Facebook*, *LinkedIn*, *YouTube*, *Google My Business*, *Pinterest*, *TikTok*, *Reddit*, and *Telegram* on behalf of your users or clients.
+Ayrshare is a powerful set of APIs that enable you to send social media posts, get analytics, and add comments to *X/Twitter*, *Instagram*, *Facebook*, *LinkedIn*, *YouTube*, *Google Business Profile*, *Pinterest*, *TikTok*, *Reddit*, and *Telegram* on behalf of your users or clients.
 
-The Ayrshare Social API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the full list of [full list of features](https://docs.ayrshare.com/rest-api/overview).
+The Ayrshare Social API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the full list of [full list of features](https://docs.ayrshare.com/rest-api/overview) in our docs.
 
 Get started with a [free plan](https://www.ayrshare.com/pricing), or if you have a platform or manage multiple users check out the [Business Plan](https://www.ayrshare.com/business-plan-for-multiple-users/).
 
@@ -14,7 +14,7 @@ For more information on setup, see our installation [video](https://youtu.be/G8M
 
 ## Installation
 
-`npm i social-post-api`
+`npm i social-media-api`
 
 ## Setup
 
@@ -30,7 +30,6 @@ For more information on setup, see our installation [video](https://youtu.be/G8M
 
    ![alt API Key](https://www.ayrshare.com/wp-content/uploads/social-api-key.jpg)
 
-
 ## Getting Started
 
 ### Initialize Social Post API
@@ -38,7 +37,7 @@ For more information on setup, see our installation [video](https://youtu.be/G8M
 Create a new Social Post object with your API Key.
 
 ``` javascript
-const SocialPost = require("social-post-api");
+const SocialPost = require("social-media-api");
 const social = new SocialPost('Your API Key');
 ```
 
@@ -47,7 +46,7 @@ const social = new SocialPost('Your API Key');
 This simple example shows how to post an image or video, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook Pages, Facebook Groups, Instagram, LinkedIn. Note, YouTube, Google My Business, Telegram, TikTok, and Reddit also available.
 
 ``` javascript
-const SocialPost = require("social-post-api");
+const SocialPost = require("social-media-api");
 const API_KEY = "Your API Key"; // get an API Key at ayrshare.com
 const social = new SocialPost(API_KEY);
 
@@ -74,8 +73,7 @@ const run = async () => {
 run();
 ```
 
-
-## Social API
+## Social Media API
 
 The following section details the different functions of the social media API.
 
@@ -137,7 +135,6 @@ Retry a failed post with a given post ID, obtained from the "post" response. Ret
 ``` javascript
 const retryResponse = await social.retryPost({ id }).catch(console.error);
 ```
-
 
 ### History
 
@@ -564,6 +561,7 @@ const generatePostResponse = await social.generatePost({
 ```
 
 ### Generate Rewrite
+
 Generate variations of a social media post using ChatGPT. Token limits applicable. See the [generate rewrite endpoint](https://docs.ayrshare.com/rest-api/endpoints/generate#rewrite-a-post-1) for more details.
 
 ``` javascript
@@ -639,11 +637,9 @@ const analyticsLinkResponse = await social.shortLinkAnalytics({
 }).catch(console.error);
 ```
 
-
 ## Other Packages & Integrations
 
 We have other package and integrations such as [Python](https://docs.ayrshare.com/packages/python-pypi), [Bubble.io](https://docs.ayrshare.com/packages/bubble.io), and [Airtable](https://docs.ayrshare.com/packages/airtable) + examples in PHP and Go.
-
 
 ## Additional Information and Support
 

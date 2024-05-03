@@ -1,8 +1,9 @@
 {
-	"name": "social-post-api",
-	"version": "1.1.1",
-	"description": "Social Media API to post and get analytics for Twitter, Instagram, Facebook Pages, Facebook Groups, LinkedIn, YouTube, Google My Business, Reddit, TikTok, and Telegram. Easily integrate with your platform or app to schedule posts, get analytics, or add comments on behalf of your users.",
+	"name": "social-media-api",
+	"version": "1.2.0",
+	"description": "Social Media API for Instagram, Facebook, LinkedIn, YouTube, X/Twitter, Google Business Profile, Reddit, TikTok, and Telegram. Easily integrate with your platform or app to schedule posts, get analytics, or manage comments on behalf of your users.",
 	"main": "index.js",
+	"type": "module",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/ayrshare/social-post-api"
@@ -20,9 +21,10 @@
 		"Automate Social Post",
 		"Facebook API",
 		"Twitter API",
+		"X API",
 		"LinkedIn API",
 		"Reddit API",
-		"Google My Business API",
+		"Google Business Profile API",
 		"GMB API",
 		"Telegram API",
 		"Instagram API",
@@ -36,9 +38,16 @@
 		"Social Media Multiple Users",
 		"Client Social Media",
 		"Agency Social Media",
-		"Social Sharing API"
+		"Social Sharing API",
+		"Facebook Analytics",
+		"Twitter Analytics",
+		"LinkedIn Analytics",
+		"Instagram Analytics",
+		"Reddit Analytics",
+		"Google My Business Analytics",
+		"TikTok Analytics"
 	],
-	"author": "Geoffrey Bourne",
+	"author": "Ayrshare",
 	"url": "https://www.ayrshare.com",
 	"license": "MIT",
 	"bugs": {
@@ -49,7 +58,7 @@
 	},
 	"homepage": "https://www.ayrshare.com",
 	"dependencies": {
-		"datauri": "^3.0.0",
-		"got": "^11.8.5"
+		"datauri": "^4.1.0",
+		"got": "^14.2.1"
 	}
 }

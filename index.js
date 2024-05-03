@@ -1,6 +1,6 @@
-const got = require("got");
+import got from "got";
 
-const BASE_URL = "https://app.ayrshare.com/api";
+const BASE_URL = "https://api.ayrshare.com/api";
 // const BASE_URL = "http://localhost:5001/ayrshare/us-central1/api";
 const ERROR_MSG = {
   status: "error",
@@ -332,4 +332,4 @@ class SocialPost {
   }
 }
 
-module.exports = SocialPost;
+export default SocialPost;

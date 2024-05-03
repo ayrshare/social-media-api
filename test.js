@@ -1,13 +1,15 @@
-const SocialPost = require("./index.js");
+import SocialPost from "./index.js";
 /**
- * Add your API Key to a .json file, Profile Key (Business Plan), and Domain (Business Plan)
+ * Add your API Key to a config.js file, Profile Key (Business Plan), and Domain (Business Plan)
  * {
  *  "API_KEY": "your api key",
  *  "PROFIL_KEY": "user profile key",
  *  "DOMAIN": "Business Plan domain"
  * }
  */
-const { API_KEY, PROFILE_KEY, DOMAIN } = require("./config.json");
+import config from "./config.js";
+const { API_KEY, PROFILE_KEY, DOMAIN } = config;
+
 const social = new SocialPost(API_KEY);
 
 /** Test history */
@@ -48,15 +50,18 @@ const testDelete = async (id) => {
   console.log("testDelete:", deletePost);
 };
 
-/** Test post */
+/** Test post 
+ * Uncomment the platforms you want to post to and/or include the random video.
+*/
 const testPost = async () => {
   const post = await social.post({
     randomPost: true,
-    // platforms: ["twitter", "facebook", "linkedin", "instagram"],
+    // platforms: ["twitter", "facebook", "linkedin", "instagram", "tiktok"],
     platforms: ["twitter"],
     randomMediaUrl: true,
+    // isLandscapeVideo: true,
     shortenLinks: true,
-    requiresApproval: true
+    // requiresApproval: true
   });
   console.log("testPost: ", post);
 
