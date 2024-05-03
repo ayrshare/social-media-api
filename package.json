@@ -1,6 +1,6 @@
 {
   "name": "social-media-api",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Social Media API for Instagram, Facebook, LinkedIn, YouTube, X/Twitter, Google Business Profile, Reddit, TikTok, and Telegram. Easily integrate with your platform or app to schedule posts, get analytics, or manage comments on behalf of your users.",
   "main": "index.js",
   "type": "module",

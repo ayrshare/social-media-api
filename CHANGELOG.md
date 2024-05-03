@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.2.2] 2024-05-03
+## [1.2.3] 2024-05-03
 
 - Added new endpoints with examples including resize, verify, webhooks, and more. Please see ReadMe for details.
 - Added new test cases.

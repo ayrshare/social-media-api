@@ -2,7 +2,7 @@
 
 ![Ayrshare logo](https://www.ayrshare.com/wp-content/uploads/2020/08/ayr-logo-2156-reduced.png)
 
-The Social Media API is a wrapper SDK for [Ayrshare's APIs](https://www.ayrshare.com).
+The Social Media API is a Node.js wrapper SDK for [Ayrshare's APIs](https://www.ayrshare.com).
 
 Ayrshare is a powerful set of APIs that enable you to send social media posts, get analytics, and add comments to *X/Twitter*, *Instagram*, *Facebook*, *LinkedIn*, *YouTube*, *Google Business Profile*, *Pinterest*, *TikTok*, *Reddit*, and *Telegram* on behalf of your users or clients.
 
@@ -20,30 +20,30 @@ For more information on setup, see our installation [video](https://youtu.be/G8M
 
 **1.** Create a free [Ayrshare account](https://app.ayrshare.com).
 
-   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/2021/07/ayrshare-login.jpg)
+   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/Ayrshare-login.png)
 
-**2.** Enable your social media accounts such as Twitter, Facebook, LinkedIn, Reddit, Instagram, Google My Business, Telegram, TikTok, or YouTube in the Ayrshare dashboard.
+**2.** Enable your social media accounts such as X/Twitter, Facebook, LinkedIn, Reddit, Instagram, Google Business Profile, Telegram, TikTok, or YouTube in the Ayrshare dashboard.
 
-   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/social-api-linking.jpg)
+   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/Ayrshare-social-linking.png)
   
 **3.** Copy your API Key from the Ayrshare dashboard. Used for authentication.
 
-   ![alt API Key](https://www.ayrshare.com/wp-content/uploads/social-api-key.jpg)
+   ![alt API Key](https://www.ayrshare.com/wp-content/uploads/Ayrshare-API-key.png)
 
 ## Getting Started
 
 ### Initialize Social Post API
 
-Create a new Social Post object with your API Key.
+Create a new Social Media API object with your API Key.
 
 ``` javascript
-const SocialMediaAPI = require("social-media-api");
+const SocialMediaAPI = require("social-media-api"); // or import SocialMediaAPI from 'social-media-api';
 const social = new SocialMediaAPI('Your API Key');
 ```
 
 ### History, Post, Delete Example
 
-This simple example shows how to post an image or video, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled Twitter, Facebook Pages, Facebook Groups, Instagram, LinkedIn. Note, YouTube, Google My Business, Telegram, TikTok, and Reddit also available.
+This simple example shows how to post an image or video, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled X/Twitter, Facebook Pages, Instagram, LinkedIn. Note, YouTube, Google Business Profile, Telegram, TikTok, and Reddit also available.
 
 ``` javascript
 const SocialMediaAPI = require("social-media-api");
