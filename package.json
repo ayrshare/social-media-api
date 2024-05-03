@@ -1,64 +1,71 @@
 {
-	"name": "social-media-api",
-	"version": "1.2.0",
-	"description": "Social Media API for Instagram, Facebook, LinkedIn, YouTube, X/Twitter, Google Business Profile, Reddit, TikTok, and Telegram. Easily integrate with your platform or app to schedule posts, get analytics, or manage comments on behalf of your users.",
-	"main": "index.js",
-	"type": "module",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/ayrshare/social-post-api"
-	},
-	"keywords": [
-		"Ayrshare",
-		"Social Media",
-		"Social Networks",
-		"Social Networking",
-		"Social Posting",
-		"Social Media API",
-		"Social API",
-		"API Social Post",
-		"Automation",
-		"Automate Social Post",
-		"Facebook API",
-		"Twitter API",
-		"X API",
-		"LinkedIn API",
-		"Reddit API",
-		"Google Business Profile API",
-		"GMB API",
-		"Telegram API",
-		"Instagram API",
-		"YouTube API",
-		"TikTok API",
-		"TikTok Posting",
-		"Instagram",
-		"Instgram API",
-		"Schedule Social Media",
-		"Social Media White Label",
-		"Social Media Multiple Users",
-		"Client Social Media",
-		"Agency Social Media",
-		"Social Sharing API",
-		"Facebook Analytics",
-		"Twitter Analytics",
-		"LinkedIn Analytics",
-		"Instagram Analytics",
-		"Reddit Analytics",
-		"Google My Business Analytics",
-		"TikTok Analytics"
-	],
-	"author": "Ayrshare",
-	"url": "https://www.ayrshare.com",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/ayrshare/social-post-api/issues"
-	},
-	"bin": {
-		"social-post-api": "./index.js"
-	},
-	"homepage": "https://www.ayrshare.com",
-	"dependencies": {
-		"datauri": "^4.1.0",
-		"got": "^14.2.1"
-	}
+  "name": "social-media-api",
+  "version": "1.2.1",
+  "description": "Social Media API for Instagram, Facebook, LinkedIn, YouTube, X/Twitter, Google Business Profile, Reddit, TikTok, and Telegram. Easily integrate with your platform or app to schedule posts, get analytics, or manage comments on behalf of your users.",
+  "main": "index.js",
+  "type": "module",
+  "exports": {
+    "import": "./index.js",
+    "require": "./index.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayrshare/social-media-api"
+  },
+  "keywords": [
+    "Ayrshare",
+    "Social Media",
+    "Social Networks",
+    "Social Networking",
+    "Social Posting",
+    "Social Media API",
+    "Social API",
+    "API Social Post",
+    "Automation",
+    "Automate Social Post",
+    "Facebook API",
+    "Twitter API",
+    "X API",
+    "LinkedIn API",
+    "Reddit API",
+    "Google Business Profile API",
+    "GMB API",
+    "Telegram API",
+    "Instagram API",
+    "YouTube API",
+    "TikTok API",
+    "TikTok Posting",
+    "Instagram",
+    "Instgram API",
+    "Schedule Social Media",
+    "Social Media White Label",
+    "Social Media Multiple Users",
+    "Client Social Media",
+    "Agency Social Media",
+    "Social Sharing API",
+    "Facebook Analytics",
+    "Twitter Analytics",
+    "LinkedIn Analytics",
+    "Instagram Analytics",
+    "Reddit Analytics",
+    "Google My Business Analytics",
+    "TikTok Analytics"
+  ],
+  "author": "Ayrshare",
+  "url": "https://www.ayrshare.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ayrshare/social-media-api/issues"
+  },
+  "bin": {
+    "social-media-api": "./index.js"
+  },
+  "homepage": "https://www.ayrshare.com",
+  "dependencies": {
+    "datauri": "^4.1.0",
+    "got": "^11.8.6"
+  },
+  "devDependencies": {
+    "rollup": "^4.17.2"
+  }
 }

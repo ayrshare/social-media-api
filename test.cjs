@@ -1,6 +1,6 @@
 // npx rollup index.js --file index.cjs --format cjs
 
-import SocialPost from "./index.js";
+const SocialPost = require("./index.cjs");
 /**
  * Add your API Key to a config.js file, Profile Key (Business Plan), and Domain (Business Plan)
  * {
@@ -9,7 +9,7 @@ import SocialPost from "./index.js";
  *  "DOMAIN": "Business Plan domain"
  * }
  */
-import config from "./config.js";
+const config = require("./config.json");
 const { API_KEY, PROFILE_KEY, DOMAIN } = config;
 
 const social = new SocialPost(API_KEY);
