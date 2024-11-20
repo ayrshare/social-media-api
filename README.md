@@ -6,11 +6,11 @@ The Social Media API is a Node.js wrapper SDK for [Ayrshare's APIs](https://www.
 
 Ayrshare is a powerful set of APIs that enable you to send social media posts, get analytics, and add comments to *X/Twitter*, *Instagram*, *Facebook*, *LinkedIn*, *YouTube*, *Google Business Profile*, *Pinterest*, *TikTok*, *Reddit*, and *Telegram* on behalf of your users or clients.
 
-The Ayrshare Social API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the full list of [full list of features](https://docs.ayrshare.com/rest-api/overview) in our docs.
+The Ayrshare Social API handles all the setup and maintenance for the social media networks. One API to rule them all (yeah, went there). See the full list of [full list of features](https://www.ayrshare.com/docs/apis/overview) in our docs.
 
 Get started with a [free plan](https://www.ayrshare.com/pricing), or if you have a platform or manage multiple users check out the [Business Plan](https://www.ayrshare.com/business-plan-for-multiple-users/).
 
-For more information on setup, see our installation [video](https://youtu.be/G8M6DZdtcMc) or our [Quick Start Guide](https://docs.ayrshare.com/quick-start-guide).
+For more information on setup, see our installation [video](https://youtu.be/G8M6DZdtcMc) or our [Quick Start Guide](https://www.ayrshare.com/docs/quickstart).
 
 ## Installation
 
@@ -79,7 +79,7 @@ The following section details the different functions of the social media API.
 
 ### Post
 
-Published a new post to the specified social networks either immediately or at scheduled future date. Returns a promise that resolves to an object containing the post ID and post status (success, error). See the [post endpoint](https://docs.ayrshare.com/rest-api/endpoints/post) for the full capabilities.
+Published a new post to the specified social networks either immediately or at scheduled future date. Returns a promise that resolves to an object containing the post ID and post status (success, error). See the [post endpoint](https://www.ayrshare.com/docs/apis/post/post) for the full capabilities.
 
 ``` javascript
 const postResponse = await social.post({
@@ -111,7 +111,7 @@ const postResponse = await social.post({
 
 ### Delete
 
-Delete a post with a given post ID, obtained from the "post" response. Returns a promise with the delete status. Also, can bulk delete multiple IDs at once using the "bulk" key. See the [delete endpoint](https://docs.ayrshare.com/rest-api/endpoints/post#delete-a-post) for more details.
+Delete a post with a given post ID, obtained from the "post" response. Returns a promise with the delete status. Also, can bulk delete multiple IDs at once using the "bulk" key. See the [delete endpoint](https://www.ayrshare.com/docs/apis/post/delete-post) for more details.
 
 ``` javascript
 const deleteResponse = await social.delete({
@@ -122,7 +122,7 @@ const deleteResponse = await social.delete({
 
 ### Get Post
 
-Get a post with a given post ID, obtained from the "post" response. Returns a promise that resolves to an array containing the post object. See the [get endpoint](https://docs.ayrshare.com/rest-api/endpoints/post#get-retrieve-a-post) for more details.
+Get a post with a given post ID, obtained from the "post" response. Returns a promise that resolves to an array containing the post object. See the [get endpoint](https://www.ayrshare.com/docs/apis/post/get-post) for more details.
 
 ``` javascript
 const getResponse = await social.getPost({ id }).catch(console.error);
@@ -130,7 +130,7 @@ const getResponse = await social.getPost({ id }).catch(console.error);
 
 ### Retry Post
 
-Retry a failed post with a given post ID, obtained from the "post" response. Returns a promise that resolves to an object containing the post status and ID. See the [retry endpoint](https://docs.ayrshare.com/rest-api/endpoints/post#put-retry-a-post) for more details.
+Retry a failed post with a given post ID, obtained from the "post" response. Returns a promise that resolves to an object containing the post status and ID. See the [retry endpoint](https://www.ayrshare.com/docs/apis/post/retry-post) for more details.
 
 ``` javascript
 const retryResponse = await social.retryPost({ id }).catch(console.error);
@@ -138,7 +138,7 @@ const retryResponse = await social.retryPost({ id }).catch(console.error);
 
 ### History
 
-Get a history of all posts and their current status in descending order. Returns a promise that resolves to an array of post objects. See the [history endpoint](https://docs.ayrshare.com/rest-api/endpoints/history) for more details.
+Get a history of all posts and their current status in descending order. Returns a promise that resolves to an array of post objects. See the [history endpoint](https://www.ayrshare.com/docs/apis/history/get-history) for more details.
 
 ``` javascript
 const historyResponse = await social.history({
@@ -147,7 +147,7 @@ const historyResponse = await social.history({
 }).catch(console.error);
 ```
 
-Get history by post ID
+Get history by post ID. See the [history by ID endpoint](https://www.ayrshare.com/docs/apis/history/get-history-id) for more details.
 
 ``` javascript
 const historyByIdResponse = await social.history({
@@ -155,7 +155,7 @@ const historyByIdResponse = await social.history({
 }).catch(console.error);
 ```
 
-Get All Post History
+Get history by platform. See the [history by platform endpoint](https://www.ayrshare.com/docs/apis/history/history-platform) for more details.
 
 ``` javascript
 const historyAllPostsResponse = await social.history({
@@ -165,7 +165,7 @@ const historyAllPostsResponse = await social.history({
 
 ### Upload Media
 
-Upload and store a new image. Returns a URL referencing the image. Can be used in "image_url" in "post". See the [media endpoint](https://docs.ayrshare.com/rest-api/endpoints/media) for more details.
+Upload and store a new image. Returns a URL referencing the image. Can be used in "image_url" in "post". See the [media endpoint](https://www.ayrshare.com/docs/apis/media/upload-media) for more details.
 
 ``` javascript
 const uploadResponse = await social.upload({
@@ -182,7 +182,7 @@ const uploadResponse = await social.upload({
 
 ### Get Media
 
-Get all media URLS. Returns a promise that resolves to an array of URL objects. See the [media endpoint](https://docs.ayrshare.com/rest-api/endpoints/media) for more details.
+Get all media URLS. Returns a promise that resolves to an array of URL objects. See the [media endpoint](https://www.ayrshare.com/docs/apis/media/get-media-in-gallery) for more details.
 
 ``` javascript
 const mediaResponse = await social.media().catch(console.error);
@@ -190,7 +190,7 @@ const mediaResponse = await social.media().catch(console.error);
 
 ### Get Media Upload URL for Large Files
 
-Get a URL to upload large files. Returns a promise that resolves to an object containing an access URL and an upload URL. See the [media upload url endpoint](https://docs.ayrshare.com/rest-api/endpoints/media#upload-large-media-files) for more details.
+Get a URL to upload large files. Returns a promise that resolves to an object containing an access URL and an upload URL. See the [media upload url endpoint](https://www.ayrshare.com/docs/apis/media/upload-large-media) for more details.
 
 ``` javascript
 const mediaUploadResponse = await social.mediaUploadUrl({ 
@@ -201,7 +201,7 @@ const mediaUploadResponse = await social.mediaUploadUrl({
 
 ### Verify Media Exists
 
-Verify that the media file exists when uploaded. See the [media verify exists endpoint](https://docs.ayrshare.com/rest-api/endpoints/media#verify-media-url-exists) for more details.
+Verify that the media file exists when uploaded. See the [media verify exists endpoint](https://www.ayrshare.com/docs/apis/media/verify-media-url) for more details.
 
 ``` javascript
 const verifyMediaResponse = await social.verifyMediaExists({
@@ -211,7 +211,7 @@ const verifyMediaResponse = await social.verifyMediaExists({
 
 ### Resize Image
 
-Get image resized according to social network requirements. See the [resize image endpoint](https://docs.ayrshare.com/rest-api/endpoints/media#resize-an-image) for more details.
+Get image resized according to social network requirements. See the [resize image endpoint](https://www.ayrshare.com/docs/apis/media/resize) for more details.
 
 ``` javascript
 const resizeImageResponse = await social.resizeImage({
@@ -226,22 +226,15 @@ const resizeImageResponse = await social.resizeImage({
 
 ### User
 
-Get data about the logged in user, such as post quota, used quota, active social networks, and created date. See the [user endpoint](https://docs.ayrshare.com/rest-api/endpoints/user) for more details.
+Get data about the logged in user, such as post quota, used quota, active social networks, and created date. See the [user endpoint](https://www.ayrshare.com/docs/apis/user/profile-details) for more details.
 
 ``` javascript
 const user = await social.user().catch(console.error);
 ```
 
-### Analytics
+### Post Analytics
 
-Get analytics on shortened links and shares, likes, shares, and impressions with for a post or at the accounts level. See the [analytics endpoint](https://docs.ayrshare.com/rest-api/endpoints/analytics) for more details.
-
-``` javascript
-const analyticsLinks = await social.analyticsLinks({
-  // Optional range 1-7, default 1 day.
-  lastDays: 3
-}).catch(console.error);
-```
+Get analytics on shortened links and shares, likes, shares, and impressions for a post or at the accounts level. See the [post analytics endpoint](https://www.ayrshare.com/docs/apis/analytics/post) for more details.
 
 ``` javascript
 const analyticsPost = await social.analyticsPost({
@@ -249,6 +242,10 @@ const analyticsPost = await social.analyticsPost({
   platforms: ["twitter", "instagram", "facebook", "youtube", "linkedin"]
 }).catch(console.error);
 ```
+
+### Social Media Analytics
+
+Get analytics and demographics on a user’s social profile, such as impressions, views, and followers. See the [social analytics endpoint](https://www.ayrshare.com/docs/apis/analytics/social) for more details.
 
 ``` javascript
 const analyticsSocial = await social.analyticsSocial({
@@ -258,7 +255,7 @@ const analyticsSocial = await social.analyticsSocial({
 
 ### Post a Comment
 
-Add a comment to a post. Currently only on Facebook and Instagram. See the [create comment endpoint](https://docs.ayrshare.com/rest-api/endpoints/comments#post-a-comment) for more details.
+Add a comment to a post. Currently only on Facebook and Instagram. See the [create comment endpoint](https://www.ayrshare.com/docs/apis/comments/post-comment) for more details.
 
 ``` javascript
 const postCommentResponse = await social.postComment({
@@ -270,7 +267,7 @@ const postCommentResponse = await social.postComment({
 
 ### Get Comments
 
-Get comments for a post. Currently only on Facebook and Instagram. See the [get comment endpoint](https://docs.ayrshare.com/rest-api/endpoints/comments#get-comments) for more details.
+Get comments for a post. Currently only on Facebook and Instagram. See the [get comment endpoint](https://www.ayrshare.com/docs/apis/comments/get-comments) for more details.
 
 ``` javascript
 const getCommentResponse = await social.getComments({
@@ -280,7 +277,7 @@ const getCommentResponse = await social.getComments({
 
 ### Delete Comments
 
-Delete either a single comment or all comments under a post that were sent via Ayrshare. Available for Facebook, Instagram, LinkedIn, Reddit, TikTok, X/Twitter, and YouTube. See the [delete comment endpoint](https://docs.ayrshare.com/rest-api/endpoints/comments#delete-delete-comments) for more details.
+Delete either a single comment or all comments under a post that were sent via Ayrshare. Available for Facebook, Instagram, LinkedIn, Reddit, TikTok, X/Twitter, and YouTube. See the [delete comment endpoint](https://www.ayrshare.com/docs/apis/comments/delete-comments) for more details.
 
 ``` javascript
 const deleteCommentResponse = await social.deleteComments({
@@ -291,7 +288,7 @@ const deleteCommentResponse = await social.deleteComments({
 
 ### Reply Comment
 
-Reply to a comment. Available for Facebook, Instagram, LinkedIn, TikTok, X/Twitter, and YouTube. See the [reply comment endpoint](https://docs.ayrshare.com/rest-api/endpoints/comments#post-reply-to-a-comment) for more details.
+Reply to a comment. Available for Facebook, Instagram, LinkedIn, TikTok, X/Twitter, and YouTube. See the [reply comment endpoint](https://www.ayrshare.com/docs/apis/comments/reply-to-comment) for more details.
 
 ``` javascript
 const replyCommentResponse = await social.replyComment({
@@ -303,7 +300,7 @@ const replyCommentResponse = await social.replyComment({
 
 ### Set, Delete, and List Auto Schedule
 
-Set up an auto-post schedule by providing times to send. Post will automatically be sent at the next available time. If no more times are available today, the first available time tomorrow will be used, and so forth. See the [set-auto-schedule endpoint](https://docs.ayrshare.com/rest-api/endpoints/post#set-auto-schedule) for more details.
+Auto scheduling allows you to create and manage pre-defined posting schedules. See the [auto-schedule endpoints](https://www.ayrshare.com/docs/apis/auto-schedule/overview) for more details.
 
 ``` javascript
 const setAutoSchedule = await social.setAutoSchedule({
@@ -338,7 +335,7 @@ const feedResponse = await social.feedAdd({
 
 ### Delete an RSS or Substack Feed
 
-Delete an RSS feed for a given ID.
+Delete an RSS feed for a given ID. See the [delete feed endpoint](https://www.ayrshare.com/docs/apis/feeds/delete-feed) for more details.
 
 ``` javascript
 const feedResponse = await social.feedDelete({
@@ -348,7 +345,7 @@ const feedResponse = await social.feedDelete({
 
 ### Get Feeds
 
-Get all registered RSS feeds. Returns a promise that resolves to an array of feed objects. See the [get feeds endpoint](https://docs.ayrshare.com/rest-api/endpoints/feed#get-rss-feeds) for more details.
+Get all registered RSS feeds. Returns a promise that resolves to an array of feed objects. See the [get feeds endpoint](https://www.ayrshare.com/docs/apis/feeds/get-feeds) for more details.
 
 ``` javascript
 const feedsResponse = await social.feedGet().catch(console.error);
@@ -356,7 +353,7 @@ const feedsResponse = await social.feedGet().catch(console.error);
 
 ### Update Feed
 
-Update an RSS feed for a given ID. Returns a promise that resolves to an object containing the feed ID. See the [update feed endpoint](https://docs.ayrshare.com/rest-api/endpoints/feed#update-rss-feed) for more details.
+Update an RSS feed for a given ID. Returns a promise that resolves to an object containing the feed ID. See the [update feed endpoint](https://www.ayrshare.com/docs/apis/feeds/update-feed) for more details.
 
 ``` javascript
 const feedResponse = await social.feedUpdate({
@@ -368,11 +365,11 @@ const feedResponse = await social.feedUpdate({
 
 ## Business Functions for Multiple Users - Business or Enterprise Plan Required
 
-The [Business Plan](https://www.ayrshare.com/business-plan-for-multiple-users/) allows you to create, manage, and post on behalf of client profiles via the API or Dashboard GUI. You can [integrate](https://docs.ayrshare.com/multiple-client-accounts/overview) Ayrshare into your platform, product, or agency and give your clients social media capabilites. Please [contact us](mailto:contact@ayrshare.com) with any questions.
+The [Business Plan](https://www.ayrshare.com/business-plan-for-multiple-users/) allows you to create, manage, and post on behalf of client profiles via the API or Dashboard GUI. You can [integrate](https://www.ayrshare.com/docs/multiple-users/business-plan-overview) Ayrshare into your platform, product, or agency and give your clients social media capabilites. Please [contact us](mailto:contact@ayrshare.com) with any questions.
 
 ### Create Profile
 
-Create a new account profile under the primary account. See the [create profile endpoint](https://docs.ayrshare.com/rest-api/endpoints/profiles#create-a-new-profile) for more details.
+Create a new account profile under the primary account. See the [create profile endpoint](https://www.ayrshare.com/docs/apis/profiles/create-profile) for more details.
 
 ``` javascript
 const createProfileResponse = await social.createProfile({
@@ -383,7 +380,7 @@ const createProfileResponse = await social.createProfile({
 
 ### Delete Profile
 
-Delete a profile owned by the primary account. See the [delete profile endpoint](https://docs.ayrshare.com/rest-api/endpoints/profiles#delete-a-profile) for more details.
+Delete a profile owned by the primary account. See the [delete profile endpoint](https://www.ayrshare.com/docs/apis/profiles/delete-profile) for more details.
 
 ``` javascript
 const deleteProfileResponse = await social.deleteProfile({
@@ -394,7 +391,7 @@ const deleteProfileResponse = await social.deleteProfile({
 
 ### Update Profile
 
-Update a profile owned by the primary account. See the [update profile endpoint](https://docs.ayrshare.com/rest-api/endpoints/profiles#update-a-user-profile) for more details.
+Update a profile owned by the primary account. See the [update profile endpoint](https://www.ayrshare.com/docs/apis/profiles/update-profile) for more details.
 
 ``` javascript
 const updateProfileResponse = await social.updateProfile({
@@ -406,7 +403,7 @@ const updateProfileResponse = await social.updateProfile({
 
 ### Get Profiles
 
-Get all the profiles associated with the primary account. See the [get profile endpoint](https://docs.ayrshare.com/rest-api/endpoints/profiles#get-profiles) for more details.
+Get all the profiles associated with the primary account. See the [get profile endpoint](https://www.ayrshare.com/docs/apis/profiles/get-profiles) for more details.
 
 ``` javascript
 const getProfileResponse = await social.getProfiles().catch(console.error);
@@ -414,7 +411,7 @@ const getProfileResponse = await social.getProfiles().catch(console.error);
 
 ### Unlink Social Network
 
-Unlink a social account for a given user profile owned by the primary account. See the [unlink social network endpoint](https://docs.ayrshare.com/rest-api/endpoints/profiles#unlink-a-social-network) for more details.
+Unlink a social account for a given user profile owned by the primary account. See the [unlink social network endpoint](https://www.ayrshare.com/docs/apis/profiles/unlink-social-network) for more details.
 
 ``` javascript
 const unlinkResponse = await social.unlinkSocial({
@@ -426,7 +423,7 @@ const unlinkResponse = await social.unlinkSocial({
 
 ### Generate a JWT Url
 
-Generate a JWT Token and URL used for authorizing a user's access to the Social Account linking page. See the [generate JWT endpoint](https://docs.ayrshare.com/rest-api/endpoints/profiles#generate-a-jwt) for more details.
+Generate a JWT Token and URL used for authorizing a user's access to the Social Account linking page. See the [generate JWT endpoint](https://www.ayrshare.com/docs/apis/profiles/generate-jwt) for more details.
 
 ``` javascript
 const generateJWTResponse = await social.generateJWT({
@@ -438,7 +435,7 @@ const generateJWTResponse = await social.generateJWT({
 
 ### Get Brand Info on a User
 
-Get brand information on users and companies public social media accounts. See the [brand endpoint](https://docs.ayrshare.com/rest-api/endpoints/brand) for more details.
+Get brand information on users and companies public social media accounts. See the [brand endpoint](https://www.ayrshare.com/docs/apis/brand/brand-user) for more details.
 
 ``` javascript
 const brandResponse = await social.getBrandByUser({
@@ -450,7 +447,7 @@ const brandResponse = await social.getBrandByUser({
 
 ### Register, Unregister, and List Webhooks
 
-A webhook allows you to be notified when certain system actions occur via a call to a URL you provide. Register a webhook by providing your URL and the type of action you wish to be notified. When the action occurs a POST message will be sent to the provided URL. See the [webhooks endpoints](https://docs.ayrshare.com/rest-api/endpoints/webhooks) for more details.
+A webhook allows you to be notified when certain system actions occur via a call to a URL you provide. Register a webhook by providing your URL and the type of action you wish to be notified. When the action occurs a POST message will be sent to the provided URL. See the [webhooks endpoints](https://www.ayrshare.com/docs/apis/webhooks/overview) for more details.
 
 ``` javascript
 const registerWebhook = await social.registerWebhook({
@@ -471,7 +468,7 @@ const listWebhooks = await social.listWebhooks().catch(console.error);
 
 ### Auto Hashtags
 
-Automatically add hashtags to your post. See the [auto hashtags endpoint](https://docs.ayrshare.com/rest-api/endpoints/hashtags#auto-hashtags) for more details.
+Automatically add hashtags to your post. See the [auto hashtags endpoint](https://www.ayrshare.com/docs/apis/hashtags/auto-hashtags) for more details.
 
 ``` javascript
 const autoHashtagsResponse = await social.autoHashtags({
@@ -483,7 +480,7 @@ const autoHashtagsResponse = await social.autoHashtags({
 
 ### Recommend Hashtags
 
-Get suggestions for hashtags based on a keyword. See the [recommend hashtags endpoint](https://docs.ayrshare.com/rest-api/endpoints/hashtags#recommend-hashtags) for more details.
+Get suggestions for hashtags based on a keyword. See the [recommend hashtags endpoint](https://www.ayrshare.com/docs/apis/hashtags/recommend-hashtags) for more details.
 
 ``` javascript
 const recommendHashtagsResponse = await social.recommendHashtags({
@@ -493,7 +490,7 @@ const recommendHashtagsResponse = await social.recommendHashtags({
 
 ### Check Banned Hashtags
 
-Check if a hashtag is banned on Instagram or other social networks. See the [check banned hashtags endpoint](https://docs.ayrshare.com/rest-api/endpoints/hashtags#check-banned-hashtags) for more details.
+Check if a hashtag is banned on Instagram or other social networks. See the [check banned hashtags endpoint](https://www.ayrshare.com/docs/apis/hashtags/check-hashtags) for more details.
 
 ``` javascript
 const checkBannedHashtagsResponse = await social.checkBannedHashtags({
@@ -503,7 +500,7 @@ const checkBannedHashtagsResponse = await social.checkBannedHashtags({
 
 ### Get All Reviews
 
-Retrieve all the reviews for the specified platform. See the [get all reviews endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#get-all-reviews) for more details.
+Retrieve all the reviews for the specified platform. See the [get all reviews endpoint](https://www.ayrshare.com/docs/apis/reviews/get-reviews) for more details.
 
 ``` javascript
 const allReviewsResponse = await social.reviews({
@@ -513,7 +510,7 @@ const allReviewsResponse = await social.reviews({
 
 ### Get Single Review
 
-Retrieve a single review. See the [get single review endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#get-a-single-review) for more details.
+Retrieve a single review. See the [get single review endpoint](https://www.ayrshare.com/docs/apis/reviews/get-one-review) for more details.
 
 ``` javascript
 const singleReviewResponse = await social.review({
@@ -524,7 +521,7 @@ const singleReviewResponse = await social.review({
 
 ### Reply to Review
 
-Reply to a review. See the [reply to review endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#reply-to-a-review) for more details.
+Reply to a review. See the [reply to review endpoint](https://www.ayrshare.com/docs/apis/reviews/reply-review) for more details.
 
 ``` javascript
 const replyReviewResponse = await social.replyReview({
@@ -536,7 +533,7 @@ const replyReviewResponse = await social.replyReview({
 
 ### Delete Review Reply
 
-Delete a review reply. See the [delete review reply endpoint](https://docs.ayrshare.com/rest-api/endpoints/reviews#delete-a-review-reply) for more details.
+Delete a review reply. See the [delete review reply endpoint](https://www.ayrshare.com/docs/apis/reviews/delete-review-reply) for more details.
 
 ``` javascript
 const deleteReplyReviewResponse = await social.deleteReplyReview({
@@ -549,7 +546,7 @@ const deleteReplyReviewResponse = await social.deleteReplyReview({
 
 ### Generate Post
 
-Generate a new social post using ChatGPT. Token limits applicable. See the [generate post endpoint](https://docs.ayrshare.com/rest-api/endpoints/generate#generate-a-post-text) for more details.
+Generate a new social post using ChatGPT. Token limits applicable. See the [generate post endpoint](https://www.ayrshare.com/docs/apis/generate/post-text) for more details.
 
 ``` javascript
 const generatePostResponse = await social.generatePost({
@@ -562,7 +559,7 @@ const generatePostResponse = await social.generatePost({
 
 ### Generate Rewrite
 
-Generate variations of a social media post using ChatGPT. Token limits applicable. See the [generate rewrite endpoint](https://docs.ayrshare.com/rest-api/endpoints/generate#rewrite-a-post-1) for more details.
+Generate variations of a social media post using ChatGPT. Token limits applicable. See the [generate rewrite endpoint](https://www.ayrshare.com/docs/apis/generate/rewrite-post) for more details.
 
 ``` javascript
 const generateRewriteResponse = await social.generateRewrite({
@@ -576,7 +573,7 @@ const generateRewriteResponse = await social.generateRewrite({
 
 ### Generate Transcription
 
-Provide a transcription of a video file. See the [generate transcription endpoint](https://docs.ayrshare.com/rest-api/endpoints/generate#transcribe-a-video-1) for more details.
+Provide a transcription of a video file. See the [generate transcription endpoint](https://www.ayrshare.com/docs/apis/generate/transcribe-video) for more details.
 
 ``` javascript
 const generateTranscriptionResponse = await social.generateTranscription({
@@ -586,7 +583,7 @@ const generateTranscriptionResponse = await social.generateTranscription({
 
 ### Generate Translation
 
-Translate text for a post to over 100 different languages. See the [generate translation endpoint](https://docs.ayrshare.com/rest-api/endpoints/generate#translate-post-text) for more details.
+Translate text for a post to over 100 different languages. See the [generate translation endpoint](https://www.ayrshare.com/docs/apis/generate/translate-post) for more details.
 
 ``` javascript
 const generateTranslationResponse = await social.generateTranslation({
@@ -597,7 +594,7 @@ const generateTranslationResponse = await social.generateTranslation({
 
 ### Generate Alt Text
 
-Create AI-generated alt text for your images.  See the [generate alt text endpoint](https://docs.ayrshare.com/rest-api/endpoints/generate#post-generate-alt-text-for-an-image) for more details.
+Create AI-generated alt text for your images.  See the [generate alt text endpoint](https://www.ayrshare.com/docs/apis/generate/image-alt-text) for more details.
 
 ``` javascript
 const generateAltTextResponse = await social.generateAltText({
@@ -609,7 +606,7 @@ const generateAltTextResponse = await social.generateAltText({
 
 ### Shorten link
 
-Provide a URL and a shortened link will be returned. See the [shorten link endpoint](https://docs.ayrshare.com/rest-api/endpoints/links#create-a-short-link-from-a-url) for more details.
+Provide a URL and a shortened link will be returned. See the [shorten link endpoint](https://www.ayrshare.com/docs/apis/links/create-short-link) for more details.
 
 ``` javascript
 const shortenLinkResponse = await social.shortLink({
@@ -625,7 +622,7 @@ const shortenLinkResponse = await social.shortLink({
 
 ### Analytics for Shortened Links
 
-Return analytics for all shortened links or a single link for a given link ID. See the [analytics link endpoint](https://docs.ayrshare.com/rest-api/endpoints/links#get-analytics-on-shortened-links) for more details.
+Return analytics for all shortened links or a single link for a given link ID. See the [analytics link endpoint](https://www.ayrshare.com/docs/apis/links/link-analytics) for more details.
 
 ``` javascript
 const analyticsLinkResponse = await social.shortLinkAnalytics({
@@ -639,14 +636,14 @@ const analyticsLinkResponse = await social.shortLinkAnalytics({
 
 ## Other Packages & Integrations
 
-We have other package and integrations such as [Python](https://docs.ayrshare.com/packages/python-pypi), [Bubble.io](https://docs.ayrshare.com/packages/bubble.io), and [Airtable](https://docs.ayrshare.com/packages/airtable) + examples in PHP and Go.
+We have other package and integrations such as [Python](https://www.ayrshare.com/docs/packages-guides/python), [Bubble.io](https://www.ayrshare.com/docs/packages-guides/bubble), and [Airtable](https://www.ayrshare.com/docs/packages-guides/airtable) + examples in PHP and Go.
 
 ## Additional Information and Support
 
 Additional examples, responses, etc. can be found at:
 
-[RESTful API Endpoint Docs](https://docs.ayrshare.com/rest-api/endpoints)
+[RESTful API Endpoint Docs](https://www.ayrshare.com/docs/apis/overview)
 
-See our [changelog](https://docs.ayrshare.com/additional-info/whats-new) for the latest and greatest.
+See our [changelog](https://www.ayrshare.com/docs/whatsnew/latest) for the latest and greatest.
 
 Please [contact us](mailto:support@ayrshare.com) with your questions, or just to give us shout-out 📢!
