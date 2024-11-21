@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.4] 2024-11-21
+
+- Update to new API [docs](https://www.ayrshare.com/docs/apis/)
+
 ## [1.2.3] 2024-05-03
 
 - Added new endpoints with examples including resize, verify, webhooks, and more. Please see ReadMe for details.
