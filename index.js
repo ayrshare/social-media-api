@@ -162,6 +162,10 @@ class SocialMediaAPI {
     return doPost("media/resize", params, this.headers);
   }
 
+  analyticsLinks(params) {
+    return doGet("analytics/links", this.headers, params);
+  }
+
   analyticsPost(data) {
     return doPost("analytics/post", data, this.headers);
   }
@@ -177,6 +181,10 @@ class SocialMediaAPI {
 
   upload(data) {
     return doPost("upload", data, this.headers);
+  }
+
+  shorten(data) {
+    return doPost("shorten", data, this.headers);
   }
 
   feedAdd(data) {
