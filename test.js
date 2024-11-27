@@ -5,7 +5,7 @@ import SocialMediaAPI from "./index.js";
  * Add your API Key to a config.js file, Profile Key (Business Plan), and Domain (Business Plan)
  * {
  *  "API_KEY": "your api key",
- *  "PROFIL_KEY": "user profile key",
+ *  "PROFILE_KEY": "user profile key",
  *  "DOMAIN": "Business Plan domain"
  * }
  */

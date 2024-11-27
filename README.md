@@ -367,6 +367,14 @@ const feedResponse = await social.feedUpdate({
 
 The [Business Plan](https://www.ayrshare.com/business-plan-for-multiple-users/) allows you to create, manage, and post on behalf of client profiles via the API or Dashboard GUI. You can [integrate](https://www.ayrshare.com/docs/multiple-users/business-plan-overview) Ayrshare into your platform, product, or agency and give your clients social media capabilites. Please [contact us](mailto:contact@ayrshare.com) with any questions.
 
+The PROFILE_KEY can be used in the body or query parameters with the `profileKey` field. For example:
+
+``` javascript
+const createProfileResponse = await social.post({
+    profileKey: "PROFILE_KEY",
+  }).catch(console.error);
+```
+
 ### Create Profile
 
 Create a new account profile under the primary account. See the [create profile endpoint](https://www.ayrshare.com/docs/apis/profiles/create-profile) for more details.
