@@ -89,7 +89,7 @@ const postResponse = await social.post({
     /** 
      * Required: Social media platforms to post. 
      * Accepts an array of strings with values: "facebook", "twitter", "instagram", "linkedin", "youtube", "gmb", "reddit", or "telegram".
-     * YouTube requires a video and not shown in the example. See https://docs.ayrshare.com/rest-api/endpoints/post#youtube
+     * YouTube requires a video and not shown in the example. See https://www.ayrshare.com/docs/apis/post/social-networks/youtube
      */
     platforms: ["twitter", "facebook", "fbg", "instagram", "linkedin", "gmb", "telegram"],
 
@@ -370,7 +370,7 @@ The [Business Plan](https://www.ayrshare.com/business-plan-for-multiple-users/) 
 A User Profile PROFILE_KEY can be used in the body or query parameters with the `profileKey` field. For example:
 
 ``` javascript
-const createProfileResponse = await social.post({
+const post = await social.post({
     profileKey: "PROFILE_KEY",
   }).catch(console.error);
 ```
