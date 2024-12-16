@@ -13,6 +13,7 @@ import config from "./config.js";
 const { API_KEY, PROFILE_KEY, DOMAIN } = config;
 
 const social = new SocialMediaAPI(API_KEY);
+social.setProfileKey(PROFILE_KEY);
 
 /** Test history */
 const testHistory = async (platform, id) => {
@@ -65,7 +66,7 @@ const testPost = async () => {
     shortenLinks: true,
     // requiresApproval: true
   });
-  console.log("testPost: ", post);
+  console.log("testPost: ", JSON.stringify(post, null, 2));
 
   return post.id;
 };
@@ -360,6 +361,17 @@ const testShortLinkAnalytics = async (id) => {
 
 /** ------------------------------------------------ */
 
+const testWithProfileKey = async () => {
+  social.setProfileKey(PROFILE_KEY);
+  
+  const post = await social.post({
+    randomPost: true,
+    platforms: ["twitter"],
+    shortenLinks: true
+  });
+  console.log("testWithProfileKey post:", post);
+};
+
 const run = async () => {
   const id = await testPost();
   // await testGetPost(id);
@@ -369,6 +381,7 @@ const run = async () => {
   // await testAnalytics("lZDx0mCKwpgCHGp9gLy5");
   // await testGetComments(id);
   // testDelete(id);
+  // await testWithProfileKey();
 };
 
 /*

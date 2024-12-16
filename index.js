@@ -101,31 +101,46 @@ const doGet = (endpoint, headers, params) => {
 class SocialMediaAPI {
   constructor(apiKey) {
     this.apiKey = apiKey;
-    this.headers = {
+    this.profileKey = null;
+  }
+
+  getHeaders() {
+    const headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`
+      "Authorization": `Bearer ${this.apiKey}`
     };
+
+    if (this.profileKey) {
+      headers["Profile-Key"] = this.profileKey;
+    }
+
+    return headers;
+  }
+
+  setProfileKey(profileKey) {
+    this.profileKey = profileKey;
+    return this;
   }
 
   post(data) {
-    return doPost("post", data, this.headers);
+    return doPost("post", data, this.getHeaders());
   }
 
   delete(data) {
-    return doDelete("post", data, this.headers);
+    return doDelete("post", data, this.getHeaders());
   }
 
   updatePost(data) {
-    return doPut("post", data, this.headers);
+    return doPut("post", data, this.getHeaders());
   }
 
   retryPost(data) {
-    return doPut("post/retry", data, this.headers);
+    return doPut("post/retry", data, this.getHeaders());
   }
 
   getPost(data) {
     const { id } = data;
-    return doGet(`post/${id}`, this.headers);
+    return doGet(`post/${id}`, this.getHeaders());
   }
 
   /**
@@ -139,196 +154,196 @@ class SocialMediaAPI {
         ? params.platform
         : null;
 
-    return doGet(`history${id ? `/${id}` : ""}`, this.headers, params);
+    return doGet(`history${id ? `/${id}` : ""}`, this.getHeaders(), params);
   }
 
   media(params) {
-    return doGet("media", this.headers, params);
+    return doGet("media", this.getHeaders(), params);
   }
 
   verifyMediaExists(params) {
-    return doPost("media/urlExists", params, this.headers);
+    return doPost("media/urlExists", params, this.getHeaders());
   }
 
   mediaUploadUrl(params) {
-    return doGet("media/uploadUrl", this.headers, params);
+    return doGet("media/uploadUrl", this.getHeaders(), params);
   }
 
   mediaMeta(params) {
-    return doGet("media/meta", this.headers, params);
+    return doGet("media/meta", this.getHeaders(), params);
   }
 
   resizeImage(params) {
-    return doPost("media/resize", params, this.headers);
+    return doPost("media/resize", params, this.getHeaders());
   }
 
   analyticsLinks(params) {
-    return doGet("analytics/links", this.headers, params);
+    return doGet("analytics/links", this.getHeaders(), params);
   }
 
   analyticsPost(data) {
-    return doPost("analytics/post", data, this.headers);
+    return doPost("analytics/post", data, this.getHeaders());
   }
 
   // new - DONE 1
   analyticsSocial(data) {
-    return doPost("analytics/social", data, this.headers);
+    return doPost("analytics/social", data, this.getHeaders());
   }
 
   user(params) {
-    return doGet("user", this.headers, params);
+    return doGet("user", this.getHeaders(), params);
   }
 
   upload(data) {
-    return doPost("upload", data, this.headers);
+    return doPost("upload", data, this.getHeaders());
   }
 
   shorten(data) {
-    return doPost("shorten", data, this.headers);
+    return doPost("shorten", data, this.getHeaders());
   }
 
   feedAdd(data) {
-    return doPost("feed", data, this.headers);
+    return doPost("feed", data, this.getHeaders());
   }
 
   feedDelete(data) {
-    return doDelete("feed", data, this.headers);
+    return doDelete("feed", data, this.getHeaders());
   }
 
   feedGet(data) {
-    return doGet("feed", data, this.headers);
+    return doGet("feed", data, this.getHeaders());
   }
 
   feedUpdate(data) {
-    return doPut("feed", data, this.headers);
+    return doPut("feed", data, this.getHeaders());
   }
 
   postComment(data) {
-    return doPost("comments", data, this.headers);
+    return doPost("comments", data, this.getHeaders());
   }
 
   getComments(params) {
     const { id } = params;
-    return doGet(`comments/${id}`, this.headers, params);
+    return doGet(`comments/${id}`, this.getHeaders(), params);
   }
 
   deleteComments(params) {
     const { id } = params;
-    return doDelete(`comments/${id}`, params, this.headers);
+    return doDelete(`comments/${id}`, params, this.getHeaders());
   }
 
   replyComment(params) {
-    return doPost(`comments/reply`, params, this.headers);
+    return doPost(`comments/reply`, params, this.getHeaders());
   }
 
   createProfile(data) {
-    return doPost("profiles/profile", data, this.headers);
+    return doPost("profiles/profile", data, this.getHeaders());
   }
 
   deleteProfile(data) {
-    return doDelete("profiles/profile", data, this.headers);
+    return doDelete("profiles/profile", data, this.getHeaders());
   }
 
   updateProfile(data) {
-    return doPut("profiles/profile", data, this.headers);
+    return doPut("profiles/profile", data, this.getHeaders());
   }
 
   getProfiles(params) {
-    return doGet("profiles", this.headers, params);
+    return doGet("profiles", this.getHeaders(), params);
   }
 
   generateJWT(data) {
-    return doPost("profiles/generateJWT", data, this.headers);
+    return doPost("profiles/generateJWT", data, this.getHeaders());
   }
 
   unlinkSocial(data) {
-    return doDelete("profiles/social", data, this.headers);
+    return doDelete("profiles/social", data, this.getHeaders());
   }
 
   setAutoSchedule(data) {
-    return doPost("auto-schedule/set", data, this.headers);
+    return doPost("auto-schedule/set", data, this.getHeaders());
   }
 
   deleteAutoSchedule(data) {
-    return doDelete("auto-schedule/delete", data, this.headers);
+    return doDelete("auto-schedule/delete", data, this.getHeaders());
   }
 
   listAutoSchedule(params) {
-    return doGet("auto-schedule/list", this.headers, params);
+    return doGet("auto-schedule/list", this.getHeaders(), params);
   }
 
   registerWebhook(data) {
-    return doPost("hook/webhook", data, this.headers);
+    return doPost("hook/webhook", data, this.getHeaders());
   }
 
   unregisterWebhook(data) {
-    return doDelete("hook/webhook", data, this.headers);
+    return doDelete("hook/webhook", data, this.getHeaders());
   }
 
   listWebhooks(params) {
-    return doGet("hook/webhook", this.headers, params);
+    return doGet("hook/webhook", this.getHeaders(), params);
   }
 
   getBrandByUser(params) {
-    return doGet("brand/byUser", this.headers, params);
+    return doGet("brand/byUser", this.getHeaders(), params);
   }
 
   generatePost(params) {
-    return doPost("generate/post", params, this.headers);
+    return doPost("generate/post", params, this.getHeaders());
   }
 
   generateRewrite(params) {
-    return doPost("generate/rewrite", params, this.headers);
+    return doPost("generate/rewrite", params, this.getHeaders());
   }
 
   generateTranscription(params) {
-    return doPost("generate/transcription", params, this.headers);
+    return doPost("generate/transcription", params, this.getHeaders());
   }
 
   generateTranslation(params) {
-    return doPost("generate/translate", params, this.headers);
+    return doPost("generate/translate", params, this.getHeaders());
   }
 
   generateAltText(params) {
-    return doPost("generate/altText", params, this.headers);
+    return doPost("generate/altText", params, this.getHeaders());
   }
 
   autoHashtags(params) {
-    return doPost("hashtags/auto", params, this.headers);
+    return doPost("hashtags/auto", params, this.getHeaders());
   }
 
   recommendHashtags(params) {
-    return doGet(`hashtags/recommend`, this.headers, params);
+    return doGet(`hashtags/recommend`, this.getHeaders(), params);
   }
 
   checkBannedHashtags(params) {
-    return doGet("hashtags/banned", this.headers, params);
+    return doGet("hashtags/banned", this.getHeaders(), params);
   }
 
   shortLink(params) {
-    return doPost("links", params, this.headers);
+    return doPost("links", params, this.getHeaders());
   }
 
   shortLinkAnalytics(params) {
     const { id } = params;
-    return doGet(`links/${id}`, this.headers, params);
+    return doGet(`links/${id}`, this.getHeaders(), params);
   }
 
   reviews(params) {
-    return doGet("reviews", this.headers, params);
+    return doGet("reviews", this.getHeaders(), params);
   }
 
   review(params) {
     const { id } = params;
-    return doGet(`reviews/${id}`, this.headers, params);
+    return doGet(`reviews/${id}`, this.getHeaders(), params);
   }
 
   replyReview(params) {
-    return doPost("reviews", params, this.headers);
+    return doPost("reviews", params, this.getHeaders());
   }
 
   deleteReplyReview(params) {
-    return doDelete("reviews", params, this.headers);
+    return doDelete("reviews", params, this.getHeaders());
   }
 }
 

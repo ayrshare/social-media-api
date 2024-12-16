@@ -367,13 +367,14 @@ const feedResponse = await social.feedUpdate({
 
 The [Business Plan](https://www.ayrshare.com/business-plan-for-multiple-users/) allows you to create, manage, and post on behalf of client profiles via the API or Dashboard GUI. You can [integrate](https://www.ayrshare.com/docs/multiple-users/business-plan-overview) Ayrshare into your platform, product, or agency and give your clients social media capabilites. Please [contact us](mailto:contact@ayrshare.com) with any questions.
 
-A User Profile PROFILE_KEY can be used in the body or query parameters with the `profileKey` field. For example:
+A User Profile PROFILE_KEY can be set with the `setProfileKey` function.
 
 ``` javascript
-const post = await social.post({
-    profileKey: "PROFILE_KEY",
-  }).catch(console.error);
+const social = new SocialMediaAPI(API_KEY);
+social.setProfileKey(PROFILE_KEY);
 ```
+
+Replace PROFILE_KEY with the Profile Key of the user you want to use.
 
 Please see the [Authorization](https://www.ayrshare.com/docs/apis/overview#authorization) docs for more details.
 

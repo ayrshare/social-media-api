@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.6] 2024-12-16
+
+- Updated to Profile Key for Business Plan.
+
 ## [1.2.5] 2024-11-27
 
 - More updates to new API [docs](https://www.ayrshare.com/docs/apis/)
