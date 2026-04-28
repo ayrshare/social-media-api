@@ -226,8 +226,8 @@ class SocialMediaAPI {
     return doDelete("feed", data, this.getHeaders());
   }
 
-  feedGet(data) {
-    return doGet("feed", data, this.getHeaders());
+  feedGet(params) {
+    return doGet("feed", this.getHeaders(), params);
   }
 
   feedUpdate(data) {
