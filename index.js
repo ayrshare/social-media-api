@@ -102,6 +102,7 @@ class SocialMediaAPI {
   constructor(apiKey) {
     this.apiKey = apiKey;
     this.profileKey = null;
+    this.twitterBYO = null;
   }
 
   getHeaders() {
@@ -114,11 +115,26 @@ class SocialMediaAPI {
       headers["Profile-Key"] = this.profileKey;
     }
 
+    if (this.twitterBYO) {
+      headers["X-Twitter-OAuth1-Api-Key"] = this.twitterBYO.apiKey;
+      headers["X-Twitter-OAuth1-Api-Secret"] = this.twitterBYO.apiSecret;
+    }
+
     return headers;
   }
 
   setProfileKey(profileKey) {
     this.profileKey = profileKey;
+    return this;
+  }
+
+  setTwitterBYO(apiKey, apiSecret) {
+    this.twitterBYO = { apiKey, apiSecret };
+    return this;
+  }
+
+  clearTwitterBYO() {
+    this.twitterBYO = null;
     return this;
   }
 

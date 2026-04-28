@@ -41,6 +41,32 @@ const SocialMediaAPI = require("social-media-api"); // or import SocialMediaAPI 
 const social = new SocialMediaAPI('Your API Key');
 ```
 
+### X/Twitter Bring-Your-Own-Keys (BYO)
+
+Starting **March 31, 2026**, X/Twitter operations through Ayrshare require your own X Developer App credentials. Set them once after construction and every subsequent SDK call will include the required `X-Twitter-OAuth1-*` headers.
+
+``` javascript
+const social = new SocialMediaAPI(API_KEY)
+  .setTwitterBYO(MY_X_API_KEY, MY_X_API_SECRET);
+
+await social.post({
+  post: "Hello from BYO",
+  platforms: ["twitter"]
+});
+```
+
+Multi-tenant rotation:
+
+``` javascript
+social.setTwitterBYO(tenantA.key, tenantA.secret);
+await social.post({ /* ... */ });
+
+social.clearTwitterBYO().setTwitterBYO(tenantB.key, tenantB.secret);
+await social.post({ /* ... */ });
+```
+
+See the [X/Twitter BYO setup guide](https://docs.ayrshare.com/dashboard/connect-social-accounts/x-twitter-byo-keys) for instructions on obtaining your X consumer key and secret.
+
 ### History, Post, Delete Example
 
 This simple example shows how to post an image or video, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled X/Twitter, Facebook Pages, Instagram, LinkedIn. Note, YouTube, Google Business Profile, Telegram, TikTok, and Reddit also available.

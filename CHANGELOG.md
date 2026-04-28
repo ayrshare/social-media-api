@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.3.0] 2026-04-28
+
+- Added `setTwitterBYO(apiKey, apiSecret)` and `clearTwitterBYO()` for X/Twitter Bring-Your-Own-Keys support. When set, every outbound request includes `X-Twitter-OAuth1-Api-Key` and `X-Twitter-OAuth1-Api-Secret` headers — required for posting to X after the March 31, 2026 BYO enforcement date.
+- Refactored CommonJS build (`index.cjs`) to share the same `getHeaders()` model as the ESM build, which also brings `setProfileKey` to CJS consumers.
+
 ## [1.2.6] 2024-12-16
 
 - Updated to Profile Key for Business Plan.
