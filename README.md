@@ -43,7 +43,7 @@ const social = new SocialMediaAPI('Your API Key');
 
 ### X/Twitter Bring-Your-Own-Keys (BYO)
 
-Starting **March 31, 2026**, X/Twitter operations through Ayrshare require your own X Developer App credentials. Once set, the SDK injects the required `X-Twitter-OAuth1-Api-Key` and `X-Twitter-OAuth1-Api-Secret` headers into **every X-bound request** — `post`, `history`, `delete`, `analyticsPost`, `analyticsSocial`, `postComment`, `replyComment`, etc. — not just `post`.
+As of **March 31, 2026**, X/Twitter operations through Ayrshare require your own X Developer App credentials. Once set, the SDK injects the required `X-Twitter-OAuth1-Api-Key` and `X-Twitter-OAuth1-Api-Secret` headers into **every X-bound request** — `post`, `history`, `delete`, `analyticsPost`, `analyticsSocial`, `postComment`, `replyComment`, etc. — not just `post`.
 
 Keep your X consumer key and secret in environment variables or a secret manager. Never hardcode them or commit them to source control. Ayrshare does not store these credentials on its end.
 
@@ -355,7 +355,7 @@ const listAutoSchedule = await social.listAutoSchedule().catch(console.error);
 
 Add a new RSS or Substack feed to auto post all new articles. Returns a promise that resolved to an object containing the feed ID. See [How to Automate Your Blog or Newsletter](https://www.ayrshare.com/how-to-automatically-post-your-blog-or-newsletter-to-social-media/) for more info.
 
-> **Heads up:** RSS auto-posting to X/Twitter is deprecated as of **March 31, 2026** because RSS feeds run on a schedule and cannot carry per-request BYO credentials. Auto-posting to other platforms is unaffected. See the [upcoming API changes](https://www.ayrshare.com/docs/whatsnew/upcoming-api-changes#march-31-2026).
+> **Heads up:** RSS auto-posting to X/Twitter ended on **March 31, 2026** because RSS feeds run on a schedule and cannot carry per-request BYO credentials. Auto-posting to other platforms is unaffected. See the [upcoming API changes](https://www.ayrshare.com/docs/whatsnew/upcoming-api-changes#march-31-2026).
 
 ``` javascript
 const feedResponse = await social.feedAdd({
