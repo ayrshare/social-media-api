@@ -17,79 +17,79 @@ const runSuite = (label, SDK) => {
     assert.equal(headers[BYO_SECRET_HEADER], undefined);
   });
 
-  test(`${label}: setTwitterBYO injects both headers with correct values`, () => {
+  test(`${label}: setTwitterByo injects both headers with correct values`, () => {
     const s = new SDK("API_KEY");
-    s.setTwitterBYO("ck_123", "cs_456");
+    s.setTwitterByo("ck_123", "cs_456");
     const headers = s.getHeaders();
     assert.equal(headers[BYO_KEY_HEADER], "ck_123");
     assert.equal(headers[BYO_SECRET_HEADER], "cs_456");
   });
 
-  test(`${label}: clearTwitterBYO removes both headers`, () => {
+  test(`${label}: clearTwitterByo removes both headers`, () => {
     const s = new SDK("API_KEY");
-    s.setTwitterBYO("ck_123", "cs_456");
-    s.clearTwitterBYO();
+    s.setTwitterByo("ck_123", "cs_456");
+    s.clearTwitterByo();
     const headers = s.getHeaders();
     assert.equal(headers[BYO_KEY_HEADER], undefined);
     assert.equal(headers[BYO_SECRET_HEADER], undefined);
   });
 
-  test(`${label}: setTwitterBYO and clearTwitterBYO are chainable`, () => {
+  test(`${label}: setTwitterByo and clearTwitterByo are chainable`, () => {
     const s = new SDK("API_KEY");
-    assert.equal(s.setTwitterBYO("a", "b"), s);
-    assert.equal(s.clearTwitterBYO(), s);
+    assert.equal(s.setTwitterByo("a", "b"), s);
+    assert.equal(s.clearTwitterByo(), s);
   });
 
   test(`${label}: BYO coexists with profileKey`, () => {
     const s = new SDK("API_KEY");
-    s.setProfileKey("PK").setTwitterBYO("ck", "cs");
+    s.setProfileKey("PK").setTwitterByo("ck", "cs");
     const headers = s.getHeaders();
     assert.equal(headers[PROFILE_KEY_HEADER], "PK");
     assert.equal(headers[BYO_KEY_HEADER], "ck");
     assert.equal(headers[BYO_SECRET_HEADER], "cs");
   });
 
-  test(`${label}: clearTwitterBYO leaves profileKey untouched`, () => {
+  test(`${label}: clearTwitterByo leaves profileKey untouched`, () => {
     const s = new SDK("API_KEY");
-    s.setProfileKey("PK").setTwitterBYO("ck", "cs").clearTwitterBYO();
+    s.setProfileKey("PK").setTwitterByo("ck", "cs").clearTwitterByo();
     const headers = s.getHeaders();
     assert.equal(headers[PROFILE_KEY_HEADER], "PK");
     assert.equal(headers[BYO_KEY_HEADER], undefined);
     assert.equal(headers[BYO_SECRET_HEADER], undefined);
   });
 
-  test(`${label}: setTwitterBYO throws TypeError on empty / whitespace / non-string args`, () => {
+  test(`${label}: setTwitterByo throws TypeError on empty / whitespace / non-string args`, () => {
     const s = new SDK("API_KEY");
-    assert.throws(() => s.setTwitterBYO("", "cs"), TypeError);
-    assert.throws(() => s.setTwitterBYO("ck", ""), TypeError);
+    assert.throws(() => s.setTwitterByo("", "cs"), TypeError);
+    assert.throws(() => s.setTwitterByo("ck", ""), TypeError);
     // Whitespace-only must be rejected too — common copy/paste footgun.
-    assert.throws(() => s.setTwitterBYO("   ", "cs"), TypeError);
-    assert.throws(() => s.setTwitterBYO("ck", "\t\n "), TypeError);
-    assert.throws(() => s.setTwitterBYO(undefined, "cs"), TypeError);
-    assert.throws(() => s.setTwitterBYO("ck"), TypeError);
-    assert.throws(() => s.setTwitterBYO(null, "cs"), TypeError);
-    assert.throws(() => s.setTwitterBYO(123, "cs"), TypeError);
-    assert.throws(() => s.setTwitterBYO("ck", { secret: true }), TypeError);
+    assert.throws(() => s.setTwitterByo("   ", "cs"), TypeError);
+    assert.throws(() => s.setTwitterByo("ck", "\t\n "), TypeError);
+    assert.throws(() => s.setTwitterByo(undefined, "cs"), TypeError);
+    assert.throws(() => s.setTwitterByo("ck"), TypeError);
+    assert.throws(() => s.setTwitterByo(null, "cs"), TypeError);
+    assert.throws(() => s.setTwitterByo(123, "cs"), TypeError);
+    assert.throws(() => s.setTwitterByo("ck", { secret: true }), TypeError);
     // After every failed call, BYO state remains unset.
     assert.equal(s.getHeaders()[BYO_KEY_HEADER], undefined);
     assert.equal(s.getHeaders()[BYO_SECRET_HEADER], undefined);
   });
 
   test(`${label}: two SDK instances have independent BYO state`, () => {
-    const a = new SDK("API_KEY_A").setTwitterBYO("ck_a", "cs_a");
+    const a = new SDK("API_KEY_A").setTwitterByo("ck_a", "cs_a");
     const b = new SDK("API_KEY_B");
-    // b never called setTwitterBYO — must have no BYO headers.
+    // b never called setTwitterByo — must have no BYO headers.
     assert.equal(b.getHeaders()[BYO_KEY_HEADER], undefined);
     assert.equal(b.getHeaders()[BYO_SECRET_HEADER], undefined);
     // a still has its own state.
     assert.equal(a.getHeaders()[BYO_KEY_HEADER], "ck_a");
     assert.equal(a.getHeaders()[BYO_SECRET_HEADER], "cs_a");
     // Mutating b never touches a.
-    b.setTwitterBYO("ck_b", "cs_b");
+    b.setTwitterByo("ck_b", "cs_b");
     assert.equal(a.getHeaders()[BYO_KEY_HEADER], "ck_a");
     assert.equal(b.getHeaders()[BYO_KEY_HEADER], "ck_b");
     // Clearing b never touches a.
-    b.clearTwitterBYO();
+    b.clearTwitterByo();
     assert.equal(a.getHeaders()[BYO_KEY_HEADER], "ck_a");
     assert.equal(b.getHeaders()[BYO_KEY_HEADER], undefined);
   });
@@ -101,57 +101,57 @@ test("ESM: headers absent when BYO never set, present when set, gone after clear
   const { default: SDK } = await import("../index.js");
   const s = new SDK("API_KEY");
   assert.equal(s.getHeaders()[BYO_KEY_HEADER], undefined);
-  s.setTwitterBYO("ck", "cs");
+  s.setTwitterByo("ck", "cs");
   assert.equal(s.getHeaders()[BYO_KEY_HEADER], "ck");
   assert.equal(s.getHeaders()[BYO_SECRET_HEADER], "cs");
-  s.clearTwitterBYO();
+  s.clearTwitterByo();
   assert.equal(s.getHeaders()[BYO_KEY_HEADER], undefined);
   assert.equal(s.getHeaders()[BYO_SECRET_HEADER], undefined);
 });
 
-test("ESM: setTwitterBYO and clearTwitterBYO are chainable", async () => {
+test("ESM: setTwitterByo and clearTwitterByo are chainable", async () => {
   const { default: SDK } = await import("../index.js");
   const s = new SDK("API_KEY");
-  assert.equal(s.setTwitterBYO("a", "b"), s);
-  assert.equal(s.clearTwitterBYO(), s);
+  assert.equal(s.setTwitterByo("a", "b"), s);
+  assert.equal(s.clearTwitterByo(), s);
 });
 
-test("ESM: BYO coexists with profileKey and clearTwitterBYO leaves it untouched", async () => {
+test("ESM: BYO coexists with profileKey and clearTwitterByo leaves it untouched", async () => {
   const { default: SDK } = await import("../index.js");
   const s = new SDK("API_KEY");
-  s.setProfileKey("PK").setTwitterBYO("ck", "cs");
+  s.setProfileKey("PK").setTwitterByo("ck", "cs");
   let headers = s.getHeaders();
   assert.equal(headers[PROFILE_KEY_HEADER], "PK");
   assert.equal(headers[BYO_KEY_HEADER], "ck");
   assert.equal(headers[BYO_SECRET_HEADER], "cs");
 
-  s.clearTwitterBYO();
+  s.clearTwitterByo();
   headers = s.getHeaders();
   assert.equal(headers[PROFILE_KEY_HEADER], "PK");
   assert.equal(headers[BYO_KEY_HEADER], undefined);
   assert.equal(headers[BYO_SECRET_HEADER], undefined);
 });
 
-test("ESM: setTwitterBYO throws TypeError on empty / whitespace / non-string args", async () => {
+test("ESM: setTwitterByo throws TypeError on empty / whitespace / non-string args", async () => {
   const { default: SDK } = await import("../index.js");
   const s = new SDK("API_KEY");
-  assert.throws(() => s.setTwitterBYO("", "cs"), TypeError);
-  assert.throws(() => s.setTwitterBYO("ck", ""), TypeError);
-  assert.throws(() => s.setTwitterBYO("   ", "cs"), TypeError);
-  assert.throws(() => s.setTwitterBYO("ck", "\t\n "), TypeError);
-  assert.throws(() => s.setTwitterBYO(undefined, "cs"), TypeError);
-  assert.throws(() => s.setTwitterBYO(null, "cs"), TypeError);
-  assert.throws(() => s.setTwitterBYO(123, "cs"), TypeError);
+  assert.throws(() => s.setTwitterByo("", "cs"), TypeError);
+  assert.throws(() => s.setTwitterByo("ck", ""), TypeError);
+  assert.throws(() => s.setTwitterByo("   ", "cs"), TypeError);
+  assert.throws(() => s.setTwitterByo("ck", "\t\n "), TypeError);
+  assert.throws(() => s.setTwitterByo(undefined, "cs"), TypeError);
+  assert.throws(() => s.setTwitterByo(null, "cs"), TypeError);
+  assert.throws(() => s.setTwitterByo(123, "cs"), TypeError);
   assert.equal(s.getHeaders()[BYO_KEY_HEADER], undefined);
 });
 
 test("ESM: two SDK instances have independent BYO state", async () => {
   const { default: SDK } = await import("../index.js");
-  const a = new SDK("API_KEY_A").setTwitterBYO("ck_a", "cs_a");
+  const a = new SDK("API_KEY_A").setTwitterByo("ck_a", "cs_a");
   const b = new SDK("API_KEY_B");
   assert.equal(b.getHeaders()[BYO_KEY_HEADER], undefined);
   assert.equal(a.getHeaders()[BYO_KEY_HEADER], "ck_a");
-  b.setTwitterBYO("ck_b", "cs_b");
+  b.setTwitterByo("ck_b", "cs_b");
   assert.equal(a.getHeaders()[BYO_KEY_HEADER], "ck_a");
   assert.equal(b.getHeaders()[BYO_KEY_HEADER], "ck_b");
 });
@@ -171,7 +171,7 @@ test("transport: feedGet sends auth/BYO/Profile-Key as headers, not as URL param
   try {
     const s = new SocialMediaAPICjs("API_KEY")
       .setProfileKey("PK")
-      .setTwitterBYO("ck_123", "cs_456");
+      .setTwitterByo("ck_123", "cs_456");
     await s.feedGet({ lastRecords: 5 });
   } finally {
     got.get = originalGet;
@@ -218,7 +218,7 @@ test("transport: history sends BYO + Profile-Key headers (non-/post X-bound endp
   try {
     const s = new SocialMediaAPICjs("API_KEY")
       .setProfileKey("PK")
-      .setTwitterBYO("ck_999", "cs_888");
+      .setTwitterByo("ck_999", "cs_888");
     await s.history({ lastDays: 7, platform: "twitter" });
   } finally {
     got.get = originalGet;
@@ -270,7 +270,7 @@ test("transport: SDK surfaces 419 x_credentials_required body unchanged", async 
 
   let result;
   try {
-    // Caller forgot to call setTwitterBYO — exactly the migration footgun.
+    // Caller forgot to call setTwitterByo — exactly the migration footgun.
     const s = new SocialMediaAPICjs("API_KEY");
     result = await s.history({ platform: "twitter" });
   } finally {
