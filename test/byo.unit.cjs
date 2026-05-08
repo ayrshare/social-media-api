@@ -58,10 +58,13 @@ const runSuite = (label, SDK) => {
     assert.equal(headers[BYO_SECRET_HEADER], undefined);
   });
 
-  test(`${label}: setTwitterBYO throws TypeError on empty / non-string args`, () => {
+  test(`${label}: setTwitterBYO throws TypeError on empty / whitespace / non-string args`, () => {
     const s = new SDK("API_KEY");
     assert.throws(() => s.setTwitterBYO("", "cs"), TypeError);
     assert.throws(() => s.setTwitterBYO("ck", ""), TypeError);
+    // Whitespace-only must be rejected too — common copy/paste footgun.
+    assert.throws(() => s.setTwitterBYO("   ", "cs"), TypeError);
+    assert.throws(() => s.setTwitterBYO("ck", "\t\n "), TypeError);
     assert.throws(() => s.setTwitterBYO(undefined, "cs"), TypeError);
     assert.throws(() => s.setTwitterBYO("ck"), TypeError);
     assert.throws(() => s.setTwitterBYO(null, "cs"), TypeError);
@@ -129,11 +132,13 @@ test("ESM: BYO coexists with profileKey and clearTwitterBYO leaves it untouched"
   assert.equal(headers[BYO_SECRET_HEADER], undefined);
 });
 
-test("ESM: setTwitterBYO throws TypeError on empty / non-string args", async () => {
+test("ESM: setTwitterBYO throws TypeError on empty / whitespace / non-string args", async () => {
   const { default: SDK } = await import("../index.js");
   const s = new SDK("API_KEY");
   assert.throws(() => s.setTwitterBYO("", "cs"), TypeError);
   assert.throws(() => s.setTwitterBYO("ck", ""), TypeError);
+  assert.throws(() => s.setTwitterBYO("   ", "cs"), TypeError);
+  assert.throws(() => s.setTwitterBYO("ck", "\t\n "), TypeError);
   assert.throws(() => s.setTwitterBYO(undefined, "cs"), TypeError);
   assert.throws(() => s.setTwitterBYO(null, "cs"), TypeError);
   assert.throws(() => s.setTwitterBYO(123, "cs"), TypeError);

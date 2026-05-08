@@ -129,12 +129,12 @@ class SocialMediaAPI {
   }
 
   setTwitterBYO(apiKey, apiSecret) {
-    if (typeof apiKey !== "string" || apiKey === "") {
+    if (typeof apiKey !== "string" || apiKey.trim() === "") {
       throw new TypeError(
         "setTwitterBYO: apiKey must be a non-empty string"
       );
     }
-    if (typeof apiSecret !== "string" || apiSecret === "") {
+    if (typeof apiSecret !== "string" || apiSecret.trim() === "") {
       throw new TypeError(
         "setTwitterBYO: apiSecret must be a non-empty string"
       );
