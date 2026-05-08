@@ -8,6 +8,15 @@
     "import": "./index.js",
     "require": "./index.cjs"
   },
+  "files": [
+    "index.js",
+    "index.cjs",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ayrshare/social-media-api"
@@ -57,12 +66,10 @@
   "bugs": {
     "url": "https://github.com/ayrshare/social-media-api/issues"
   },
-  "bin": {
-    "social-media-api": "./index.js"
-  },
   "homepage": "https://www.ayrshare.com",
   "scripts": {
-    "test": "node --test test/byo.unit.cjs"
+    "test": "node --test test/byo.unit.cjs",
+    "prepublishOnly": "npm test"
   },
   "dependencies": {
     "datauri": "^4.1.0",
