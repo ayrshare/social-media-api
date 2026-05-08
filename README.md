@@ -49,7 +49,7 @@ Keep your X consumer key and secret in environment variables or a secret manager
 
 ``` javascript
 const social = new SocialMediaAPI(API_KEY)
-  .setTwitterBYO(process.env.X_API_KEY, process.env.X_API_SECRET);
+  .setTwitterByo(process.env.X_API_KEY, process.env.X_API_SECRET);
 
 await social.post({
   post: "Hello from BYO",
@@ -62,16 +62,18 @@ After enabling BYO, `social.analyticsSocial({ platforms: ["twitter"] })` is a li
 Multi-tenant rotation:
 
 ``` javascript
-social.setTwitterBYO(tenantA.key, tenantA.secret);
+social.setTwitterByo(tenantA.key, tenantA.secret);
 await social.post({ /* ... */ });
 
-social.clearTwitterBYO().setTwitterBYO(tenantB.key, tenantB.secret);
+social.clearTwitterByo().setTwitterByo(tenantB.key, tenantB.secret);
 await social.post({ /* ... */ });
 ```
 
 For multi-tenant flows that mint per-user JWT linking URLs, the `generateJWT` endpoint accepts the BYO consumer credentials as `twitterApiKey` and `twitterApiSecret` **body fields** (camelCase, JSON body — _not_ the `X-Twitter-OAuth1-*` headers, just on this one endpoint). Ayrshare encrypts them into the JWT. After the user links their X account through the resulting URL, every subsequent X-bound API call from the SDK still needs the two `X-Twitter-OAuth1-*` headers per request — the JWT body fields cover only the linking step. See the [Generate JWT docs](https://www.ayrshare.com/docs/apis/profiles/generate-jwt).
 
-If a request comes back with `code: 419` and `action: "x_credentials_required"`, the SDK instance was missing both BYO headers — call `setTwitterBYO(...)` before retrying. A `code: 400` with a message naming a specific header means only one of the two was sent (set both, not just one). See the [X/Twitter BYO setup guide](https://www.ayrshare.com/docs/dashboard/connect-social-accounts/x-twitter-byo-keys) for instructions on obtaining your X consumer key and secret.
+If a request comes back with `code: 419` and `action: "x_credentials_required"`, the SDK instance was missing both BYO headers — call `setTwitterByo(...)` before retrying. A `code: 400` with a message naming a specific header means only one of the two was sent (set both, not just one). See the [X/Twitter BYO setup guide](https://www.ayrshare.com/docs/dashboard/connect-social-accounts/x-twitter-byo-keys) for instructions on obtaining your X consumer key and secret.
+
+This API mirrors `set_twitter_byo` / `clear_twitter_byo` in the [Python SDK 1.3.0](https://github.com/ayrshare/social-post-api-python/pull/14) — the two SDKs are sibling implementations of the same BYO header contract.
 
 ### History, Post, Delete Example
 
