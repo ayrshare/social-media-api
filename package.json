@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ayrshare/social-media-api"
+    "url": "git+https://github.com/ayrshare/social-media-api.git"
   },
   "keywords": [
     "Ayrshare",
