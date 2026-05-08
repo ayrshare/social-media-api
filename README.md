@@ -69,9 +69,9 @@ social.clearTwitterBYO().setTwitterBYO(tenantB.key, tenantB.secret);
 await social.post({ /* ... */ });
 ```
 
-`generateJWT` also accepts the same two headers and that is the preferred way to pass BYO when minting JWT URLs. The legacy `twitterApiKey` / `twitterApiSecret` body params remain supported for backward compatibility — see the [Generate JWT docs](https://www.ayrshare.com/docs/apis/profiles/generate-jwt).
+For multi-tenant flows that mint per-user JWT linking URLs, the `generateJWT` endpoint accepts the BYO consumer credentials as `twitterApiKey` and `twitterApiSecret` **body fields** (camelCase, JSON body — _not_ the `X-Twitter-OAuth1-*` headers, just on this one endpoint). Ayrshare encrypts them into the JWT. After the user links their X account through the resulting URL, every subsequent X-bound API call from the SDK still needs the two `X-Twitter-OAuth1-*` headers per request — the JWT body fields cover only the linking step. See the [Generate JWT docs](https://www.ayrshare.com/docs/apis/profiles/generate-jwt).
 
-See the [X/Twitter BYO setup guide](https://www.ayrshare.com/docs/dashboard/connect-social-accounts/x-twitter-byo-keys) for instructions on obtaining your X consumer key and secret.
+If a request comes back with `code: 419` and `action: "x_credentials_required"`, the SDK instance was missing both BYO headers — call `setTwitterBYO(...)` before retrying. A `code: 400` with a message naming a specific header means only one of the two was sent (set both, not just one). See the [X/Twitter BYO setup guide](https://www.ayrshare.com/docs/dashboard/connect-social-accounts/x-twitter-byo-keys) for instructions on obtaining your X consumer key and secret.
 
 ### History, Post, Delete Example
 
