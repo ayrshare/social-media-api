@@ -43,17 +43,21 @@ const social = new SocialMediaAPI('Your API Key');
 
 ### X/Twitter Bring-Your-Own-Keys (BYO)
 
-Starting **March 31, 2026**, X/Twitter operations through Ayrshare require your own X Developer App credentials. Set them once after construction and every subsequent SDK call will include the required `X-Twitter-OAuth1-*` headers.
+Starting **March 31, 2026**, X/Twitter operations through Ayrshare require your own X Developer App credentials. Once set, the SDK injects the required `X-Twitter-OAuth1-Api-Key` and `X-Twitter-OAuth1-Api-Secret` headers into **every X-bound request** — `post`, `history`, `delete`, `analyticsPost`, `analyticsSocial`, `postComment`, `replyComment`, etc. — not just `post`.
+
+Keep your X consumer key and secret in environment variables or a secret manager. Never hardcode them or commit them to source control. Ayrshare does not store these credentials on its end.
 
 ``` javascript
 const social = new SocialMediaAPI(API_KEY)
-  .setTwitterBYO(MY_X_API_KEY, MY_X_API_SECRET);
+  .setTwitterBYO(process.env.X_API_KEY, process.env.X_API_SECRET);
 
 await social.post({
   post: "Hello from BYO",
   platforms: ["twitter"]
 });
 ```
+
+After enabling BYO, `social.analyticsSocial({ platforms: ["twitter"] })` is a lightweight way to verify the headers are wired correctly — it does not create a post.
 
 Multi-tenant rotation:
 
@@ -65,7 +69,9 @@ social.clearTwitterBYO().setTwitterBYO(tenantB.key, tenantB.secret);
 await social.post({ /* ... */ });
 ```
 
-See the [X/Twitter BYO setup guide](https://docs.ayrshare.com/dashboard/connect-social-accounts/x-twitter-byo-keys) for instructions on obtaining your X consumer key and secret.
+`generateJWT` also accepts the same two headers and that is the preferred way to pass BYO when minting JWT URLs. The legacy `twitterApiKey` / `twitterApiSecret` body params remain supported for backward compatibility — see the [Generate JWT docs](https://www.ayrshare.com/docs/apis/profiles/generate-jwt).
+
+See the [X/Twitter BYO setup guide](https://www.ayrshare.com/docs/dashboard/connect-social-accounts/x-twitter-byo-keys) for instructions on obtaining your X consumer key and secret.
 
 ### History, Post, Delete Example
 
@@ -348,6 +354,8 @@ const listAutoSchedule = await social.listAutoSchedule().catch(console.error);
 ### Add an RSS or Substack Feed
 
 Add a new RSS or Substack feed to auto post all new articles. Returns a promise that resolved to an object containing the feed ID. See [How to Automate Your Blog or Newsletter](https://www.ayrshare.com/how-to-automatically-post-your-blog-or-newsletter-to-social-media/) for more info.
+
+> **Heads up:** RSS auto-posting to X/Twitter is deprecated as of **March 31, 2026** because RSS feeds run on a schedule and cannot carry per-request BYO credentials. Auto-posting to other platforms is unaffected. See the [upcoming API changes](https://www.ayrshare.com/docs/whatsnew/upcoming-api-changes#march-31-2026).
 
 ``` javascript
 const feedResponse = await social.feedAdd({
