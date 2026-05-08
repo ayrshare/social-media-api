@@ -57,6 +57,39 @@ const runSuite = (label, SDK) => {
     assert.equal(headers[BYO_KEY_HEADER], undefined);
     assert.equal(headers[BYO_SECRET_HEADER], undefined);
   });
+
+  test(`${label}: setTwitterBYO throws TypeError on empty / non-string args`, () => {
+    const s = new SDK("API_KEY");
+    assert.throws(() => s.setTwitterBYO("", "cs"), TypeError);
+    assert.throws(() => s.setTwitterBYO("ck", ""), TypeError);
+    assert.throws(() => s.setTwitterBYO(undefined, "cs"), TypeError);
+    assert.throws(() => s.setTwitterBYO("ck"), TypeError);
+    assert.throws(() => s.setTwitterBYO(null, "cs"), TypeError);
+    assert.throws(() => s.setTwitterBYO(123, "cs"), TypeError);
+    assert.throws(() => s.setTwitterBYO("ck", { secret: true }), TypeError);
+    // After every failed call, BYO state remains unset.
+    assert.equal(s.getHeaders()[BYO_KEY_HEADER], undefined);
+    assert.equal(s.getHeaders()[BYO_SECRET_HEADER], undefined);
+  });
+
+  test(`${label}: two SDK instances have independent BYO state`, () => {
+    const a = new SDK("API_KEY_A").setTwitterBYO("ck_a", "cs_a");
+    const b = new SDK("API_KEY_B");
+    // b never called setTwitterBYO — must have no BYO headers.
+    assert.equal(b.getHeaders()[BYO_KEY_HEADER], undefined);
+    assert.equal(b.getHeaders()[BYO_SECRET_HEADER], undefined);
+    // a still has its own state.
+    assert.equal(a.getHeaders()[BYO_KEY_HEADER], "ck_a");
+    assert.equal(a.getHeaders()[BYO_SECRET_HEADER], "cs_a");
+    // Mutating b never touches a.
+    b.setTwitterBYO("ck_b", "cs_b");
+    assert.equal(a.getHeaders()[BYO_KEY_HEADER], "ck_a");
+    assert.equal(b.getHeaders()[BYO_KEY_HEADER], "ck_b");
+    // Clearing b never touches a.
+    b.clearTwitterBYO();
+    assert.equal(a.getHeaders()[BYO_KEY_HEADER], "ck_a");
+    assert.equal(b.getHeaders()[BYO_KEY_HEADER], undefined);
+  });
 };
 
 runSuite("CJS", SocialMediaAPICjs);
@@ -94,6 +127,28 @@ test("ESM: BYO coexists with profileKey and clearTwitterBYO leaves it untouched"
   assert.equal(headers[PROFILE_KEY_HEADER], "PK");
   assert.equal(headers[BYO_KEY_HEADER], undefined);
   assert.equal(headers[BYO_SECRET_HEADER], undefined);
+});
+
+test("ESM: setTwitterBYO throws TypeError on empty / non-string args", async () => {
+  const { default: SDK } = await import("../index.js");
+  const s = new SDK("API_KEY");
+  assert.throws(() => s.setTwitterBYO("", "cs"), TypeError);
+  assert.throws(() => s.setTwitterBYO("ck", ""), TypeError);
+  assert.throws(() => s.setTwitterBYO(undefined, "cs"), TypeError);
+  assert.throws(() => s.setTwitterBYO(null, "cs"), TypeError);
+  assert.throws(() => s.setTwitterBYO(123, "cs"), TypeError);
+  assert.equal(s.getHeaders()[BYO_KEY_HEADER], undefined);
+});
+
+test("ESM: two SDK instances have independent BYO state", async () => {
+  const { default: SDK } = await import("../index.js");
+  const a = new SDK("API_KEY_A").setTwitterBYO("ck_a", "cs_a");
+  const b = new SDK("API_KEY_B");
+  assert.equal(b.getHeaders()[BYO_KEY_HEADER], undefined);
+  assert.equal(a.getHeaders()[BYO_KEY_HEADER], "ck_a");
+  b.setTwitterBYO("ck_b", "cs_b");
+  assert.equal(a.getHeaders()[BYO_KEY_HEADER], "ck_a");
+  assert.equal(b.getHeaders()[BYO_KEY_HEADER], "ck_b");
 });
 
 // Transport-level regression test for the feedGet class of bug:
@@ -141,4 +196,89 @@ test("transport: feedGet sends auth/BYO/Profile-Key as headers, not as URL param
     !url.includes("Profile-Key=") && !url.includes("PK&") && !url.endsWith("PK"),
     `URL must not contain Profile-Key value as a param, got ${url}`
   );
+});
+
+// X-bound endpoints other than /post must also carry BYO. Server returns
+// 419 x_credentials_required if they don't, so every path matters — not
+// just the post path.
+test("transport: history sends BYO + Profile-Key headers (non-/post X-bound endpoint)", async () => {
+  const got = require("got");
+  const originalGet = got.get;
+  const captured = [];
+  got.get = (url, opts) => {
+    captured.push({ url, opts });
+    return Promise.resolve({ body: { status: "success", history: [] } });
+  };
+
+  try {
+    const s = new SocialMediaAPICjs("API_KEY")
+      .setProfileKey("PK")
+      .setTwitterBYO("ck_999", "cs_888");
+    await s.history({ lastDays: 7, platform: "twitter" });
+  } finally {
+    got.get = originalGet;
+  }
+
+  assert.equal(captured.length, 1);
+  const { url, opts } = captured[0];
+
+  // BYO + Profile-Key + Authorization all in headers slot.
+  assert.equal(opts.headers["Authorization"], "Bearer API_KEY");
+  assert.equal(opts.headers[PROFILE_KEY_HEADER], "PK");
+  assert.equal(opts.headers[BYO_KEY_HEADER], "ck_999");
+  assert.equal(opts.headers[BYO_SECRET_HEADER], "cs_888");
+
+  // history(...) routes to /history/<platform> when platform is provided.
+  assert.ok(url.startsWith("https://api.ayrshare.com/api/history/twitter?"),
+    `expected /history/twitter path, got ${url}`);
+  assert.ok(url.includes("lastDays=7"));
+  assert.ok(!url.includes("Bearer"));
+  assert.ok(!url.includes("X-Twitter-OAuth1"));
+});
+
+// 419 x_credentials_required is the error users hit during the BYO migration
+// when they forget the headers entirely. The SDK swallows transport errors
+// and returns the response body to the caller — confirm the body surfaces
+// unchanged so callers can self-diagnose on `code` / `action` / `message`.
+test("transport: SDK surfaces 419 x_credentials_required body unchanged", async () => {
+  const got = require("got");
+  const originalGet = got.get;
+  const errorBody = {
+    action: "x_credentials_required",
+    status: "error",
+    code: 419,
+    message:
+      "X/Twitter operations require your own API credentials. Missing: " +
+      "X-Twitter-OAuth1-Api-Key, X-Twitter-OAuth1-Api-Secret. Please " +
+      "provide your X Developer App credentials in the request headers. " +
+      "See https://docs.ayrshare.com/x-api-setup for setup instructions.",
+    resolution: { docs: "https://docs.ayrshare.com/x-api-setup" },
+    platform: "twitter"
+  };
+  got.get = () => {
+    // Mirror got@11's HTTPError shape: rejected with a response object
+    // whose body is the parsed JSON error payload.
+    return Promise.reject({
+      response: { statusCode: 419, body: errorBody }
+    });
+  };
+
+  let result;
+  try {
+    // Caller forgot to call setTwitterBYO — exactly the migration footgun.
+    const s = new SocialMediaAPICjs("API_KEY");
+    result = await s.history({ platform: "twitter" });
+  } finally {
+    got.get = originalGet;
+  }
+
+  // SDK must not swallow / repackage these fields — caller needs them
+  // to programmatically detect the missing-BYO case.
+  assert.equal(result.code, 419);
+  assert.equal(result.action, "x_credentials_required");
+  assert.equal(result.status, "error");
+  assert.equal(result.platform, "twitter");
+  assert.match(result.message, /X-Twitter-OAuth1-Api-Key/);
+  assert.match(result.message, /X-Twitter-OAuth1-Api-Secret/);
+  assert.equal(result.resolution.docs, "https://docs.ayrshare.com/x-api-setup");
 });
