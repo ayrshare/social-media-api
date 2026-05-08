@@ -1,5 +1,11 @@
-// Sibling of Python's API-KEY.json — same fields, JS module form.
-// Keep this file out of source control (already in .gitignore).
+// Sibling of the Python SDK's API-KEY.json — same fields, JS module form.
+//
+// USAGE:
+//   cp config.example.js config.js
+//   # then fill in the values below
+//
+// `config.js` is gitignored; `config.example.js` is the tracked template.
+// Never commit real credentials.
 //
 // X/Twitter posting requires BYO consumer credentials on the request
 // (`setTwitterByo`). See:

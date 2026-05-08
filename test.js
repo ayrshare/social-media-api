@@ -2,14 +2,17 @@
 
 import SocialMediaAPI from "./index.js";
 /**
- * config.js (sibling of the Python SDK's API-KEY.json):
- * {
- *   API_KEY: "your Ayrshare API key",
- *   PROFILE_KEY: "optional — Business Plan profile key; omit if unused",
- *   TWITTER_CONSUMER_KEY: "optional — X Developer App API Key (BYO)",
- *   TWITTER_CONSUMER_SECRET: "optional — X Developer App API Secret (BYO)",
- *   DOMAIN: "optional — Business Plan domain (only for testGenerateJWT)"
- * }
+ * `config.js` is gitignored. Copy the tracked template once, then fill in:
+ *   cp config.example.js config.js
+ *
+ * Schema (sibling of the Python SDK's API-KEY.json):
+ *   {
+ *     API_KEY: "your Ayrshare API key",
+ *     PROFILE_KEY: "optional — Business Plan profile key; omit if unused",
+ *     TWITTER_CONSUMER_KEY: "optional — X Developer App API Key (BYO)",
+ *     TWITTER_CONSUMER_SECRET: "optional — X Developer App API Secret (BYO)",
+ *     DOMAIN: "optional — Business Plan domain (only for testGenerateJWT)"
+ *   }
  *
  * X/Twitter posting requires BYO consumer credentials on the request
  * (`setTwitterByo`). See:
