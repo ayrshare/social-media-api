@@ -2,17 +2,45 @@
 
 const SocialMediaAPI = require("./index.cjs");
 /**
- * Add your API Key to a config.js file, Profile Key (Business Plan), and Domain (Business Plan)
- * {
- *  "API_KEY": "your api key",
- *  "PROFIL_KEY": "user profile key",
- *  "DOMAIN": "Business Plan domain"
- * }
+ * `config.json` is gitignored. Create it next to this file with the schema
+ * below (sibling of the Python SDK's API-KEY.json):
+ *   {
+ *     "API_KEY": "your Ayrshare API key",
+ *     "PROFILE_KEY": "optional — Business Plan profile key; omit if unused",
+ *     "TWITTER_CONSUMER_KEY": "optional — X Developer App API Key (BYO)",
+ *     "TWITTER_CONSUMER_SECRET": "optional — X Developer App API Secret (BYO)",
+ *     "DOMAIN": "optional — Business Plan domain (only for testGenerateJWT)"
+ *   }
+ *
+ * X/Twitter posting requires BYO consumer credentials on the request
+ * (`setTwitterByo`). See:
+ * https://www.ayrshare.com/docs/dashboard/connect-social-accounts/x-twitter-byo-keys
  */
 const config = require("./config.json");
-const { API_KEY, PROFILE_KEY, DOMAIN } = config;
+const {
+  API_KEY,
+  PROFILE_KEY,
+  DOMAIN,
+  TWITTER_CONSUMER_KEY,
+  TWITTER_CONSUMER_SECRET
+} = config;
 
 const social = new SocialMediaAPI(API_KEY);
+if (PROFILE_KEY) {
+  social.setProfileKey(PROFILE_KEY);
+}
+
+const ck = (TWITTER_CONSUMER_KEY || "").trim();
+const cs = (TWITTER_CONSUMER_SECRET || "").trim();
+if (ck && cs) {
+  social.setTwitterByo(ck, cs);
+  console.log("Twitter/X BYO headers enabled (consumer key + secret).");
+} else if (ck || cs) {
+  throw new Error(
+    "config.json: TWITTER_CONSUMER_KEY and TWITTER_CONSUMER_SECRET must " +
+      "be set together. Set both, or clear both to skip X/Twitter."
+  );
+}
 
 /** Test history */
 const testHistory = async (platform, id) => {
@@ -52,9 +80,16 @@ const testDelete = async (id) => {
   console.log("testDelete:", deletePost);
 };
 
-/** Test post 
+/** Test post
  * Uncomment the platforms you want to post to and/or include the random video.
-*/
+ *
+ * Note on response shape (lesson learned from the Python SDK 1.3.0 sibling):
+ *   /post returns the Ayrshare post ID at the top level as `id`.
+ *   Per-platform IDs (e.g. the Twitter status ID) live under `postIds[]`,
+ *   but `getPost`, `delete`, `analyticsPost`, etc. all take the
+ *   Ayrshare-level `id` — never `postIds[0].id` and never `posts[0].id`.
+ *   See https://www.ayrshare.com/docs/apis/overview#social-post-id
+ */
 const testPost = async () => {
   const post = await social.post({
     randomPost: true,

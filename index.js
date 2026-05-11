@@ -102,6 +102,7 @@ class SocialMediaAPI {
   constructor(apiKey) {
     this.apiKey = apiKey;
     this.profileKey = null;
+    this.twitterByo = null;
   }
 
   getHeaders() {
@@ -114,11 +115,56 @@ class SocialMediaAPI {
       headers["Profile-Key"] = this.profileKey;
     }
 
+    if (this.twitterByo) {
+      headers["X-Twitter-OAuth1-Api-Key"] = this.twitterByo.apiKey;
+      headers["X-Twitter-OAuth1-Api-Secret"] = this.twitterByo.apiSecret;
+    }
+
     return headers;
   }
 
   setProfileKey(profileKey) {
     this.profileKey = profileKey;
+    return this;
+  }
+
+  /**
+   * Attach X/Twitter Bring-Your-Own-Keys (BYO/BYOK) consumer credentials to
+   * every subsequent request issued by this SDK instance.
+   *
+   * Required for X/Twitter operations through Ayrshare as of March 31, 2026.
+   * Mirrors `set_twitter_byo` in the Python SDK (1.3.0).
+   *
+   * @param {string} apiKey    X Developer App API Key (consumer key).
+   * @param {string} apiSecret X Developer App API Secret (consumer secret).
+   * @returns {SocialMediaAPI} this, for chaining.
+   * @throws {TypeError} if either argument is missing, empty, whitespace, or
+   *   not a string. Catches the most common BYO migration footgun (passing
+   *   `undefined` from a missing env var) at call time.
+   */
+  setTwitterByo(apiKey, apiSecret) {
+    if (typeof apiKey !== "string" || apiKey.trim() === "") {
+      throw new TypeError(
+        "setTwitterByo: apiKey must be a non-empty string"
+      );
+    }
+    if (typeof apiSecret !== "string" || apiSecret.trim() === "") {
+      throw new TypeError(
+        "setTwitterByo: apiSecret must be a non-empty string"
+      );
+    }
+    this.twitterByo = { apiKey, apiSecret };
+    return this;
+  }
+
+  /**
+   * Remove any previously-set X/Twitter BYO headers. No-op if none were set.
+   * Mirrors `clear_twitter_byo` in the Python SDK (1.3.0).
+   *
+   * @returns {SocialMediaAPI} this, for chaining.
+   */
+  clearTwitterByo() {
+    this.twitterByo = null;
     return this;
   }
 
@@ -210,8 +256,8 @@ class SocialMediaAPI {
     return doDelete("feed", data, this.getHeaders());
   }
 
-  feedGet(data) {
-    return doGet("feed", data, this.getHeaders());
+  feedGet(params) {
+    return doGet("feed", this.getHeaders(), params);
   }
 
   feedUpdate(data) {

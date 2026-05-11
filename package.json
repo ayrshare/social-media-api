@@ -1,6 +1,6 @@
 {
   "name": "social-media-api",
-  "version": "1.2.6",
+  "version": "1.3.0",
   "description": "Social Media API for Instagram, Facebook, LinkedIn, YouTube, X/Twitter, Google Business Profile, Reddit, TikTok, and Telegram. Easily integrate with your platform or app to schedule posts, get analytics, or manage comments on behalf of your users.",
   "main": "index.js",
   "type": "module",
@@ -8,9 +8,18 @@
     "import": "./index.js",
     "require": "./index.cjs"
   },
+  "files": [
+    "index.js",
+    "index.cjs",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ayrshare/social-media-api"
+    "url": "git+https://github.com/ayrshare/social-media-api.git"
   },
   "keywords": [
     "Ayrshare",
@@ -57,10 +66,11 @@
   "bugs": {
     "url": "https://github.com/ayrshare/social-media-api/issues"
   },
-  "bin": {
-    "social-media-api": "./index.js"
-  },
   "homepage": "https://www.ayrshare.com",
+  "scripts": {
+    "test": "node --test test/byo.unit.cjs",
+    "prepublishOnly": "npm test"
+  },
   "dependencies": {
     "datauri": "^4.1.0",
     "got": "^11.8.6"

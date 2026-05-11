@@ -41,6 +41,40 @@ const SocialMediaAPI = require("social-media-api"); // or import SocialMediaAPI 
 const social = new SocialMediaAPI('Your API Key');
 ```
 
+### X/Twitter Bring-Your-Own-Keys (BYO)
+
+As of **March 31, 2026**, X/Twitter operations through Ayrshare require your own X Developer App credentials. Once set, the SDK injects the required `X-Twitter-OAuth1-Api-Key` and `X-Twitter-OAuth1-Api-Secret` headers into **every X-bound request** — `post`, `history`, `delete`, `analyticsPost`, `analyticsSocial`, `postComment`, `replyComment`, etc. — not just `post`.
+
+Keep your X consumer key and secret in environment variables or a secret manager. Never hardcode them or commit them to source control. Ayrshare does not store these credentials on its end.
+
+``` javascript
+const social = new SocialMediaAPI(API_KEY)
+  .setTwitterByo(process.env.X_API_KEY, process.env.X_API_SECRET);
+
+await social.post({
+  post: "Hello from BYO",
+  platforms: ["twitter"]
+});
+```
+
+After enabling BYO, `social.analyticsSocial({ platforms: ["twitter"] })` is a lightweight way to verify the headers are wired correctly — it does not create a post.
+
+Multi-tenant rotation:
+
+``` javascript
+social.setTwitterByo(tenantA.key, tenantA.secret);
+await social.post({ /* ... */ });
+
+social.clearTwitterByo().setTwitterByo(tenantB.key, tenantB.secret);
+await social.post({ /* ... */ });
+```
+
+For multi-tenant flows that mint per-user JWT linking URLs, the `generateJWT` endpoint accepts the BYO consumer credentials as `twitterApiKey` and `twitterApiSecret` **body fields** (camelCase, JSON body — _not_ the `X-Twitter-OAuth1-*` headers, just on this one endpoint). Ayrshare encrypts them into the JWT. After the user links their X account through the resulting URL, every subsequent X-bound API call from the SDK still needs the two `X-Twitter-OAuth1-*` headers per request — the JWT body fields cover only the linking step. See the [Generate JWT docs](https://www.ayrshare.com/docs/apis/profiles/generate-jwt).
+
+If a request comes back with `code: 419` and `action: "x_credentials_required"`, the SDK instance was missing both BYO headers — call `setTwitterByo(...)` before retrying. A `code: 400` with a message naming a specific header means only one of the two was sent (set both, not just one). See the [X/Twitter BYO setup guide](https://www.ayrshare.com/docs/dashboard/connect-social-accounts/x-twitter-byo-keys) for instructions on obtaining your X consumer key and secret.
+
+This API mirrors `set_twitter_byo` / `clear_twitter_byo` in the [Python SDK 1.3.0](https://github.com/ayrshare/social-post-api-python/pull/14) — the two SDKs are sibling implementations of the same BYO header contract.
+
 ### History, Post, Delete Example
 
 This simple example shows how to post an image or video, get history, and delete the post. This example assumes you have a free API key from [Ayrshare](https://www.ayrshare.com) and have enabled X/Twitter, Facebook Pages, Instagram, LinkedIn. Note, YouTube, Google Business Profile, Telegram, TikTok, and Reddit also available.
@@ -76,6 +110,8 @@ run();
 ## Social Media API
 
 The following section details the different functions of the social media API.
+
+> **Note on formats and limits:** Per-platform image/video format support, character limits, aspect ratios, and other content rules are enforced server-side and documented in the [post endpoint reference](https://www.ayrshare.com/docs/apis/post/post) and the [per-network guides](https://www.ayrshare.com/docs/apis/post/social-networks/youtube) — those pages are the source of truth and change as each network updates its own requirements. This SDK is a thin wrapper and does not validate formats or text length client-side.
 
 ### Post
 
@@ -323,6 +359,8 @@ const listAutoSchedule = await social.listAutoSchedule().catch(console.error);
 
 Add a new RSS or Substack feed to auto post all new articles. Returns a promise that resolved to an object containing the feed ID. See [How to Automate Your Blog or Newsletter](https://www.ayrshare.com/how-to-automatically-post-your-blog-or-newsletter-to-social-media/) for more info.
 
+> **Heads up:** RSS auto-posting to X/Twitter ended on **March 31, 2026** because RSS feeds run on a schedule and cannot carry per-request BYO credentials. Auto-posting to other platforms is unaffected. See the [upcoming API changes](https://www.ayrshare.com/docs/whatsnew/upcoming-api-changes#march-31-2026).
+
 ``` javascript
 const feedResponse = await social.feedAdd({
     url: "https://theRSSFeed", // required: URL to shorten
@@ -564,7 +602,7 @@ const generatePostResponse = await social.generatePost({
     text: "I love social media", // required: Description of what the post should be about. 
     hashtags: true, //optional: Include hashtags in the post. Default: true
     emojis: true, // optional: Include emojis in the post. Default: false
-    twitter: true, // optional: Construct a post 280 or few characters. Default: false
+    twitter: true, // optional: Generate a post sized for X/Twitter. See the endpoint docs for current character limits (they differ between free-tier X and Premium). Default: false
 }).catch(console.error);
 ```
 
@@ -577,7 +615,7 @@ const generateRewriteResponse = await social.generateRewrite({
     post: "I love social media", // required: The post text to be rewritten. 
     emojis: true, // optional: Include emojis in the post. Default: false
     hashtags: true, // optional: Include hashtags in the post. Default: false
-    twitter: true, // optional: Construct a post 280 or few characters. Default: false
+    twitter: true, // optional: Generate a post sized for X/Twitter. See the endpoint docs for current character limits (they differ between free-tier X and Premium). Default: false
     rewrites: 5, // optional: Number of rewrites to generate. Default: 5
 }).catch(console.error);
 ```
