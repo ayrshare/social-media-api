@@ -111,6 +111,8 @@ run();
 
 The following section details the different functions of the social media API.
 
+> **Note on formats and limits:** Per-platform image/video format support, character limits, aspect ratios, and other content rules are enforced server-side and documented in the [post endpoint reference](https://www.ayrshare.com/docs/apis/post/post) and the [per-network guides](https://www.ayrshare.com/docs/apis/post/social-networks/youtube) — those pages are the source of truth and change as each network updates its own requirements. This SDK is a thin wrapper and does not validate formats or text length client-side.
+
 ### Post
 
 Published a new post to the specified social networks either immediately or at scheduled future date. Returns a promise that resolves to an object containing the post ID and post status (success, error). See the [post endpoint](https://www.ayrshare.com/docs/apis/post/post) for the full capabilities.
@@ -600,7 +602,7 @@ const generatePostResponse = await social.generatePost({
     text: "I love social media", // required: Description of what the post should be about. 
     hashtags: true, //optional: Include hashtags in the post. Default: true
     emojis: true, // optional: Include emojis in the post. Default: false
-    twitter: true, // optional: Construct a post 280 or few characters. Default: false
+    twitter: true, // optional: Generate a post sized for X/Twitter. See the endpoint docs for current character limits (they differ between free-tier X and Premium). Default: false
 }).catch(console.error);
 ```
 
@@ -613,7 +615,7 @@ const generateRewriteResponse = await social.generateRewrite({
     post: "I love social media", // required: The post text to be rewritten. 
     emojis: true, // optional: Include emojis in the post. Default: false
     hashtags: true, // optional: Include hashtags in the post. Default: false
-    twitter: true, // optional: Construct a post 280 or few characters. Default: false
+    twitter: true, // optional: Generate a post sized for X/Twitter. See the endpoint docs for current character limits (they differ between free-tier X and Premium). Default: false
     rewrites: 5, // optional: Number of rewrites to generate. Default: 5
 }).catch(console.error);
 ```
