@@ -1,6 +1,7 @@
 // npx rollup index.js --file index.cjs --format cjs
 
 const SocialMediaAPI = require("./index.cjs");
+const { readFile } = require("node:fs/promises");
 /**
  * `config.json` is gitignored. Create it next to this file with the schema
  * below (sibling of the Python SDK's API-KEY.json):
@@ -140,7 +141,6 @@ const testInstagramPost = async () => {
 
 /** Test Upload -  Video required*/
 const testVideoPost = async () => {
-  const { readFile } = require("node:fs/promises");
   const content = `data:video/mp4;base64,${(await readFile("./test-video.mp4")).toString("base64")}`;
   const upload = await social.upload({
     file: content,
