@@ -140,8 +140,8 @@ const testInstagramPost = async () => {
 
 /** Test Upload -  Video required*/
 const testVideoPost = async () => {
-  const datauri = require("datauri");
-  const content = await datauri("./test-video.mp4");
+  const { readFile } = require("node:fs/promises");
+  const content = `data:video/mp4;base64,${(await readFile("./test-video.mp4")).toString("base64")}`;
   const upload = await social.upload({
     file: content,
     fileName: "Test.mp4",

@@ -72,7 +72,6 @@
     "prepublishOnly": "npm test"
   },
   "dependencies": {
-    "datauri": "^0.8.0",
     "got": "^11.8.6"
   },
   "devDependencies": {
