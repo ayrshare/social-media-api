@@ -1,6 +1,6 @@
 # Social Media APIs for Posting, Scheduling, and Analytics
 
-![Ayrshare logo](https://www.ayrshare.com/wp-content/uploads/2020/08/ayr-logo-2156-reduced.png)
+![Ayrshare](https://raw.githubusercontent.com/ayrshare/social-media-api/master/images/ayrshare-logo.png)
 
 The Social Media API is a Node.js wrapper SDK for [Ayrshare's APIs](https://www.ayrshare.com).
 
@@ -20,15 +20,15 @@ For more information on setup, see our installation [video](https://youtu.be/G8M
 
 **1.** Create a free [Ayrshare account](https://app.ayrshare.com).
 
-   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/Ayrshare-login.png)
+   ![Create a free Ayrshare account](https://raw.githubusercontent.com/ayrshare/social-media-api/master/images/signup.png)
 
 **2.** Enable your social media accounts such as X/Twitter, Facebook, LinkedIn, Reddit, Instagram, Google Business Profile, Telegram, TikTok, or YouTube in the Ayrshare dashboard.
 
-   ![alt Social Accounts Setup](https://www.ayrshare.com/wp-content/uploads/Ayrshare-social-linking.png)
+   ![Link your social accounts in the Ayrshare dashboard](https://raw.githubusercontent.com/ayrshare/social-media-api/master/images/social-accounts.png)
   
 **3.** Copy your API Key from the Ayrshare dashboard. Used for authentication.
 
-   ![alt API Key](https://www.ayrshare.com/wp-content/uploads/Ayrshare-API-key.png)
+   ![Copy your API Key from the Ayrshare dashboard](https://raw.githubusercontent.com/ayrshare/social-media-api/master/images/api-key.png)
 
 ## Getting Started
 
